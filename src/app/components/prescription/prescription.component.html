@@ -1,0 +1,66 @@
+<div class="container" *ngFor="let item of request.items">
+  <ul class="item">
+    <li class="item__content">
+      <div>
+        <h4>commodity</h4>
+        <p>{{ item.commodity }}</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4>unit</h4>
+        <p>{{ item.unit }}</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4>quantity</h4>
+        <p>{{ item.requested }}</p>
+      </div>
+    </li>
+    <li>
+      <div class="btn">
+        <button (click)="toggleEdit(item)" class="edit-button">
+          {{ item.inspected ? "CLOSE" : "EDIT" }}
+        </button>
+      </div>
+    </li>
+    <li>
+      <div class="btn">
+        <button (click)="delete(item)" class="delete-button">delete</button>
+      </div>
+    </li>
+  </ul>
+  <div class="edit-form" *ngIf="item.inspected">
+    <div class="formgroup">
+      <label for="commodity">medicine :</label>
+      <input
+        [(ngModel)]="item.commodity"
+        list="commodities"
+        id="commodity"
+        #commodity
+        autocomplete="off"
+      />
+      <datalist name="commodity" id="commodities">
+        <option value=""></option>
+      </datalist>
+    </div>
+    <div class="formgroup">
+      <label for="unit">unit :</label>
+      <select name="unit" id="unit" #unit [(ngModel)]="item.unit">
+        <option *ngFor="let v of getUnits(commodity.value)" [value]="v">
+          {{ v }}
+        </option>
+      </select>
+    </div>
+    <div class="formgroup">
+      <label for="quantity">quantity :</label>
+      <input
+        [(ngModel)]="item.requested"
+        type="number"
+        id="quantity"
+        #quantity
+      />
+    </div>
+  </div>
+</div>

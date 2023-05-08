@@ -1,0 +1,8 @@
+.footer {
+  --h: 100;
+  text-align: center;
+  height: calc(100% * var(--h) / 100);
+  background-color: dodgerblue;
+  /* padding-top: 0.5vh; */
+  color: white;
+}

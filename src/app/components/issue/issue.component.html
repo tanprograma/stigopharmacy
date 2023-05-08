@@ -1,0 +1,15 @@
+<div class="dispense">
+  <div class="dispense__prescription">
+    <div class="heading">
+      <h3 class="heading__content">ITEMS IN PRESCRIPTION</h3>
+    </div>
+    <div class="prescription">
+      <app-request-item (onIssue)="issue($event)"></app-request-item>
+    </div>
+  </div>
+</div>
+<!-- @Input() requests!: Rquest[];
+
+  @Input() commodities!: Commodity[];
+  @Input() clients!: Outlet[];
+  @Input() units!: Unit[]; -->

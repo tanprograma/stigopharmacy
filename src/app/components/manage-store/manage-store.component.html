@@ -1,0 +1,30 @@
+<div class="outlet__navigation">
+  <app-manage-header
+    (onSelect)="setActivity($event)"
+    [options]="['create', 'edit', 'delete']"
+  ></app-manage-header>
+</div>
+<div class="outlet__content">
+  <div class="manage__unit">
+    <div *ngIf="activity == 'edit'" class="manage__unit-item manage--edit">
+      <app-create-store
+        [resources]="stores"
+        [title]="'edit outlet'"
+      ></app-create-store>
+    </div>
+    <div *ngIf="activity == 'delete'" class="manage__unit-item manage--delete">
+      <app-create-store
+        [title]="'delete outlet'"
+        [resources]="stores"
+        [submit_title]="'delete'"
+      ></app-create-store>
+    </div>
+    <div *ngIf="activity == 'create'" class="manage__unit-item manage--create">
+      <app-create-store
+        [resources]="stores"
+        [title]="'create outlet'"
+        (onSubmit)="createStore($event)"
+      ></app-create-store>
+    </div>
+  </div>
+</div>

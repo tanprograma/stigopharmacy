@@ -1,0 +1,50 @@
+.navigation {
+  display: flex;
+  justify-content: space-evenly;
+}
+.navigation__item {
+  flex: 1 0 auto;
+  margin: 0.5rem 0;
+}
+button {
+  display: inline-block;
+  width: 100%;
+  font-size: 1rem;
+}
+.outlet__navigation {
+  height: 6%;
+  background-color: lightgrey;
+}
+.outlet__content {
+  height: 94%;
+}
+.all,
+.notall {
+  height: 100%;
+}
+.all h2 {
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+}
+.all h2,
+.all h3 {
+  text-align: center;
+}
+.linear_navigation li {
+  width: 340px;
+  margin: 1rem auto;
+}
+.linear_navigation li:hover {
+  width: 345px;
+  transform: scaleY(5px);
+  background-color: black;
+  color: white;
+}
+.linear_navigation li:hover button {
+  background-color: black;
+  color: white;
+}
+.selected {
+  background-color: black;
+  color: white;
+}

@@ -1,0 +1,20 @@
+.dropdown {
+  position: relative;
+}
+.dropdown__list {
+  position: absolute;
+  background-color: lightgrey;
+  display: none;
+}
+.dropdown__item {
+  background-color: black;
+  color: white;
+  margin: 2px 0;
+}
+.dropdown__item:hover {
+  background-color: dodgerblue;
+}
+.dropdown:hover .dropdown__list {
+  display: block;
+  width: 100%;
+}

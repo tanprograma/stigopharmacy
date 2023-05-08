@@ -1,0 +1,63 @@
+.statistics {
+  height: 90%;
+  border: 1px solid black;
+}
+.header {
+  height: 10%;
+  display: flex;
+}
+.header .heading {
+  flex: 0 1 90%;
+  text-align: center;
+}
+.download {
+  flex: 0 1 10%;
+}
+button {
+  display: inline-block;
+  width: 100%;
+}
+.container {
+  margin: 0.5rem auto;
+  width: 90%;
+  background-color: white;
+  border-radius: 10px;
+}
+.item {
+  display: flex;
+  justify-content: space-evenly;
+}
+.btn {
+  padding: 10px;
+}
+.edit-button,
+.delete-button {
+  display: inline-block;
+  width: 6vw;
+  border-radius: 5px;
+}
+.edit-button {
+  background-color: lightyellow;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+}
+
+/* code for edit */
+/* input,
+select,
+button {
+  display: block;
+  width: 80%;
+  height: 2rem;
+  font-size: 1rem;
+}
+.formgroup {
+  width: 50%;
+  margin: 0.5rem auto;
+}
+.submit {
+  margin-top: 1.5rem;
+} */

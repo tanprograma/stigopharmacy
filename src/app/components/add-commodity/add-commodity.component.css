@@ -1,0 +1,71 @@
+/* .form {
+  max-width: 0%;
+} */
+@media screen and (min-width: 740px) {
+  .form {
+    width: 50%;
+    margin: 0 auto;
+  }
+}
+.box {
+  width: 50%;
+  margin: 0.5rem auto;
+}
+.commodity,
+.submit {
+  margin: 0.2rem 0;
+  border: 1px solid black;
+  padding: 0.5rem;
+}
+.submit button {
+  margin: 0 auto;
+  width: 30%;
+  display: block;
+}
+.commodity input {
+  min-width: 30%;
+  display: block;
+}
+.unit input {
+  min-width: 30%;
+  display: block;
+}
+select {
+  width: 50%;
+  display: block;
+}
+.formgroup input {
+  display: block;
+  width: 100%;
+}
+
+.btn {
+  margin: 0 auto;
+  width: 80%;
+}
+button {
+  display: inline-block;
+  width: 50%;
+}
+.units {
+  border: 1px solid black;
+  padding: 0.5rem;
+}
+.unit {
+  border: 1px solid dodgerblue;
+  margin: 0.2rem 0;
+}
+.unit__item {
+  flex: 0 1 40%;
+}
+.unit__controls {
+  padding-top: 1.2rem;
+  flex: 0 1 20%;
+}
+h3 {
+  text-align: center;
+}
+.unit {
+  padding: 0.5rem;
+  display: flex;
+}

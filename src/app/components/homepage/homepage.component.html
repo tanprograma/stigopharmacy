@@ -1,0 +1,32 @@
+<div class="navigation">
+  <app-dropdown
+    *ngFor="let item of navigation"
+    [dropdown_title]="item.dropdown_title"
+    [dropdown_list]="item.dropdown_list"
+  ></app-dropdown>
+</div>
+<div class="content">
+  <div class="statistic">
+    <h3 class="statistic__heading">dispensed stats</h3>
+    <ul class="statistic__list">
+      <li>
+        <app-homepage-statistic
+          [title]="'total records'"
+          [quantity]="300"
+        ></app-homepage-statistic>
+      </li>
+      <li>
+        <app-homepage-statistic
+          [title]="'mainclinic records'"
+          [quantity]="100"
+        ></app-homepage-statistic>
+      </li>
+      <li>
+        <app-homepage-statistic
+          [title]="'powerhouse records'"
+          [quantity]="300"
+        ></app-homepage-statistic>
+      </li>
+    </ul>
+  </div>
+</div>

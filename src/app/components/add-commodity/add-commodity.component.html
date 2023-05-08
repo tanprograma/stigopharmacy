@@ -1,0 +1,38 @@
+<h3>CREATE COMMODITY</h3>
+<div class="form">
+  <div class="commodity">
+    commodty: <input list="commodities" [(ngModel)]="commodity.name" />
+    <datalist id="commodities">
+      <option *ngFor="let i of commodities" [value]="i.name">
+        {{ i.name }}
+      </option>
+    </datalist>
+  </div>
+  <div class="commodity">
+    inventory_level:
+    <input type="number" [(ngModel)]="commodity.inventory_level" />
+  </div>
+  <div class="units">
+    <div class="unit" *ngFor="let item of commodity.units">
+      <div class="unit__item">
+        <label for="">select unit </label>
+        <select name="" id="" [(ngModel)]="item.name">
+          <option *ngFor="let u of units" [value]="u.name">
+            {{ u.name }}
+          </option>
+        </select>
+      </div>
+      <div class="unit__item">
+        <label for="">unit quantity </label>
+        <input type="number" name="" id="" [(ngModel)]="item.quantity" />
+      </div>
+      <div class="unit__controls">
+        <button (click)="rmunit(item)">REMOVE</button>
+      </div>
+    </div>
+    <button (click)="add()">add unit</button>
+  </div>
+  <div class="submit">
+    <button (click)="createCommodity()">CREATE COMMODITY</button>
+  </div>
+</div>

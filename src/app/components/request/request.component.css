@@ -1,0 +1,29 @@
+.dispense {
+  height: 100%;
+  display: flex;
+  padding: 0.5rem;
+}
+.dispense__form {
+  height: 100%;
+  flex: 0 0 40%;
+  background-color: antiquewhite;
+}
+.dispense__prescription {
+  height: 100%;
+  flex: 0 0 60%;
+  overflow-y: scroll;
+  background-color: aquamarine;
+}
+.dispense__prescription::-webkit-scrollbar {
+  display: none;
+}
+.prescription {
+  height: 90%;
+}
+.heading,
+.submit {
+  height: 5%;
+}
+.heading__content {
+  text-align: center;
+}

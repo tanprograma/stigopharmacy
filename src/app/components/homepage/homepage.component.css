@@ -1,0 +1,31 @@
+.navigation {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: lightgrey;
+  height: calc(100% * 6 / 100);
+}
+.content {
+  height: calc(100% * 94 / 100);
+  overflow-y: scroll;
+}
+.content::-webkit-scrollbar {
+  display: none;
+}
+.statistic {
+  margin: 1rem 0.5rem;
+  border: 1px solid black;
+  padding: 1rem;
+
+  flex-flow: row wrap;
+  border-radius: 0.5rem;
+}
+.statistic__heading {
+  text-align: center;
+}
+.statistic__list {
+  display: flex;
+}
+.statistic__list li {
+  flex: 1 0 auto;
+  margin-left: 2px;
+}

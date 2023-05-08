@@ -1,0 +1,26 @@
+.dispense {
+  height: 100%;
+  /* display: flex; */
+  padding: 0.5rem;
+}
+
+.dispense__prescription {
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
+  overflow-y: scroll;
+  background-color: aquamarine;
+}
+.dispense__prescription::-webkit-scrollbar {
+  display: none;
+}
+.prescription {
+  height: 90%;
+}
+.heading,
+.submit {
+  height: 5%;
+}
+.heading__content {
+  text-align: center;
+}

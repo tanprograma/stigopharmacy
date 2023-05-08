@@ -1,0 +1,32 @@
+<div class="heading">
+  <h3>{{ title }}</h3>
+</div>
+
+<div class="formgroup">
+  <label for="name">name :</label>
+  <input list="values" name="value" #v autocomplete="off" />
+  <datalist name="unit" id="values">
+    <option *ngFor="let value of resources" value="{{ value.name }}">
+      {{ value.name }}
+    </option>
+  </datalist>
+</div>
+<div class="formgroup">
+  <input type="checkbox" name="warehouse" id="warehouse" #warehouse />
+  <label for="warehouse">tick if warehouse</label>
+</div>
+
+<div class="formgroup submit">
+  <button
+    (click)="
+      submit({
+        name: v.value,
+        isWarehouse: warehouse.checked ? true : false
+      });
+      v.value = '';
+      warehouse.checked = false
+    "
+  >
+    {{ submit_title || "save" | uppercase }}
+  </button>
+</div>

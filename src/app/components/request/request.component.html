@@ -1,0 +1,24 @@
+<div class="dispense">
+  <div class="dispense__form">
+    <div class="heading">
+      <h3 class="heading__content">CREATE REQUEST</h3>
+    </div>
+    <div class="form">
+      <app-issue-form-request
+        [outlet]="outlet"
+        [(prescription)]="prescription"
+      ></app-issue-form-request>
+    </div>
+  </div>
+  <div class="dispense__prescription">
+    <div class="heading">
+      <h3 class="heading__content">ITEMS IN REQUEST</h3>
+    </div>
+    <div class="prescription">
+      <app-prescription [request]="prescription"></app-prescription>
+    </div>
+    <div class="submit">
+      <button (click)="createRequest()">SAVE REQUEST</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.app {
+  height: 100vh;
+}
+.banner {
+  height: calc(100% * (7 / 100));
+}
+.outlet {
+  height: calc(100% * (90 / 100));
+}
+.bottom {
+  height: calc(100% * (3 / 100));
+}
+.bottom {
+  position: sticky;
+  bottom: 0;
+}

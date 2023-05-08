@@ -1,0 +1,70 @@
+<div class="container" *ngFor="let item of requests">
+  <ul class="item">
+    <li class="item__content">
+      <div>
+        <h4>request id</h4>
+        <p>{{ item.request._id }}</p>
+      </div>
+    </li>
+    <li class="item__content">
+      <div>
+        <h4>client</h4>
+        <p>{{ storeService.getStoreName(item.request.client) }}</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4>commodities</h4>
+        <p>{{ item.request.items.length }}</p>
+      </div>
+    </li>
+
+    <li>
+      <div class="btn">
+        <button (click)="inspect(item)" class="edit-button">
+          {{ item.inspected ? "CLOSE" : "INSPECT" }}
+        </button>
+      </div>
+    </li>
+    <li>
+      <div class="btn">
+        <button (click)="issue(item.request)" class="issue-button">
+          issue
+        </button>
+      </div>
+    </li>
+  </ul>
+  <div class="inspect" *ngIf="item.inspected">
+    <ul class="item" *ngFor="let i of item.request.items">
+      <li class="item__content">
+        <div>
+          <h4>commodity</h4>
+          <p>{{ medicineService.getMedicineName(i.commodity) }}</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>unit</h4>
+          <p>{{ unitService.getUnitName(i.unit) }}</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>requested</h4>
+          <p>{{ i.requested }}</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>issued</h4>
+          <p *ngIf="item.request.isIssued">
+            <input type="number" [(ngModel)]="i.issued" disabled />
+          </p>
+          <p *ngIf="!item.request.isIssued">
+            <input type="number" [(ngModel)]="i.issued" />
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
