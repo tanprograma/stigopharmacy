@@ -64,13 +64,13 @@ export class AddCommodityComponent implements OnInit {
   getUnits() {
     if (!this.unitService.units.length) {
       this.unitService.getUnits().subscribe((items) => {
-        this.units = items; // console.log(stores);
-
+        this.units = items;
+        console.log({ unitincommodity: items });
         this.unitService.units = items;
       });
       return;
     }
-    this.commodities = this.commodityService.commodities;
+    this.units = this.unitService.units;
   }
   commodity: Commodity = {
     name: '',
