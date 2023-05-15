@@ -1,0 +1,30 @@
+<div class="admin">
+  <div class="admin__form">
+    <app-admin-form
+      [title]="'medicines'"
+      [items]="medicines"
+      (create)="createMedicines($event)"
+    ></app-admin-form>
+  </div>
+  <div class="admin__form">
+    <app-admin-form
+      [title]="'units'"
+      [items]="units"
+      (create)="createUnits($event)"
+    ></app-admin-form>
+  </div>
+  <div class="admin__form">
+    <app-admin-form
+      [title]="'stores'"
+      [items]="stores"
+      (create)="createStores($event)"
+    ></app-admin-form>
+  </div>
+  <div class="admin__form">
+    <app-admin-form
+      [title]="'clients'"
+      [items]="clients"
+      (create)="createClients($event)"
+    ></app-admin-form>
+  </div>
+</div>

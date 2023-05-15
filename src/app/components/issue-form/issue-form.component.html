@@ -1,4 +1,8 @@
 <div class="formgroup">
+  <label for="date">date :</label>
+  <input type="date" id="date" autocomplete="off" [(ngModel)]="date" />
+</div>
+<div class="formgroup">
   <label for="client">client :</label>
   <input list="clients" id="client" #client autocomplete="off" />
   <datalist name="commodity" id="clients">

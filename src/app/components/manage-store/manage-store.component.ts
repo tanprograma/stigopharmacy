@@ -19,9 +19,7 @@ export class ManageStoreComponent {
     this.activity = 'create';
     this.getStores();
   }
-  setActivity(option: string) {
-    this.activity = option;
-  }
+
   getStores() {
     if (!this.storeService.stores.length) {
       this.storeService.getOutlets().subscribe((stores) => {

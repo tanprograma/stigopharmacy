@@ -7,8 +7,9 @@ import { Input, Output, EventEmitter } from '@angular/core';
 })
 export class ManageHeaderComponent {
   @Input() options!: string[];
-  @Output() onSelect = new EventEmitter<string>();
+  @Input() selected!: string;
+  @Output() selectedChange = new EventEmitter<string>();
   select(option: string) {
-    this.onSelect.emit(option);
+    this.selectedChange.emit(option);
   }
 }

@@ -1,26 +1,29 @@
 <div class="formgroup">
   <label for="client">client :</label>
-  <input list="clients" id="client" #client autocomplete="off" />
-  <datalist name="commodity" id="clients">
-    <option *ngFor="let clientItem of xclients" [value]="clientItem.name">
-      {{ clientItem.name }}
-    </option>
-  </datalist>
-</div>
-<div class="formgroup">
-  <label for="outlet">outlet :</label>
+  <input
+    type="text"
+    id="client"
+    #client
+    [(ngModel)]="prescription.client"
+    autocomplete="off"
+  />
+  <!-- <label for="outlet">outlet :</label>
   <input
     type="text"
     id="outlet"
     #outletx
     [(ngModel)]="outlet"
     autocomplete="off"
-  />
-  <!-- <select name="outlet" id="outlet" #host>
-    <option *ngFor="let outletItem of outlets" value="{{ outletItem.name }}">
-      {{ outletItem.name }}
+  /> -->
+</div>
+<div class="formgroup">
+  <label for="outlet">outlet :</label>
+  <input list="outlets" id="outlet" #outlet autocomplete="off" />
+  <datalist name="commodity" id="outlets">
+    <option *ngFor="let clientItem of xclients" [value]="clientItem.name">
+      {{ clientItem.name }}
     </option>
-  </select> -->
+  </datalist>
 </div>
 <div class="formgroup">
   <label for="commodity">medicine :</label>
@@ -56,7 +59,7 @@
   <button
     (click)="
       add({
-        client: client.value,
+        outlet: outlet.value,
         inspected: false,
         commodity: commodity.value,
         unit: unit.value,

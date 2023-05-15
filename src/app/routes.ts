@@ -7,9 +7,12 @@ import { ManageUnitComponent } from './components/manage-unit/manage-unit.compon
 import { ManageMedicineComponent } from './components/manage-medicine/manage-medicine.component';
 import { ManageStoreComponent } from './components/manage-store/manage-store.component';
 import { ManageCommodityComponent } from './components/manage-commodity/manage-commodity.component';
+import { ManageStockComponent } from './components/manage-stock/manage-stock.component';
+import { AdminComponent } from './components/admin/admin.component';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/statistics' },
   { path: 'home', component: HomepageComponent },
+  { path: 'admin', component: AdminComponent },
   { path: 'outlet/:outlet', component: OutletComponent },
 
   { path: 'manage/unit', component: ManageUnitComponent },
@@ -17,6 +20,7 @@ export const routes: Routes = [
   { path: 'manage/store', component: ManageStoreComponent },
   { path: 'manage/client', component: ManageClientComponent },
   { path: 'manage/medicine', component: ManageMedicineComponent },
+  { path: 'manage/stock', component: ManageStockComponent },
   // { path: 'statistics/:outlet', component: ShopStatisticsComponent },
   { path: 'statistics', component: StatisticsAllComponent },
   // { path: 'statistics/:outlet', component: ShopStatisticsComponent },

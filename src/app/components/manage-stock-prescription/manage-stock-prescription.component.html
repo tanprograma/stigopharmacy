@@ -1,0 +1,60 @@
+<div class="container" *ngFor="let item of request.items">
+  <ul class="item">
+    <li class="item__content">
+      <div>
+        <h4>commodity</h4>
+        <p>{{ getMedicineName(item.commodity) }}</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4>unit</h4>
+        <p>{{ item.unit }}</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4>quantity</h4>
+        <p>{{ item.quantity }}</p>
+      </div>
+    </li>
+    <li>
+      <div class="btn">
+        <button (click)="toggleEdit(item)" class="edit-button">
+          {{ item.inspected ? "CLOSE" : "EDIT" }}
+        </button>
+      </div>
+    </li>
+    <li>
+      <div class="btn">
+        <button (click)="delete(item)" class="delete-button">delete</button>
+      </div>
+    </li>
+  </ul>
+  <div class="edit-form" *ngIf="item.inspected">
+    <div class="formgroup">
+      <label for="commodity">medicine :</label>
+      <input
+        [(ngModel)]="item.commodity"
+        list="commodities"
+        id="commodity"
+        #commodity
+        disabled
+        autocomplete="off"
+      />
+    </div>
+    <div class="formgroup">
+      <label for="unit">unit :</label>
+      <input name="unit" id="unit" #unit [(ngModel)]="item.unit" disabled="" />
+    </div>
+    <div class="formgroup">
+      <label for="quantity">quantity :</label>
+      <input
+        [(ngModel)]="item.quantity"
+        type="number"
+        id="quantity"
+        #quantity
+      />
+    </div>
+  </div>
+</div>

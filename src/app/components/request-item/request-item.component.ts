@@ -9,6 +9,7 @@ import { OutletService } from 'src/app/services/outlet.service';
 import { MedicinesService } from 'src/app/services/medicines.service';
 import { UnitService } from 'src/app/services/unit.service';
 import { RequestService } from 'src/app/services/request.service';
+import { Observable, of } from 'rxjs';
 @Component({
   selector: 'app-request-item',
   templateUrl: './request-item.component.html',
@@ -21,7 +22,9 @@ export class RequestItemComponent implements OnInit {
     public unitService: UnitService,
     private requestService: RequestService
   ) {}
-  requests!: any;
+  requests: Observable<Prescription[]> = of(this.requestService.requests);
+  xrequests!: any;
+
   @Output() onIssue = new EventEmitter<{
     id: any;
     req: {
@@ -34,17 +37,17 @@ export class RequestItemComponent implements OnInit {
   }>();
 
   ngOnInit(): void {
-    this.requests = this.requestService.requests.map((i) => {
-      return { inspected: false, request: i };
+    this.requests.subscribe((requests) => {
+      this.xrequests = requests.map((i) => {
+        return { inspected: false, request: i };
+      });
     });
-    console.log(this.requests);
   }
 
   inspect(item: any) {
     item.inspected = !item.inspected;
-    console.log(item.request);
   }
-  issue(request: Prescription) {
+  issue(request: any) {
     this.onIssue.emit({ id: request._id, req: request.items });
   }
 }

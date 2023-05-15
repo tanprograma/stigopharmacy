@@ -9,7 +9,7 @@ export interface Prescription {
     inspected?: boolean;
     commodity?: string;
     requested: number;
-    issued: number;
+    issued?: number;
     unit?: string;
   }[];
 }

@@ -1,18 +1,23 @@
 .statistics {
   height: 90%;
   border: 1px solid black;
+  overflow-y: scroll;
+}
+.statistics::-webkit-scrollbar {
+  display: none;
 }
 .header {
   height: 10%;
   display: flex;
 }
 .header .heading {
-  flex: 0 1 90%;
+  flex: 1 1 40%;
   text-align: center;
 }
 .download {
   flex: 0 1 10%;
 }
+
 button {
   display: inline-block;
   width: 100%;
@@ -22,6 +27,8 @@ button {
   width: 90%;
   background-color: white;
   border-radius: 10px;
+  border: 1px solid lightgray;
+  padding: 10px;
 }
 .item {
   display: flex;
@@ -61,3 +68,7 @@ button {
 .submit {
   margin-top: 1.5rem;
 } */
+.nightmode {
+  background-color: black;
+  color: lightgray;
+}

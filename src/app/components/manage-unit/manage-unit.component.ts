@@ -18,9 +18,7 @@ export class ManageUnitComponent {
     this.activity = 'create';
     this.getUnits();
   }
-  setActivity(option: string) {
-    this.activity = option;
-  }
+
   getUnits() {
     if (!this.unitService.units.length) {
       this.unitService.getUnits().subscribe((units) => {

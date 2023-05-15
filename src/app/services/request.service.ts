@@ -17,6 +17,16 @@ export class RequestService {
     }),
   };
   constructor(private http: HttpClient) {}
+  sortRequests(store: string) {
+    return this.requests.filter((i) => {
+      return i.host == store;
+    });
+  }
+  sortReceived(store: string) {
+    return this.requests.filter((i) => {
+      return i.host == store && i.isIssued;
+    });
+  }
   getRequests(): Observable<Prescription[]> {
     return this.http
       .get<Prescription[]>(this.url)

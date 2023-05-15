@@ -38,6 +38,11 @@ export class ClientService {
       .post<Client>(`${this.url}/create`, client, this.httpOptions)
       .pipe(catchError(this.handleError<Client>('couldnt fetch clients')));
   }
+  postClients(client: Client[]): Observable<Client[]> {
+    return this.http
+      .post<Client[]>(`${this.url}/create/many`, client, this.httpOptions)
+      .pipe(catchError(this.handleError<Client[]>('couldnt fetch clients')));
+  }
   handleError<T>(operation = 'operation', result?: T) {
     return (error: any) => {
       console.log(operation);

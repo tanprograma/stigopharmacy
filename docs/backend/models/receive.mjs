@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
     {
       commodity: { type: mongoose.Schema.Types.ObjectId, ref: "Medicines" },
       requested: Number,
-      Issued: Number,
+      issued: Number,
       unit: { type: mongoose.Schema.Types.ObjectId, ref: "Units" },
     },
   ],

@@ -21,4 +21,47 @@
       <button (click)="createDispensed()">SAVE PRESCRIPTION</button>
     </div>
   </div>
+  <div class="result__container">
+    <h3>dispensed products</h3>
+    <div class="result" *ngIf="created.length">
+      <ul class="result__item" *ngFor="let item of created">
+        <li class="name">
+          <div>
+            <h4>date</h4>
+            <p>{{ getDate(item.date) }}</p>
+          </div>
+        </li>
+        <li class="name">
+          <div>
+            <h4>client</h4>
+            <p>{{ getClientName(item.client) }}</p>
+          </div>
+        </li>
+        <li class="name">
+          <div>
+            <h4>outlet</h4>
+            <p>{{ getStoreName(item.host) }}</p>
+          </div>
+        </li>
+        <li class="name">
+          <div>
+            <h4>dispensed items</h4>
+            <p>{{ item.items.length }}</p>
+          </div>
+        </li>
+        <li class="name">
+          <div>
+            <h4>dispense ID</h4>
+            <p>{{ item._id }}</p>
+          </div>
+        </li>
+        <li>
+          <div class="stat">
+            <h4>status</h4>
+            <p class="status">dispensed</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

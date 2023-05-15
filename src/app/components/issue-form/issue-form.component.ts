@@ -37,6 +37,7 @@ export class IssueFormComponent implements OnInit {
   @Input() outlet?: string;
   dbUnits?: Unit[];
   units?: (string | undefined)[];
+  date: any = '';
 
   getUnits(commodity: string) {
     this.commodities.subscribe((commodities) => {
@@ -79,6 +80,8 @@ export class IssueFormComponent implements OnInit {
       unit: string;
     } = { commodity, requested, inspected, issued, unit };
     this.prescription.client = client;
+
+    this.prescription.date = this.date;
     this.prescription.items.push(commodityItem);
 
     this.prescriptionChange.emit(this.prescription);

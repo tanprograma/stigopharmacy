@@ -34,6 +34,11 @@ export class UnitService {
       .post<Unit>(`${this.url}/create`, resource, this.httpOptions)
       .pipe(catchError(this.handleError<Unit>('add Unit')));
   }
+  postUnits(resource: Unit[]): Observable<Unit[]> {
+    return this.http
+      .post<Unit[]>(`${this.url}/create/many`, resource, this.httpOptions)
+      .pipe(catchError(this.handleError<Unit[]>('add Unit')));
+  }
   handleError<T>(operation = 'operation', result?: T) {
     return (error: any) => {
       console.log(operation);

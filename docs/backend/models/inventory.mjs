@@ -5,12 +5,16 @@ const schema = new mongoose.Schema({
     ref: "Medicines",
   },
   outlet: { type: mongoose.Schema.Types.ObjectId, ref: "Stores" },
-  beginning: Number,
+  beginning: {
+    type: Number,
+    default: () => {
+      return 0;
+    },
+  },
   dispensed: [
     {
-      transaction: {
-        type: { type: mongoose.Schema.Types.ObjectId, ref: "Dispenseds" },
-      },
+      transaction: { type: mongoose.Schema.Types.ObjectId, ref: "Dispenseds" },
+
       quantity: Number,
       date: Number,
       unit: { type: mongoose.Schema.Types.ObjectId, ref: "Units" },
@@ -19,22 +23,20 @@ const schema = new mongoose.Schema({
 
   received: [
     {
-      transaction_id: {
-        type: { type: mongoose.Schema.Types.ObjectId, ref: "Receiveds" },
-      },
+      transaction: { type: mongoose.Schema.Types.ObjectId, ref: "Receiveds" },
+
       quantity: Number,
       date: Number,
-      unit_id: { type: mongoose.Schema.Types.ObjectId, ref: "Units" },
+      unit: { type: mongoose.Schema.Types.ObjectId, ref: "Units" },
     },
   ],
   issued: [
     {
-      transaction_id: {
-        type: { type: mongoose.Schema.Types.ObjectId, ref: "Receiveds" },
-      },
+      transaction: { type: mongoose.Schema.Types.ObjectId, ref: "Receiveds" },
+
       quantity: Number,
       date: Number,
-      unit_id: { type: mongoose.Schema.Types.ObjectId, ref: "Units" },
+      unit: { type: mongoose.Schema.Types.ObjectId, ref: "Units" },
     },
   ],
 });

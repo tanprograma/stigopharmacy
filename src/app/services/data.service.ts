@@ -34,45 +34,4 @@ export class DataService {
     this.unitService.loadUnits();
     this.medicineService.loadMedicines();
   }
-  loadNavigation(navigation: any) {
-    if (!this.storeService.stores.length) {
-      this.storeService.getOutlets().subscribe((i) => {
-        this.storeService.stores = i;
-        this.setX(i, navigation);
-        console.log({ stores: i.length });
-      });
-    }
-    return;
-  }
-
-  setX(stores: Outlet[], navigation: any) {
-    const storesLinks = stores.map((item) => {
-      return {
-        dropdown_item: item.name,
-        dropdown_link: `/outlet/${item.name}`,
-      };
-    });
-    let statLinks = stores.map((item) => {
-      return {
-        dropdown_item: item.name,
-        dropdown_link: `/statistics/${item.name}`,
-      };
-    });
-    statLinks = [
-      {
-        dropdown_item: 'all',
-        dropdown_link: `/statistics/`,
-      },
-      ...statLinks,
-    ];
-
-    navigation.push({
-      dropdown_title: 'outlets',
-      dropdown_list: storesLinks,
-    });
-    navigation.push({
-      dropdown_title: 'statistics',
-      dropdown_list: statLinks,
-    });
-  }
 }

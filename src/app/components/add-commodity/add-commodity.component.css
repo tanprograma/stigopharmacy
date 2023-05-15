@@ -69,3 +69,35 @@ h3 {
   padding: 0.5rem;
   display: flex;
 }
+.result {
+  border: 1px solid lightgray;
+  width: 90%;
+  margin: 0.5rem auto;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: white;
+}
+.result {
+  max-height: 40vh;
+  overflow-y: scroll;
+}
+.result::-webkit-scrollbar {
+  display: none;
+}
+.result__item {
+  border: 1px solid lightblue;
+  display: flex;
+  margin: 0.1rem 0;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 5px;
+}
+.name {
+  flex: 0 0 60%;
+}
+.stat {
+  flex: 0 0 40%;
+}
+.status {
+  background-color: lightgreen;
+}

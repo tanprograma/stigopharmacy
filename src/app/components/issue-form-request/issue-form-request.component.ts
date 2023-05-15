@@ -32,7 +32,7 @@ export class IssueFormRequestComponent implements OnInit {
   xunits: Observable<Unit[]> = of(this.unitService.units);
   @Input() prescription!: Prescription;
   @Output() prescriptionChange = new EventEmitter<Prescription>();
-  @Input() outlet?: string;
+
   dbUnits?: Unit[];
   units?: (string | undefined)[];
 
@@ -61,14 +61,14 @@ export class IssueFormRequestComponent implements OnInit {
     return Number(i);
   }
   add(item: {
-    client: string;
+    outlet: string;
     inspected?: boolean;
     commodity: string;
     requested: number;
     issued: number;
     unit: string;
   }) {
-    const { commodity, requested, inspected, issued, unit, client } = item;
+    const { commodity, requested, inspected, issued, unit, outlet } = item;
     const commodityItem: {
       inspected?: boolean;
       commodity: string;
@@ -76,7 +76,7 @@ export class IssueFormRequestComponent implements OnInit {
       issued: number;
       unit: string;
     } = { commodity, requested, inspected, issued, unit };
-    this.prescription.client = client;
+    this.prescription.host = outlet;
     this.prescription.items.push(commodityItem);
 
     this.prescriptionChange.emit(this.prescription);

@@ -21,11 +21,15 @@
 }
 .statistic__heading {
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 .statistic__list {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
 .statistic__list li {
-  flex: 1 0 auto;
-  margin-left: 2px;
+  flex: 0 0 45%;
+  /* margin-left: 10px; */
+  margin-bottom: 10px;
 }

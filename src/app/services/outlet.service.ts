@@ -11,12 +11,12 @@ export class OutletService {
   stores: Outlet[] = [];
   getStoreName(id: string) {
     return this.stores.find((i) => {
-      return (i._id = id);
+      return i._id == id;
     })?.name;
   }
   getStoreID(name: string) {
     return this.stores.find((i) => {
-      return (i.name = name);
+      return i.name == name;
     })?._id;
   }
   httpOptions = {
@@ -35,6 +35,11 @@ export class OutletService {
     return this.http
       .post<Outlet>(`${this.url}/create`, item, this.httpOptions)
       .pipe(catchError(this.handleError<Outlet>('couldnt fetch inventories')));
+  }
+  postOutlets(items: Outlet[]): Observable<Outlet[]> {
+    return this.http
+      .post<Outlet[]>(`${this.url}/create/many`, items, this.httpOptions)
+      .pipe(catchError(this.handleError<Outlet[]>('couldnt create stores')));
   }
   handleError<T>(operation = 'operation', result?: T) {
     return (error: any) => {

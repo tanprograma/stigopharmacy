@@ -34,6 +34,11 @@ import { RequestComponent } from './components/request/request.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { StatisticsAllComponent } from './components/statistics-all/statistics-all.component';
 import { IssueFormRequestComponent } from './components/issue-form-request/issue-form-request.component';
+import { ManageStockComponent } from './components/manage-stock/manage-stock.component';
+import { ManageStockPrescriptionComponent } from './components/manage-stock-prescription/manage-stock-prescription.component';
+import { StatisticsSummaryComponent } from './components/statistics-summary/statistics-summary.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminFormComponent } from './components/admin-form/admin-form.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +69,11 @@ import { IssueFormRequestComponent } from './components/issue-form-request/issue
     StatisticsComponent,
     StatisticsAllComponent,
     IssueFormRequestComponent,
+    ManageStockComponent,
+    ManageStockPrescriptionComponent,
+    StatisticsSummaryComponent,
+    AdminComponent,
+    AdminFormComponent,
   ],
   imports: [
     BrowserModule,

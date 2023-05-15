@@ -1,6 +1,6 @@
 <div class="outlet__navigation">
   <app-manage-header
-    (onSelect)="setActivity($event)"
+    [(selected)]="activity"
     [options]="['create', 'edit', 'delete']"
   ></app-manage-header>
 </div>
@@ -23,6 +23,7 @@
       <app-create-edit
         [resources]="medicines"
         [title]="'create medicine'"
+        (onSubmit)="createMedicine($event)"
       ></app-create-edit>
     </div>
   </div>

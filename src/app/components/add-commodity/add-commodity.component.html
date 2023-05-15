@@ -1,9 +1,15 @@
 <h3>CREATE COMMODITY</h3>
 <div class="form">
   <div class="commodity">
-    commodty: <input list="commodities" [(ngModel)]="commodity.name" />
+    <label for="commodity">commodity: </label>
+    <input
+      id="commodity"
+      name="commodity"
+      list="commodities"
+      [(ngModel)]="commodity.name"
+    />
     <datalist id="commodities">
-      <option *ngFor="let i of commodities" [value]="i.name">
+      <option *ngFor="let i of medicines" [value]="i.name">
         {{ i.name }}
       </option>
     </datalist>
@@ -15,16 +21,21 @@
   <div class="units">
     <div class="unit" *ngFor="let item of commodity.units">
       <div class="unit__item">
-        <label for="">select unit </label>
-        <select name="" id="" [(ngModel)]="item.name">
+        <label for="unit">select unit </label>
+        <select name="unit" id="unit" [(ngModel)]="item.name">
           <option *ngFor="let u of units" [value]="u.name">
             {{ u.name }}
           </option>
         </select>
       </div>
       <div class="unit__item">
-        <label for="">unit quantity </label>
-        <input type="number" name="" id="" [(ngModel)]="item.quantity" />
+        <label for="quantity">unit quantity </label>
+        <input
+          type="number"
+          name="quantity"
+          id="quantity"
+          [(ngModel)]="item.quantity"
+        />
       </div>
       <div class="unit__controls">
         <button (click)="rmunit(item)">REMOVE</button>
@@ -35,4 +46,20 @@
   <div class="submit">
     <button (click)="createCommodity()">CREATE COMMODITY</button>
   </div>
+</div>
+<div class="result" *ngIf="created.length">
+  <ul class="result__item" *ngFor="let item of created">
+    <li class="name">
+      <div>
+        <h4>item</h4>
+        <p>{{ getMedicineName(item.name || "") }}</p>
+      </div>
+    </li>
+    <li>
+      <div class="stat">
+        <h4>status</h4>
+        <p class="status">added</p>
+      </div>
+    </li>
+  </ul>
 </div>

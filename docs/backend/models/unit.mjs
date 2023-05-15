@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const schema = new mongoose.Schema({
-  name: String,
+  name: { type: String, uppercase: true, trim: true },
 });
 
 const UnitModel = mongoose.model("Units", schema);

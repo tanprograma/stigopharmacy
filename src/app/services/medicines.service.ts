@@ -36,6 +36,11 @@ export class MedicinesService {
       .post<Medicine>(`${this.url}/create`, resource, this.httpOptions)
       .pipe(catchError(this.handleError<Medicine>('add medicine')));
   }
+  createMedicines(resource: Medicine[]): Observable<Medicine[]> {
+    return this.http
+      .post<Medicine[]>(`${this.url}/create/many`, resource, this.httpOptions)
+      .pipe(catchError(this.handleError<Medicine[]>('add medicine')));
+  }
   handleError<T>(operation = 'operation', result?: T) {
     return (error: any) => {
       console.log(operation);

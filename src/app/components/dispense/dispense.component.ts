@@ -19,15 +19,23 @@ import { Commodity } from 'src/app/commodity';
 })
 export class DispenseComponent implements OnInit {
   @Input() outlet!: string;
-
+  created: Prescription[] = [];
   prescription: Prescription = {
     host: '',
+    date: '',
     client: '',
     items: [],
   };
 
   ngOnInit(): void {
     this.prescription.host = this.outlet;
+    console.log({ outlet: this.outlet });
+    this.clientService.getClients().subscribe((i) => {
+      this.clientService.clients = i;
+    });
+    this.storeService.getOutlets().subscribe((i) => {
+      this.storeService.stores = i;
+    });
   }
   constructor(
     private clientService: ClientService,
@@ -43,9 +51,11 @@ export class DispenseComponent implements OnInit {
     console.log(payload);
     this.prescriptionService.postPrescription(payload).subscribe((i) => {
       console.log(i);
+      this.created.push(i);
       this.prescription = {
         host: this.outlet,
         client: '',
+        date: '',
         items: [],
       };
     });
@@ -56,8 +66,11 @@ export class DispenseComponent implements OnInit {
     // };
   }
   mutatePrescription(): Prescription {
+    const date = new Date(this.prescription.date).valueOf();
+    const now = Date.now();
     return {
       host: this.storeService.getStoreID(this.prescription.host),
+      date: date ? date : now,
       client: this.clientService.getClientID(this.prescription.client),
       items: this.prescription.items.map((i) => {
         let { commodity, unit, issued, requested } = i;
@@ -66,5 +79,18 @@ export class DispenseComponent implements OnInit {
         return { commodity, unit, issued, requested };
       }),
     };
+  }
+  getClientName(client: string) {
+    return this.clientService.getClientName(client);
+  }
+  getStoreName(store: string) {
+    return this.storeService.getStoreName(store);
+  }
+  getDate(datestring: string) {
+    const date = new Date(datestring);
+    const day = date.getDay();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
   }
 }

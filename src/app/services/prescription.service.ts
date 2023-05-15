@@ -12,7 +12,14 @@ export class PrescriptionService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
   url = environment.dispensed_url;
+  dispensed: Prescription[] = [];
+
   constructor(private http: HttpClient) {}
+  sortDispensed(store: string) {
+    return this.dispensed.filter((i) => {
+      return i.host == store;
+    });
+  }
   getPrescriptions(): Observable<Prescription[]> {
     return this.http
       .get<Prescription[]>(this.url)

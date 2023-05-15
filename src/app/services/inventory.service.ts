@@ -4,12 +4,19 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Inventory } from '../inventory';
 import { environment } from 'src/environments/environment';
+import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
 export class InventoryService {
   inventories: Inventory[] = [];
   url = environment.inventories_url;
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
   constructor(private http: HttpClient) {}
   getInventories(): Observable<Inventory[]> {
     return this.http
@@ -26,6 +33,19 @@ export class InventoryService {
       .pipe(
         catchError(
           this.handleError<Inventory[]>('couldnt fetch inventories', [])
+        )
+      );
+  }
+  addBeginningStock(item: any): Observable<Inventory[]> {
+    return this.http
+      .post<Inventory[]>(
+        `${this.url}/begginingstock/update/${item.store}`,
+        { payload: item.payload },
+        this.httpOptions
+      )
+      .pipe(
+        catchError(
+          this.handleError<Inventory[]>('couldnt add to beggining', [])
         )
       );
   }

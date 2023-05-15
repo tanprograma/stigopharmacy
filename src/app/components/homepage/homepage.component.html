@@ -12,19 +12,47 @@
       <li>
         <app-homepage-statistic
           [title]="'total records'"
-          [quantity]="300"
+          [quantity]="getSum(dispensed)"
         ></app-homepage-statistic>
       </li>
-      <li>
+      <li *ngFor="let item of dispensed">
         <app-homepage-statistic
-          [title]="'mainclinic records'"
-          [quantity]="100"
+          [title]="item.store"
+          [quantity]="item.records"
         ></app-homepage-statistic>
       </li>
+    </ul>
+  </div>
+  <div class="statistic">
+    <h3 class="statistic__heading">requested stats</h3>
+    <ul class="statistic__list">
       <li>
         <app-homepage-statistic
-          [title]="'powerhouse records'"
-          [quantity]="300"
+          [title]="'total records'"
+          [quantity]="getSum(dispensed)"
+        ></app-homepage-statistic>
+      </li>
+      <li *ngFor="let item of requested">
+        <app-homepage-statistic
+          [title]="item.store"
+          [quantity]="item.records"
+        ></app-homepage-statistic>
+      </li>
+    </ul>
+  </div>
+  <div class="statistic">
+    <h3 class="statistic__heading">received stats</h3>
+    <ul class="statistic__list">
+      <li>
+        <app-homepage-statistic
+          [title]="'total records'"
+          [quantity]="getSum(dispensed)"
+        ></app-homepage-statistic>
+      </li>
+      <li *ngFor="let item of received">
+        <app-homepage-statistic
+          [title]="item.store"
+          [quantity]="item.records"
         ></app-homepage-statistic>
       </li>
     </ul>

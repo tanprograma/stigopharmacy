@@ -15,43 +15,17 @@ import { Unit } from 'src/app/unit';
 })
 export class IssueComponent implements OnInit {
   @Input() host!: string;
-  requests!: Prescription[];
-  clients!: Client[];
-  commodities!: Commodity[];
-  units!: Unit[];
-  constructor(
-    private requestService: RequestService,
-    private commodityService: CommodityService,
-    private unitService: UnitService,
-    private clientService: ClientService
-  ) {}
+
+  constructor(private requestService: RequestService) {}
   issue(req: any) {
-    this.requestService.issueRequest(req).subscribe((req) => {});
+    this.requestService.issueRequest(req).subscribe((req) => {
+      console.log({ issued: req });
+      this.requestService.requests = this.requestService.requests.filter(
+        (reqs) => {
+          return reqs._id != req._id;
+        }
+      );
+    });
   }
   ngOnInit(): void {}
-  getCommodities() {
-    this.commodityService.getCommodities().subscribe((i) => {
-      this.commodities = i;
-    });
-  }
-  getClients() {
-    this.clientService.getClients().subscribe((i) => {
-      this.clients = i;
-    });
-  }
-  getUnits() {
-    this.unitService.getUnits().subscribe((i) => {
-      this.units = i;
-    });
-  }
-  getUnit(i: string): any {
-    return this.units.find((item) => {
-      return (item._id = i);
-    })?.name;
-  }
-  getCommodity(i: string): any {
-    return this.commodities.find((item) => {
-      return (item._id = i);
-    })?.name;
-  }
 }

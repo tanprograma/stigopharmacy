@@ -18,9 +18,7 @@ export class ManageMedicineComponent implements OnInit {
     this.activity = 'create';
     this.getMedicines();
   }
-  setActivity(option: string) {
-    this.activity = option;
-  }
+
   getMedicines() {
     if (!this.medicineService.medicines.length) {
       this.medicineService.getMedicines().subscribe((medicines) => {
@@ -31,5 +29,10 @@ export class ManageMedicineComponent implements OnInit {
       return;
     }
     this.medicines = this.medicineService.medicines;
+  }
+  createMedicine(item: Medicine) {
+    this.medicineService.createMedicine(item).subscribe((medicine) => {
+      this.medicineService.medicines.push(medicine);
+    });
   }
 }
