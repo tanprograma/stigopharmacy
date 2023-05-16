@@ -101,3 +101,9 @@ h3 {
 .status {
   background-color: lightgreen;
 }
+.notification {
+  height: 100%;
+  display: block;
+  position: absolute;
+  background-color: rgba(138, 127, 127, 0.5);
+}
