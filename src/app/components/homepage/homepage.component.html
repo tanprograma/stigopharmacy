@@ -69,3 +69,9 @@
     </div>
   </div>
 </div>
+<a
+  [routerLink]="link"
+  #adminLink
+  (click)="redirect(adminLink)"
+  [ngStyle]="{ diaplay: 'none' }"
+></a>
