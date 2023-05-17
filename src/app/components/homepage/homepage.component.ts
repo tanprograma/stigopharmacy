@@ -27,6 +27,14 @@ export class HomepageComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getStores();
+    if (
+      !this.dispensed.length &&
+      !this.received.length &&
+      !this.requested.length
+    ) {
+      const a: HTMLAnchorElement | null = document.querySelector('#link');
+      if (a != null) a.click();
+    }
   }
   getDispensed() {
     const stores = this.storeService.stores.filter((i) => {
