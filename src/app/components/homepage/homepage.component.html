@@ -1,7 +1,7 @@
 <div class="home loader__container">
   <div
     class="loader"
-    *ngIf="!dispensed.length && !received.length && !requested.length"
+    *ngIf="!dispensed.length || !received.length || !requested.length"
   >
     <app-loader [message]="message"></app-loader>
   </div>

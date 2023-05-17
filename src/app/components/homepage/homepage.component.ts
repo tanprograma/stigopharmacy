@@ -6,6 +6,7 @@ import { Prescription } from 'src/app/prescription';
 import { Medicine } from 'src/app/medicine';
 import { PrescriptionService } from 'src/app/services/prescription.service';
 import { RequestService } from 'src/app/services/request.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -24,7 +25,8 @@ export class HomepageComponent implements OnInit {
   constructor(
     private storeService: OutletService,
     private prescriptionService: PrescriptionService,
-    private requestService: RequestService
+    private requestService: RequestService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.getStores();
@@ -157,23 +159,20 @@ export class HomepageComponent implements OnInit {
   ];
 
   redirect() {
-    const x: HTMLAnchorElement = document.createElement('a');
-    x.setAttribute('href', '/admin');
     setTimeout(() => {
       if (
-        !this.dispensed.length &&
-        !this.received.length &&
+        !this.dispensed.length ||
+        !this.received.length ||
         !this.requested.length
       ) {
-        this.openAdminPane(x);
+        this.openAdminPane();
       }
     }, 10000);
   }
-  openAdminPane(x: HTMLAnchorElement) {
+  openAdminPane() {
     this.message = 'redirecting to admin page...';
-
     setTimeout(() => {
-      x.click();
+      this.router.navigate(['/admin']);
     }, 700);
   }
 }
