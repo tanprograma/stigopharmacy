@@ -70,8 +70,10 @@ export class HomepageComponent implements OnInit {
   getStores() {
     if (!this.storeService.stores.length) {
       this.stores.subscribe((stores) => {
-        console.log({ stores: stores });
-        this.loadNavigation(stores);
+        const strs = stores.filter((i) => {
+          return !i.isSupplier;
+        });
+        this.loadNavigation(strs);
         this.storeService.stores = stores;
         this.prescriptionService.getPrescriptions().subscribe((i) => {
           console.log({ dispensed: i.length });
