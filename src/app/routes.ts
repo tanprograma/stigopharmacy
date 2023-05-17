@@ -10,7 +10,7 @@ import { ManageCommodityComponent } from './components/manage-commodity/manage-c
 import { ManageStockComponent } from './components/manage-stock/manage-stock.component';
 import { AdminComponent } from './components/admin/admin.component';
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/statistics' },
+  { path: '', pathMatch: 'full', redirectTo: '/home' },
   { path: 'home', component: HomepageComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'outlet/:outlet', component: OutletComponent },
