@@ -166,7 +166,7 @@ export class HomepageComponent implements OnInit {
     this.message = 'redirecting to admin page...';
     setTimeout(() => {
       const a: HTMLAnchorElement = document.createElement('a');
-      a.setAttribute('href', '/admin');
+      a.setAttribute('routerLink', '/admin');
       a.click();
     }, 700);
   }
