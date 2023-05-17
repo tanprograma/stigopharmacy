@@ -20,6 +20,7 @@ export class HomepageComponent implements OnInit {
 
   medicines: Medicine[] = [];
   message: string = 'initializing....';
+  link: any;
   constructor(
     private storeService: OutletService,
     private prescriptionService: PrescriptionService,
@@ -33,7 +34,7 @@ export class HomepageComponent implements OnInit {
         !this.received.length &&
         !this.requested.length
       ) {
-        this.openAdminPane();
+        this.link = '/admin';
       }
     }, 10000);
   }
@@ -162,15 +163,18 @@ export class HomepageComponent implements OnInit {
       ],
     },
   ];
-  link: string = '/admin';
-  redirect() {
-    console.log('clicked');
+
+  redirect(x: HTMLAnchorElement) {
+    this.openAdminPane(x);
+    return () => {
+      console.log('clicked');
+    };
   }
-  openAdminPane() {
+  openAdminPane(x: HTMLAnchorElement) {
     this.message = 'redirecting to admin page...';
-    const link: HTMLAnchorElement | null = document.querySelector('#link');
+
     setTimeout(() => {
-      if (link != null) link.click();
+      x.click();
     }, 700);
   }
 }
