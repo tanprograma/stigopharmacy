@@ -158,7 +158,7 @@ export class HomepageComponent implements OnInit {
 
   redirect() {
     const x: HTMLAnchorElement = document.createElement('a');
-    x.setAttribute('routerLink', '/admin');
+    x.setAttribute('href', '/admin');
     setTimeout(() => {
       if (
         !this.dispensed.length &&
