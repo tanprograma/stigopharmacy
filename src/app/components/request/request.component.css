@@ -1,3 +1,6 @@
+.request__container {
+  height: 100%;
+}
 .dispense {
   height: 100%;
   display: flex;

@@ -44,3 +44,15 @@ a:hover {
 .manage--delete {
   background-color: rgb(233, 161, 161);
 }
+.loader__container {
+  position: relative;
+}
+.loader {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+.loader__other {
+  position: relative;
+}

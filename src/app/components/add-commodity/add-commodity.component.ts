@@ -26,6 +26,7 @@ export class AddCommodityComponent implements OnInit {
   units: Unit[] = [];
   medicines: Medicine[] = [];
   created: Commodity[] = [];
+  uploading: boolean = false;
   getCommodities() {
     if (
       !this.medicineService.medicines.length &&
@@ -92,9 +93,11 @@ export class AddCommodityComponent implements OnInit {
   }
   createCommodity() {
     const payload = this.mutatePayload();
+    this.uploading = !this.uploading;
     this.commodityService.createCommodities(payload).subscribe((item) => {
       console.log(item);
-      this.created.push(item);
+      this.created.splice(0, 0, item);
+      this.uploading = !this.uploading;
       this.commodityService.commodities.push(item);
       this.medicines = this.medicines.filter((i) => {
         return i._id != item.name;

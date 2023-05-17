@@ -7,21 +7,13 @@
     [(ngModel)]="prescription.client"
     autocomplete="off"
   />
-  <!-- <label for="outlet">outlet :</label>
-  <input
-    type="text"
-    id="outlet"
-    #outletx
-    [(ngModel)]="outlet"
-    autocomplete="off"
-  /> -->
 </div>
 <div class="formgroup">
   <label for="outlet">outlet :</label>
   <input list="outlets" id="outlet" #outlet autocomplete="off" />
-  <datalist name="commodity" id="outlets">
-    <option *ngFor="let clientItem of xclients" [value]="clientItem.name">
-      {{ clientItem.name }}
+  <datalist name="outlets" id="outlets">
+    <option *ngFor="let hostItem of clients" [value]="hostItem.name">
+      {{ hostItem.name }}
     </option>
   </datalist>
 </div>
@@ -32,21 +24,21 @@
     id="commodity"
     #commodity
     autocomplete="off"
-    (input)="getUnits(commodity.value)"
+    (input)="getMedUnits(commodity.value)"
   />
-  <datalist name="commodity" id="commodities">
+  <datalist name="commodities" id="commodities">
     <option
-      *ngFor="let commodityItem of xcommodities"
+      *ngFor="let commodityItem of commodities"
       [value]="medicineService.getMedicineName(commodityItem.name)"
     >
-      {{ medicineService.getMedicineName(commodityItem.name) }}
+      {{ getMedicineName(commodityItem.name) }}
     </option>
   </datalist>
 </div>
 <div class="formgroup">
   <label for="unit">unit :</label>
   <select name="unit" id="unit" #unit>
-    <option *ngFor="let unitItem of units" value="{{ unitItem }}">
+    <option *ngFor="let unitItem of xunits" value="{{ unitItem }}">
       {{ unitItem }}
     </option>
   </select>

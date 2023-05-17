@@ -9,12 +9,12 @@ import { environment } from 'src/environments/environment';
 })
 export class OutletService {
   stores: Outlet[] = [];
-  getStoreName(id: string) {
+  getStoreName(id?: string) {
     return this.stores.find((i) => {
       return i._id == id;
     })?.name;
   }
-  getStoreID(name: string) {
+  getStoreID(name?: string) {
     return this.stores.find((i) => {
       return i.name == name;
     })?._id;

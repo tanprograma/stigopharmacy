@@ -22,6 +22,7 @@ export class StatisticsAllComponent implements OnInit {
   units: Unit[] = [];
   commodities: Commodity[] = [];
   stores: Outlet[] = [];
+  loading: boolean = true;
   nightmode: boolean = false;
   constructor(
     private inventoryService: InventoryService,
@@ -39,6 +40,20 @@ export class StatisticsAllComponent implements OnInit {
   }
   toggleNightMode() {
     this.nightmode = !this.nightmode;
+  }
+  getStockLevel(x: any) {
+    const available =
+      x.beginning -
+      this.reduceQuantities(x.commodity, x.dispensed) +
+      this.reduceQuantities(x.commodity, x.received);
+    const iLevel = this.commodityService.commodities.find((i) => {
+      return i.name == x.commodity;
+    })?.inventory_level;
+    if (iLevel) {
+      const months = (available / iLevel) * 6;
+      return months;
+    }
+    return 0;
   }
   reduceQuantities(
     commodity: any,

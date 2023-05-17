@@ -1,0 +1,41 @@
+<div class="heading">
+  <h3 class="heading__content">{{ title | uppercase }}</h3>
+
+  <div class="formgroup">
+    <label for="">{{ title | lowercase }}:</label>
+    <input type="file" #x />
+  </div>
+  <div class="submit">
+    <button (click)="add(x)" class="submit__btn">
+      IMPORT {{ title | uppercase }}
+    </button>
+  </div>
+</div>
+<div class="collapse" *ngIf="items.length">
+  <button (click)="collapse()">
+    {{ collapsed ? "SHOW LESS" : "COLLAPSE" }}
+  </button>
+</div>
+<div class="result" *ngIf="items.length && collapsed">
+  <ul class="result__item" *ngFor="let item of items">
+    <li class="name">
+      <div>
+        <h4>store</h4>
+        <p>{{ item.outlet }}</p>
+      </div>
+    </li>
+    <li>
+      <div class="name">
+        <h4>commodity</h4>
+        <p>{{ item.commodity }}</p>
+      </div>
+    </li>
+    <li>
+      <div class="stat">
+        <h4>status</h4>
+        <p *ngIf="!item.commodity" class="status">added</p>
+        <p *ngIf="item.commodity" class="red">could not add</p>
+      </div>
+    </li>
+  </ul>
+</div>

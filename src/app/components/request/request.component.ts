@@ -17,6 +17,7 @@ import { RequestService } from 'src/app/services/request.service';
 export class RequestComponent {
   @Input() outlet!: string;
   created: Prescription[] = [];
+  loading: boolean = false;
   prescription: Prescription = {
     host: '',
     date: '',
@@ -39,10 +40,11 @@ export class RequestComponent {
 
   createRequest() {
     const payload = this.mutatePrescription();
-
+    this.loading = !this.loading;
     this.requestService.postRequest(payload).subscribe((i) => {
       console.log(i);
-      this.created.push(i);
+      this.created.splice(0, 0, i);
+      this.loading = !this.loading;
       this.requestService.requests.push(i);
       this.prescription = {
         client: this.outlet,
@@ -73,7 +75,7 @@ export class RequestComponent {
   }
   getDate(datestring: string) {
     const date = new Date(datestring);
-    const day = date.getDay();
+    const day = date.getUTCDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;

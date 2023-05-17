@@ -12,6 +12,7 @@ import { Prescription } from 'src/app/prescription';
 import { MedicinesService } from 'src/app/services/medicines.service';
 import { ClientService } from 'src/app/services/client.service';
 import { Observable, of } from 'rxjs';
+import { Medicine } from 'src/app/medicine';
 @Component({
   selector: 'app-issue-form-request',
   templateUrl: './issue-form-request.component.html',
@@ -25,40 +26,82 @@ export class IssueFormRequestComponent implements OnInit {
     public medicineService: MedicinesService
   ) {}
 
-  clients: Observable<Client[]> = of(this.storeService.stores);
-  xclients?: Client[];
-  xcommodities?: Commodity[];
-  commodities: Observable<Commodity[]> = of(this.commodityService.commodities);
-  xunits: Observable<Unit[]> = of(this.unitService.units);
+  clients: Outlet[] = [];
+
+  commodities: Commodity[] = [];
+  medicines: Medicine[] = [];
+  units: Unit[] = [];
   @Input() prescription!: Prescription;
   @Output() prescriptionChange = new EventEmitter<Prescription>();
 
   dbUnits?: Unit[];
-  units?: (string | undefined)[];
+  xunits: any = [];
 
-  getUnits(commodity: string) {
-    this.commodities.subscribe((commodities) => {
-      this.xunits.subscribe((xu) => {
-        this.units = commodities
-          .find((c) => {
-            return c.name == this.medicineService.getMedicineID(commodity);
-          })
-          ?.units.map((u) => {
-            return this.unitService.getUnitName(u.name);
-          });
-      });
+  getMedUnits(commodity: string) {
+    let commodityUnits = this.commodityService.commodities.find((i) => {
+      return i.name == this.medicineService.getMedicineID(commodity);
+    })?.units;
+    this.xunits = commodityUnits?.map((x) => {
+      return this.unitService.units.find((i) => {
+        return i._id == x.name;
+      })?.name;
     });
   }
   ngOnInit(): void {
-    this.commodities.subscribe((i) => {
-      this.xcommodities = i;
-    });
-    this.clients.subscribe((i) => {
-      this.xclients = i;
-    });
+    this.getCommodities();
+    this.getClients();
+    this.getMedicines();
+    this.getUnits();
   }
   toNumber(i: string): number {
     return Number(i);
+  }
+  getMedicineName(medicine?: string) {
+    return this.medicineService.getMedicineName(medicine);
+  }
+  getClients() {
+    if (!this.storeService.stores) {
+      this.storeService.getOutlets().subscribe((i) => {
+        this.storeService.stores = i;
+        this.clients = i.filter((i) => {
+          return !i.isSupplier;
+        });
+      });
+      return;
+    }
+    this.clients = this.storeService.stores.filter((i) => {
+      return !i.isSupplier && i.name != this.prescription.client;
+    });
+  }
+  getCommodities() {
+    if (!this.commodityService.commodities) {
+      this.commodityService.getCommodities().subscribe((i) => {
+        this.commodityService.commodities = i;
+        this.commodities = i;
+      });
+      return;
+    }
+    this.commodities = this.commodityService.commodities;
+  }
+  getMedicines() {
+    if (!this.medicineService.medicines) {
+      this.medicineService.getMedicines().subscribe((i) => {
+        this.medicineService.medicines = i;
+        this.medicines = i;
+      });
+      return;
+    }
+    this.medicines = this.medicineService.medicines;
+  }
+  getUnits() {
+    if (!this.unitService.units) {
+      this.unitService.getUnits().subscribe((i) => {
+        this.unitService.units = i;
+        this.units = i;
+      });
+      return;
+    }
+    this.medicines = this.unitService.units;
   }
   add(item: {
     outlet: string;

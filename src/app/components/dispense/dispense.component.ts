@@ -20,6 +20,7 @@ import { Commodity } from 'src/app/commodity';
 export class DispenseComponent implements OnInit {
   @Input() outlet!: string;
   created: Prescription[] = [];
+  loading: boolean = false;
   prescription: Prescription = {
     host: '',
     date: '',
@@ -49,9 +50,11 @@ export class DispenseComponent implements OnInit {
   createDispensed() {
     const payload = this.mutatePrescription();
     console.log(payload);
+    this.loading = !this.loading;
     this.prescriptionService.postPrescription(payload).subscribe((i) => {
       console.log(i);
-      this.created.push(i);
+      this.created.splice(0, 0, i);
+      this.loading = !this.loading;
       this.prescription = {
         host: this.outlet,
         client: '',
@@ -86,11 +89,11 @@ export class DispenseComponent implements OnInit {
   getStoreName(store: string) {
     return this.storeService.getStoreName(store);
   }
-  getDate(datestring: string) {
+  getDate(datestring: any) {
     const date = new Date(datestring);
-    const day = date.getDay();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
+    const day = date.getUTCDate();
+    const month = date.getUTCMonth() + 1;
+    const year = date.getUTCFullYear();
     return `${day}-${month}-${year}`;
   }
 }

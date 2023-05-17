@@ -35,7 +35,7 @@ export class ManageStockComponent implements OnInit {
   xcommodities?: Commodity[];
   commodities: Observable<Commodity[]> = this.commodityService.getCommodities();
   xunits: Observable<Unit[]> = this.unitService.getUnits();
-
+  loading: boolean = false;
   @Input() outlet?: string;
   prescription: {
     store: string;
@@ -113,9 +113,9 @@ export class ManageStockComponent implements OnInit {
       }),
     };
     console.log({ item });
-
+    this.loading = !this.loading;
     this.inventoryService.addBeginningStock(item).subscribe((i) => {
-      console.log({ beggining: i });
+      this.loading = !this.loading;
     });
   }
 }

@@ -13,7 +13,7 @@
   </div>
   <div class="outlet__content">
     <app-dispense *ngIf="option == 'dispense'" [outlet]="outlet"></app-dispense>
-    <app-issue *ngIf="option == 'issue'"></app-issue>
+    <app-issue *ngIf="option == 'issue'" [host]="outlet"></app-issue>
     <app-request [outlet]="outlet" *ngIf="option == 'request'"></app-request>
   </div>
 </div>

@@ -54,9 +54,11 @@ export class IssueFormComponent implements OnInit {
   }
   ngOnInit(): void {
     this.commodities.subscribe((i) => {
+      this.commodityService.commodities = i;
       this.xcommodities = i;
     });
     this.clients.subscribe((i) => {
+      this.clientService.clients = i;
       this.xclients = i;
     });
   }

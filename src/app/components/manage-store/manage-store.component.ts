@@ -14,6 +14,7 @@ export class ManageStoreComponent {
     private dataService: DataService
   ) {}
   activity!: string;
+  loading: boolean = false;
   stores: Outlet[] = [];
   ngOnInit(): void {
     this.activity = 'create';
@@ -32,8 +33,10 @@ export class ManageStoreComponent {
     this.stores = this.storeService.stores;
   }
   createStore(item: Outlet) {
+    this.loading = !this.loading;
     this.storeService.postOutlet(item).subscribe((store) => {
-      this.storeService.stores.push(store);
+      this.storeService.stores.splice(0, 0, store);
+      this.loading = !this.loading;
     });
   }
 }

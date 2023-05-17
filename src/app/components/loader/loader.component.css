@@ -1,0 +1,17 @@
+.loader__item {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(14, 14, 14, 0.1);
+}
+.loader__item__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 50%;
+  color: white;
+  height: 80%;
+  background-color: rgba(14, 14, 14, 0.5);
+}

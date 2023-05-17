@@ -49,6 +49,19 @@ export class InventoryService {
         )
       );
   }
+  addBeginningStocks(item: any): Observable<Inventory[]> {
+    return this.http
+      .post<Inventory[]>(
+        `${this.url}/begginingstocks/update`,
+        { items: item },
+        this.httpOptions
+      )
+      .pipe(
+        catchError(
+          this.handleError<Inventory[]>('couldnt add to beggining', [])
+        )
+      );
+  }
   handleError<T>(operation = 'operation', result: T) {
     return (error: any) => {
       console.log(operation);

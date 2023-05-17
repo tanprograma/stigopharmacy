@@ -14,12 +14,17 @@ button {
 }
 .for {
   flex: 0 1 40%;
+  background-color: azure;
 }
 .pre {
   flex: 0 1 60%;
+  background-color: cornsilk;
 }
 .outlet__content::-webkit-scrollbar {
   display: none;
+}
+.allx {
+  height: 100%;
 }
 .all {
   display: flex;
@@ -29,6 +34,10 @@ button {
   height: 90%;
   padding: 1rem;
   border: 1px solid lightblue;
+  overflow-y: scroll;
+}
+.cont::-webkit-scrollbar {
+  display: none;
 }
 .heading,
 .submit {

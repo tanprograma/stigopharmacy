@@ -1,5 +1,10 @@
 .dropdown {
   position: relative;
+  width: 100%;
+}
+.dropdown__title,
+.dropdown__list {
+  min-width: 50%;
 }
 .dropdown__list {
   position: absolute;
@@ -10,6 +15,11 @@
   background-color: black;
   color: white;
   margin: 2px 0;
+  width: 100%;
+}
+.dropdown__item a {
+  display: block;
+  width: 100%;
 }
 .dropdown__item:hover {
   background-color: dodgerblue;

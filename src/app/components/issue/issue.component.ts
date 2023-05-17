@@ -15,9 +15,10 @@ import { Unit } from 'src/app/unit';
 })
 export class IssueComponent implements OnInit {
   @Input() host!: string;
-
+  issued: boolean = false;
   constructor(private requestService: RequestService) {}
   issue(req: any) {
+    this.issued = !this.issued;
     this.requestService.issueRequest(req).subscribe((req) => {
       console.log({ issued: req });
       this.requestService.requests = this.requestService.requests.filter(
@@ -25,6 +26,7 @@ export class IssueComponent implements OnInit {
           return reqs._id != req._id;
         }
       );
+      this.issued = !this.issued;
     });
   }
   ngOnInit(): void {}

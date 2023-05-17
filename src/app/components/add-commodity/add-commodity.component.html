@@ -1,66 +1,70 @@
-<div class="notification"></div>
-<h3>CREATE COMMODITY</h3>
-<div class="form">
-  <div class="commodity">
-    <label for="commodity">commodity: </label>
-    <input
-      id="commodity"
-      name="commodity"
-      list="commodities"
-      [(ngModel)]="commodity.name"
-    />
-    <datalist id="commodities">
-      <option *ngFor="let i of medicines" [value]="i.name">
-        {{ i.name }}
-      </option>
-    </datalist>
+<div class="post loader__container">
+  <div class="loader" *ngIf="uploading">
+    <app-loader [message]="'creating commodity..'"></app-loader>
   </div>
-  <div class="commodity">
-    inventory_level:
-    <input type="number" [(ngModel)]="commodity.inventory_level" />
-  </div>
-  <div class="units">
-    <div class="unit" *ngFor="let item of commodity.units">
-      <div class="unit__item">
-        <label for="unit">select unit </label>
-        <select name="unit" id="unit" [(ngModel)]="item.name">
-          <option *ngFor="let u of units" [value]="u.name">
-            {{ u.name }}
-          </option>
-        </select>
-      </div>
-      <div class="unit__item">
-        <label for="quantity">unit quantity </label>
-        <input
-          type="number"
-          name="quantity"
-          id="quantity"
-          [(ngModel)]="item.quantity"
-        />
-      </div>
-      <div class="unit__controls">
-        <button (click)="rmunit(item)">REMOVE</button>
-      </div>
+  <h3 class="loader__other">CREATE COMMODITY</h3>
+  <div class="form loader__other">
+    <div class="commodity">
+      <label for="commodity">commodity: </label>
+      <input
+        id="commodity"
+        name="commodity"
+        list="commodities"
+        [(ngModel)]="commodity.name"
+      />
+      <datalist id="commodities">
+        <option *ngFor="let i of medicines" [value]="i.name">
+          {{ i.name }}
+        </option>
+      </datalist>
     </div>
-    <button (click)="add()">add unit</button>
-  </div>
-  <div class="submit">
-    <button (click)="createCommodity()">CREATE COMMODITY</button>
-  </div>
-</div>
-<div class="result" *ngIf="created.length">
-  <ul class="result__item" *ngFor="let item of created">
-    <li class="name">
-      <div>
-        <h4>item</h4>
-        <p>{{ getMedicineName(item.name || "") }}</p>
+    <div class="commodity">
+      inventory_level:
+      <input type="number" [(ngModel)]="commodity.inventory_level" />
+    </div>
+    <div class="units">
+      <div class="unit" *ngFor="let item of commodity.units">
+        <div class="unit__item">
+          <label for="unit">select unit </label>
+          <select name="unit" id="unit" [(ngModel)]="item.name">
+            <option *ngFor="let u of units" [value]="u.name">
+              {{ u.name }}
+            </option>
+          </select>
+        </div>
+        <div class="unit__item">
+          <label for="quantity">unit quantity </label>
+          <input
+            type="number"
+            name="quantity"
+            id="quantity"
+            [(ngModel)]="item.quantity"
+          />
+        </div>
+        <div class="unit__controls">
+          <button (click)="rmunit(item)">REMOVE</button>
+        </div>
       </div>
-    </li>
-    <li>
-      <div class="stat">
-        <h4>status</h4>
-        <p class="status">added</p>
-      </div>
-    </li>
-  </ul>
+      <button (click)="add()">add unit</button>
+    </div>
+    <div class="submit">
+      <button (click)="createCommodity()">CREATE COMMODITY</button>
+    </div>
+  </div>
+  <div class="result loader__other" *ngIf="created.length">
+    <ul class="result__item" *ngFor="let item of created">
+      <li class="name">
+        <div>
+          <h4>item</h4>
+          <p>{{ getMedicineName(item.name || "") }}</p>
+        </div>
+      </li>
+      <li>
+        <div class="stat">
+          <h4>status</h4>
+          <p class="status">added</p>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

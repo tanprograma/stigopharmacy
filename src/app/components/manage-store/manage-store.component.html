@@ -1,4 +1,7 @@
-<div class="outlet__navigation">
+<div class="outlet__navigation loader__container">
+  <div class="loader" *ngIf="loading">
+    <app-loader [message]="'creating store'"></app-loader>
+  </div>
   <app-manage-header
     [(selected)]="activity"
     [options]="['create', 'edit', 'delete']"

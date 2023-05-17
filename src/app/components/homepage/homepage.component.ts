@@ -98,12 +98,16 @@ export class HomepageComponent implements OnInit {
         dropdown_link: `/outlet/${item.name}`,
       };
     });
-    let statLinks = stores.map((item) => {
-      return {
-        dropdown_item: item.name,
-        dropdown_link: `/statistics/${item.name}`,
-      };
-    });
+    let statLinks = stores
+      .filter((i) => {
+        return !i.isSupplier;
+      })
+      .map((item) => {
+        return {
+          dropdown_item: item.name,
+          dropdown_link: `/statistics/${item.name}`,
+        };
+      });
     statLinks = [
       {
         dropdown_item: 'all',
@@ -132,6 +136,7 @@ export class HomepageComponent implements OnInit {
         { dropdown_item: 'create stores', dropdown_link: '/admin' },
         { dropdown_item: 'create clients', dropdown_link: '/admin' },
         { dropdown_item: 'create medicines', dropdown_link: '/admin' },
+        { dropdown_item: 'add begginning stock', dropdown_link: '/admin' },
       ],
     },
     {

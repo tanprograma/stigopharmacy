@@ -1,3 +1,6 @@
+.statistics__all {
+  height: 100%;
+}
 .statistics {
   height: 90%;
   border: 1px solid black;
@@ -33,6 +36,12 @@ button {
 .item {
   display: flex;
   justify-content: space-evenly;
+}
+.item li:first-child {
+  flex: 0 0 20%;
+}
+.item li:not(:first-child) {
+  flex: 0 0 calc(1% * 80 / 6);
 }
 .btn {
   padding: 10px;
@@ -71,4 +80,20 @@ button {
 .nightmode {
   background-color: black;
   color: lightgray;
+}
+.green {
+  background-color: rgb(121, 228, 169);
+  color: white;
+}
+.red {
+  background-color: red;
+  color: white;
+}
+.lightred {
+  background-color: rgb(236, 157, 157);
+  color: white;
+}
+.yellow {
+  color: white;
+  background-color: yellow;
 }

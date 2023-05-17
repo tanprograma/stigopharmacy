@@ -39,6 +39,8 @@ import { ManageStockPrescriptionComponent } from './components/manage-stock-pres
 import { StatisticsSummaryComponent } from './components/statistics-summary/statistics-summary.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminFormComponent } from './components/admin-form/admin-form.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { AdminFormxComponent } from './components/admin-formx/admin-formx.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { AdminFormComponent } from './components/admin-form/admin-form.component
     StatisticsSummaryComponent,
     AdminComponent,
     AdminFormComponent,
+    LoaderComponent,
+    AdminFormxComponent,
   ],
   imports: [
     BrowserModule,
