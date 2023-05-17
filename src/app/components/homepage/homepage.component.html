@@ -69,11 +69,3 @@
     </div>
   </div>
 </div>
-<a
-  *ngIf="link"
-  id="link"
-  [routerLink]="link"
-  #adminLink
-  (click)="redirect(adminLink)()"
-  [ngStyle]="{ display: 'none' }"
-></a>

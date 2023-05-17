@@ -28,15 +28,7 @@ export class HomepageComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getStores();
-    setTimeout(() => {
-      if (
-        !this.dispensed.length &&
-        !this.received.length &&
-        !this.requested.length
-      ) {
-        this.link = '/admin';
-      }
-    }, 10000);
+    this.redirect();
   }
   getDispensed() {
     const stores = this.storeService.stores.filter((i) => {
@@ -164,11 +156,18 @@ export class HomepageComponent implements OnInit {
     },
   ];
 
-  redirect(x: HTMLAnchorElement) {
-    this.openAdminPane(x);
-    return () => {
-      console.log('clicked');
-    };
+  redirect() {
+    const x: HTMLAnchorElement = document.createElement('a');
+    x.setAttribute('routerLink', '/admin');
+    setTimeout(() => {
+      if (
+        !this.dispensed.length &&
+        !this.received.length &&
+        !this.requested.length
+      ) {
+        this.openAdminPane(x);
+      }
+    }, 10000);
   }
   openAdminPane(x: HTMLAnchorElement) {
     this.message = 'redirecting to admin page...';
