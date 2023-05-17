@@ -3,7 +3,7 @@
     class="loader"
     *ngIf="!dispensed.length && !received.length && !requested.length"
   >
-    <app-loader [message]="'inializing...'"></app-loader>
+    <app-loader [message]="message"></app-loader>
   </div>
   <div class="other loader__other">
     <div class="navigation">

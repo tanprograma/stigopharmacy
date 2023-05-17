@@ -19,7 +19,7 @@ export class HomepageComponent implements OnInit {
   requests: Prescription[] = [];
 
   medicines: Medicine[] = [];
-
+  message: string = 'initializing....';
   constructor(
     private storeService: OutletService,
     private prescriptionService: PrescriptionService,
@@ -27,6 +27,15 @@ export class HomepageComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getStores();
+    setTimeout(() => {
+      if (
+        !this.dispensed.length &&
+        !this.received.length &&
+        !this.requested.length
+      ) {
+        this.openAdminPane();
+      }
+    }, 10000);
   }
   getDispensed() {
     const stores = this.storeService.stores.filter((i) => {
@@ -153,4 +162,12 @@ export class HomepageComponent implements OnInit {
       ],
     },
   ];
+  openAdminPane() {
+    this.message = 'redirecting to admin page...';
+    setTimeout(() => {
+      const a: HTMLAnchorElement = document.createElement('a');
+      a.setAttribute('href', '/admin');
+      a.click();
+    }, 700);
+  }
 }
