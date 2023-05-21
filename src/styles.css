@@ -51,6 +51,7 @@ a:hover {
   height: 100%;
   width: 100%;
   position: absolute;
+  top: 5px;
   z-index: 1;
 }
 .loader__other {

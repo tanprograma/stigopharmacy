@@ -29,12 +29,33 @@ export class PrescriptionService {
         )
       );
   }
+  getDispensedRecords(query: {
+    store: string;
+    date: number;
+  }): Observable<Prescription[]> {
+    return this.http
+      .get<Prescription[]>(`this.url/reports/${query.store}/${query.date}`)
+      .pipe(
+        catchError(
+          this.handleError<Prescription[]>('couldnt fetch prescriptions', [])
+        )
+      );
+  }
   postPrescription(prescription: Prescription): Observable<Prescription> {
     return this.http
       .post<Prescription>(`${this.url}/create`, prescription)
       .pipe(
         catchError(
           this.handleError<Prescription>('couldnt fetch prescriptions')
+        )
+      );
+  }
+  postPrescriptions(prescription: Prescription[]): Observable<Prescription[]> {
+    return this.http
+      .post<Prescription[]>(`${this.url}/create/many`, prescription)
+      .pipe(
+        catchError(
+          this.handleError<Prescription[]>('couldnt fetch prescriptions')
         )
       );
   }

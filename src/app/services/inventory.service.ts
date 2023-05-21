@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Inventory } from '../inventory';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
+import { DispensedSummary } from '../dispensedsummary';
 @Injectable({
   providedIn: 'root',
 })
@@ -24,6 +25,20 @@ export class InventoryService {
       .pipe(
         catchError(
           this.handleError<Inventory[]>('couldnt fetch inventories', [])
+        )
+      );
+  }
+  getDispensed(item: {
+    store: string;
+    date: any;
+  }): Observable<DispensedSummary[]> {
+    return this.http
+      .get<DispensedSummary[]>(
+        `${this.url}/dispensed/${item.store}/${item.date}`
+      )
+      .pipe(
+        catchError(
+          this.handleError<DispensedSummary[]>('couldnt dispensed', [])
         )
       );
   }

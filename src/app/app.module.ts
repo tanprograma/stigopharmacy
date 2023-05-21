@@ -41,6 +41,10 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AdminFormComponent } from './components/admin-form/admin-form.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { AdminFormxComponent } from './components/admin-formx/admin-formx.component';
+import { AdminDispenseComponent } from './components/admin-dispense/admin-dispense.component';
+import { DownloadStockComponent } from './components/download-stock/download-stock.component';
+import { InactivateCommodityComponent } from './components/inactivate-commodity/inactivate-commodity.component';
+import { DownloadDispensingComponent } from './components/download-dispensing/download-dispensing.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +82,10 @@ import { AdminFormxComponent } from './components/admin-formx/admin-formx.compon
     AdminFormComponent,
     LoaderComponent,
     AdminFormxComponent,
+    AdminDispenseComponent,
+    DownloadStockComponent,
+    InactivateCommodityComponent,
+    DownloadDispensingComponent,
   ],
   imports: [
     BrowserModule,

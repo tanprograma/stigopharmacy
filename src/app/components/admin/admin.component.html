@@ -1,6 +1,6 @@
 <div class="admin loader__container">
   <div class="loader" *ngIf="loading">
-    <app-loader [message]="'uploading resource'"></app-loader>
+    <app-loader [message]="message"></app-loader>
   </div>
   <div class="admin__form loader__other">
     <app-admin-form
@@ -37,4 +37,33 @@
       (create)="createBegginingStock($event)"
     ></app-admin-formx>
   </div>
+  <div class="admin__form loader__other">
+    <app-inactivate-commodity
+      [(loading)]="loading"
+      [(message)]="message"
+    ></app-inactivate-commodity>
+  </div>
+  <div
+    class="admin__form loader__other"
+    *ngIf="
+      xclients.length &&
+      xcommodities.length &&
+      xunits.length &&
+      xmedicines.length &&
+      xstores.length
+    "
+  >
+    <app-admin-dispense
+      [title]="'dispense'"
+      (create)="dispense($event)"
+      [prescription]="prescription"
+    ></app-admin-dispense>
+  </div>
 </div>
+<!-- *ngIf="
+      xclients.length &&
+      xcommodities.length &&
+      xunits.length &&
+      xmedicines.length &&
+      xstores.length
+    " -->

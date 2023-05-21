@@ -70,7 +70,7 @@ export class RequestComponent {
     };
   }
 
-  getStoreName(store: string) {
+  getStoreName(store?: string) {
     return this.storeService.getStoreName(store);
   }
   getDate(datestring: string) {

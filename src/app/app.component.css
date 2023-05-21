@@ -14,3 +14,9 @@
   position: sticky;
   bottom: 0;
 }
+@media print {
+  .banner,
+  .bottom {
+    display: none;
+  }
+}

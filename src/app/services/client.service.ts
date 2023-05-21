@@ -16,12 +16,12 @@ export class ClientService {
     }),
   };
   constructor(private http: HttpClient) {}
-  getClientName(id: string) {
+  getClientName(id?: string) {
     return this.clients.find((i) => {
       return i._id == id;
     })?.name;
   }
-  getClientID(name: string) {
+  getClientID(name?: string) {
     return this.clients.find((i) => {
       return i.name == name;
     })?._id;

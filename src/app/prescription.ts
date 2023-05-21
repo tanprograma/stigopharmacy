@@ -1,14 +1,14 @@
 export interface Prescription {
-  host: string;
+  host?: string;
   isIssued?: boolean;
 
   _id?: any;
-  client: string;
+  client?: string;
   date?: any;
   items: {
     inspected?: boolean;
     commodity?: string;
-    requested: number;
+    requested?: number;
     issued?: number;
     unit?: string;
   }[];

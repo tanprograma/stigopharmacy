@@ -1,10 +1,12 @@
 label,
 button,
+select,
 input {
   display: block;
 }
 input,
 label,
+select,
 button {
   margin: 0.5rem auto;
   width: 90%;
@@ -49,10 +51,10 @@ button:hover {
   border-radius: 5px;
 }
 .name {
-  flex: 0 0 60%;
+  flex: 0 0 30%;
 }
 .stat {
-  flex: 0 0 40%;
+  flex: 0 0 10%;
 }
 .status {
   background-color: lightgreen;

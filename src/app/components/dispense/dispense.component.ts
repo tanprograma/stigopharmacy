@@ -83,10 +83,10 @@ export class DispenseComponent implements OnInit {
       }),
     };
   }
-  getClientName(client: string) {
+  getClientName(client?: string) {
     return this.clientService.getClientName(client);
   }
-  getStoreName(store: string) {
+  getStoreName(store?: string) {
     return this.storeService.getStoreName(store);
   }
   getDate(datestring: any) {

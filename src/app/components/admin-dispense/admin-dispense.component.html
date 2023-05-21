@@ -1,0 +1,66 @@
+<div class="heading">
+  <h3 class="heading__content">{{ title | uppercase }}</h3>
+  <div class="formgroup">
+    <label for="date">date :</label>
+    <input type="date" id="date" autocomplete="off" [(ngModel)]="date" />
+  </div>
+  <div class="formgroup">
+    <label for="outlet">client:</label>
+    <select name="client" id="client" #clientt [(ngModel)]="client">
+      <option *ngFor="let client of clients" value="{{ client.name }}">
+        {{ client.name }}
+      </option>
+    </select>
+  </div>
+  <div class="formgroup">
+    <label for="outlet">outlet:</label>
+    <select name="outlet" id="outlet" #outlett [(ngModel)]="host">
+      <option *ngFor="let outlet of outlets" value="{{ outlet.name }}">
+        {{ outlet.name }}
+      </option>
+    </select>
+  </div>
+  <div class="formgroup">
+    <label for="">{{ title | lowercase }}:</label>
+    <input type="file" #x />
+  </div>
+  <div class="submit">
+    <button (click)="add(x)" class="submit__btn">
+      IMPORT {{ title | uppercase }}
+    </button>
+  </div>
+</div>
+<div class="collapse" *ngIf="prescription?.length">
+  <button (click)="collapse()">
+    {{ collapsed ? "SHOW LESS" : "COLLAPSE" }}
+  </button>
+</div>
+<div class="result" *ngIf="prescription?.length && collapsed">
+  <ul class="result__item" *ngFor="let item of prescription">
+    <li class="name">
+      <div>
+        <h4>date</h4>
+        <p>{{ item.date }}</p>
+      </div>
+    </li>
+    <li class="name">
+      <div>
+        <h4>transaction ID</h4>
+        <p>{{ item._id }}</p>
+      </div>
+    </li>
+    <li class="name">
+      <div>
+        <h4>items</h4>
+        <p>{{ item.items.length }}</p>
+      </div>
+    </li>
+
+    <li>
+      <div class="stat">
+        <h4>status</h4>
+        <p class="status">added</p>
+      </div>
+    </li>
+  </ul>
+</div>

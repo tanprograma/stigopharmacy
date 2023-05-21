@@ -9,11 +9,15 @@ import { ManageStoreComponent } from './components/manage-store/manage-store.com
 import { ManageCommodityComponent } from './components/manage-commodity/manage-commodity.component';
 import { ManageStockComponent } from './components/manage-stock/manage-stock.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { DownloadStockComponent } from './components/download-stock/download-stock.component';
+import { DownloadDispensingComponent } from './components/download-dispensing/download-dispensing.component';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/home' },
   { path: 'home', component: HomepageComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'outlet/:outlet', component: OutletComponent },
+  { path: 'stock/download', component: DownloadStockComponent },
+  { path: 'dispense/download', component: DownloadDispensingComponent },
 
   { path: 'manage/unit', component: ManageUnitComponent },
   { path: 'manage/commodity', component: ManageCommodityComponent },

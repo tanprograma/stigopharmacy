@@ -4,20 +4,32 @@ input {
   display: block;
 }
 input,
+.check,
 label,
 button {
   margin: 0.5rem auto;
-  width: 90%;
   height: 5vh;
-  border-radius: 5px;
+}
+input,
+.check,
+label {
+  width: 90%;
 }
 button {
-  background-color: black;
+  flex: 0 0 20%;
   color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
-button:hover {
-  background-color: rgb(117, 227, 117);
-  color: white;
+.submit {
+  display: flex;
+  justify-content: center;
+}
+.active {
+  background-color: green;
+}
+.inactive {
+  background-color: red;
 }
 .result,
 .collapse {
@@ -55,5 +67,14 @@ button:hover {
   flex: 0 0 40%;
 }
 .status {
-  background-color: lightgreen;
+  background-color: rgb(245, 5, 5);
+}
+#inactivate {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.check label {
+  display: inline-block;
 }
