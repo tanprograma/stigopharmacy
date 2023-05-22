@@ -55,6 +55,7 @@ export class DispenseComponent implements OnInit {
       console.log(i);
       this.created.splice(0, 0, i);
       this.loading = !this.loading;
+      console.log({ loading: this.loading });
       this.prescription = {
         host: this.outlet,
         client: '',

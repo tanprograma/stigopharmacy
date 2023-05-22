@@ -57,10 +57,13 @@ export class DownloadDispensingComponent implements OnInit {
   search() {
     if (!this.date.length) return;
     this.setDate();
+    console.log({ date: this.date, time: new Date(this.date) });
+    const stringDate = new Date(this.date).toLocaleDateString();
     const store = this.storeService.getStoreID(this.clinic);
-    const date = new Date(new Date(this.date).toLocaleDateString()).valueOf();
+    const date = new Date(stringDate).valueOf();
     this.inventoryService.getDispensed({ store, date }).subscribe((i) => {
       this.dispensed = this.getReduced(i);
+      console.log(this.dispensed);
     });
     console.log(this.clinic);
     console.log(date);
