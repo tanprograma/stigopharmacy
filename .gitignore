@@ -2,7 +2,7 @@
 /xperiment
 # Compiled output
 /dist
-/docs
+/docs/
 /tmp
 /out-tsc
 /bazel-out
