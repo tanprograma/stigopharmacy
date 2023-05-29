@@ -1,31 +1,54 @@
 import { Routes } from '@angular/router';
-import { HomepageComponent } from './components/homepage/homepage.component';
-import { OutletComponent } from './components/outlet/outlet.component';
-import { StatisticsAllComponent } from './components/statistics-all/statistics-all.component';
-import { ManageClientComponent } from './components/manage-client/manage-client.component';
-import { ManageUnitComponent } from './components/manage-unit/manage-unit.component';
-import { ManageMedicineComponent } from './components/manage-medicine/manage-medicine.component';
-import { ManageStoreComponent } from './components/manage-store/manage-store.component';
-import { ManageCommodityComponent } from './components/manage-commodity/manage-commodity.component';
-import { ManageStockComponent } from './components/manage-stock/manage-stock.component';
-import { AdminComponent } from './components/admin/admin.component';
-import { DownloadStockComponent } from './components/download-stock/download-stock.component';
-import { DownloadDispensingComponent } from './components/download-dispensing/download-dispensing.component';
-export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/home' },
-  { path: 'home', component: HomepageComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'outlet/:outlet', component: OutletComponent },
-  { path: 'stock/download', component: DownloadStockComponent },
-  { path: 'dispense/download', component: DownloadDispensingComponent },
+import { OutletContainerComponent } from './components/outlet-container/outlet-container.component';
+import { DispenseComponent } from './components/dispense/dispense.component';
+import { IssueComponent } from './components/issue/issue.component';
+import { AdminContainerComponent } from './components/admin-container/admin-container.component';
+import { StatisticsContainerComponent } from './components/statistics-container/statistics-container.component';
+import { DispenseContainerComponent } from './components/dispense-container/dispense-container.component';
+import { CreateClientComponent } from './components/create-client/create-client.component';
+import { CreateMedicineComponent } from './components/create-medicine/create-medicine.component';
+import { CreateStoreComponent } from './components/create-store/create-store.component';
+import { ImportStoresComponent } from './components/import-stores/import-stores.component';
+import { ImportMedicinesComponent } from './components/import-medicines/import-medicines.component';
+import { ImportDispensedComponent } from './components/import-dispensed/import-dispensed.component';
+import { ImportClientsComponent } from './components/import-clients/import-clients.component';
 
-  { path: 'manage/unit', component: ManageUnitComponent },
-  { path: 'manage/commodity', component: ManageCommodityComponent },
-  { path: 'manage/store', component: ManageStoreComponent },
-  { path: 'manage/client', component: ManageClientComponent },
-  { path: 'manage/medicine', component: ManageMedicineComponent },
-  { path: 'manage/stock', component: ManageStockComponent },
-  // { path: 'statistics/:outlet', component: ShopStatisticsComponent },
-  { path: 'statistics', component: StatisticsAllComponent },
-  // { path: 'statistics/:outlet', component: ShopStatisticsComponent },
+import { StatisticSummaryComponent } from './components/statistic-summary/statistic-summary.component';
+import { TimeoutComponent } from './components/timeout/timeout.component';
+
+export const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: '/outlet/dispense' },
+  {
+    path: 'outlet',
+
+    component: OutletContainerComponent,
+    children: [
+      { path: 'dispense', component: DispenseContainerComponent },
+      { path: 'issue', component: IssueComponent },
+    ],
+  },
+  {
+    path: 'timeout',
+
+    component: TimeoutComponent,
+  },
+  {
+    path: 'admin',
+
+    component: AdminContainerComponent,
+    children: [
+      { path: 'client/create', component: CreateClientComponent },
+      { path: 'medicine/create', component: CreateMedicineComponent },
+      { path: 'store/create', component: CreateStoreComponent },
+      { path: 'stores/import', component: ImportStoresComponent },
+      { path: 'medicines/import', component: ImportMedicinesComponent },
+      { path: 'clients/import', component: ImportClientsComponent },
+      { path: 'dispensed/import', component: ImportDispensedComponent },
+    ],
+  },
+  {
+    path: 'statistics',
+    component: StatisticsContainerComponent,
+    children: [{ path: 'summary', component: StatisticSummaryComponent }],
+  },
 ];

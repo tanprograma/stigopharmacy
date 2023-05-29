@@ -1,0 +1,41 @@
+<div class="form" [class.displayed]="menuState">
+  <div class="formgroup">
+    <label for="outlet">filter by store</label>
+    <input
+      id="outlet"
+      list="stores"
+      placeholder="e.g store"
+      [(ngModel)]="outlet"
+      (input)="filterStore()"
+    />
+    <datalist id="stores">
+      <option [value]="all">{{ all }}</option>
+      <option *ngFor="let i of outlets" [value]="i.name">{{ i.name }}</option>
+    </datalist>
+  </div>
+  <div class="formgroup">
+    <button (click)="todayFilter()">TODAY</button>
+  </div>
+  <div class="formgroup">
+    <button (click)="allTimeFilter()">ALL TIME</button>
+  </div>
+
+  <div class="formgroup">
+    <button (click)="toggleSearch()">FILTER BY DATE</button>
+  </div>
+  <div class="formgroup">
+    <div class="form inner-form" *ngIf="searchbox">
+      <div class="formgroup">
+        <label for="">start date</label>
+        <input type="date" [(ngModel)]="startDate" />
+      </div>
+      <div class="formgroup">
+        <label for="">end date</label>
+        <input type="date" [(ngModel)]="endDate" />
+      </div>
+      <div class="formgroup">
+        <button (click)="filterDate()">FILTER</button>
+      </div>
+    </div>
+  </div>
+</div>

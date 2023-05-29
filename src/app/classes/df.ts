@@ -39,19 +39,17 @@ export class DF {
   getPrescriptions() {
     const initial_date = new Date(this.initial_date).getDate();
     const list = this.getRawPrescription();
-    console.log({ list });
+
     return list.map((i, index) => {
       let my_date: Date = new Date(this.initial_date);
       my_date.setDate(initial_date + index + 1);
       const prescription: Prescription = {
         host: '',
         client: '',
-        items: [],
+        items: i,
         date: my_date.valueOf(),
       };
-      i.forEach((x: any) => {
-        prescription.items.push(x);
-      });
+
       return prescription;
     });
   }

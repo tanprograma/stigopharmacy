@@ -1,22 +1,59 @@
 .app {
   height: 100vh;
 }
-.banner {
+header {
   height: calc(100% * (7 / 100));
+  background-color: aqua;
+  display: flex;
 }
-.outlet {
+.title {
+  flex: 0 0 25%;
+}
+.title h1 {
+  text-align: center;
+}
+nav {
+  flex: 0 0 60%;
+  height: 100%;
+}
+nav ul {
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+nav li {
+  height: 100%;
+  width: 100%;
+}
+nav a {
+  display: flex;
+  color: black;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+nav a:hover {
+  background-color: rgba(244, 239, 239, 0.8);
+}
+main {
   height: calc(100% * (90 / 100));
 }
-.bottom {
+footer {
   height: calc(100% * (3 / 100));
+  background-color: aquamarine;
 }
-.bottom {
+footer {
   position: sticky;
   bottom: 0;
+  text-align: center;
 }
 @media print {
-  .banner,
-  .bottom {
+  header,
+  footer {
     display: none;
   }
+}
+.selected {
+  background-color: rgba(244, 239, 239, 0.8);
 }

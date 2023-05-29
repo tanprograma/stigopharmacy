@@ -1,0 +1,10 @@
+<div class="statistic">
+  <app-statistics-scomposition
+    [cleanedStatistics]="cleanedStatistics"
+    [stores]="stores"
+    [loading]="loading"
+    (onAllTimeFilter)="allTimeFilter($event)"
+    (onFilterDate)="filterDate($event)"
+    (onFilterStore)="filterStore($event)"
+  ></app-statistics-scomposition>
+</div>

@@ -1,0 +1,63 @@
+<div class="x-container">
+  <div class="x-loader" *ngIf="loading">
+    <app-loader [message]="message"></app-loader>
+  </div>
+  <div class="x-item">
+    <div class="dispense">
+      <div class="form form-color">
+        <div class="formheader"><h2>IMPORT MEDICINES</h2></div>
+        <div class="formitems">
+          <div class="formgroup">
+            <label for="client">start date</label>
+            <input type="date" id="date" name="date" [(ngModel)]="date" />
+          </div>
+          <div class="formgroup">
+            <label for="outlet">select outlet</label>
+            <input
+              list="outlets"
+              id="outlet"
+              name="outlet"
+              [(ngModel)]="store"
+              (input)="getDispensed()"
+            />
+            <datalist id="outlets">
+              <option *ngFor="let i of stores" [value]="i.name">
+                {{ i.name | uppercase }}
+              </option>
+            </datalist>
+          </div>
+          <div class="formgroup">
+            <label for="client">file to import</label>
+            <input id="clients" #file type="file" accept=".csv" />
+          </div>
+          <div class="formgroup">
+            <button class="submit" (click)="add(file)">SUBMIT</button>
+          </div>
+        </div>
+      </div>
+      <div class="items__container preview-color">
+        <div class="head">
+          <h2 class="head__content">
+            <span>SUBMITTED DOCS ({{ submitted.length }})</span> UPLOADED DOCS:
+            ({{ uploaded.length }})
+          </h2>
+        </div>
+        <div class="items">
+          <div class="item" *ngFor="let i of uploaded">
+            <ul>
+              <li>
+                <h3>store</h3>
+                <p>{{ i.commodity }}</p>
+              </li>
+
+              <li>
+                <h3>status</h3>
+                <p>added</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

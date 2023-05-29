@@ -1,4 +1,4 @@
 export interface Client {
-  _id?: any;
-  name: string;
+  name?: string;
+  _id?: string;
 }

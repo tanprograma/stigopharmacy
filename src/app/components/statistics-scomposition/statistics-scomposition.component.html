@@ -1,0 +1,30 @@
+<div class="x-container">
+  <div class="x-loader" *ngIf="loading">
+    <app-loader [message]="'fetching statistics..'"></app-loader>
+  </div>
+  <div class="x-item x-item-flex">
+    <div class="x-header">
+      <app-statistic-header
+        [title]="'INVENTORY SUMMARY'"
+        (onPrintPDF)="printPDF($event)"
+        [menuState]="menuState"
+        (toggleState)="toggleMenu($event)"
+      ></app-statistic-header>
+    </div>
+    <div [class.statistic-form]="menuState">
+      <app-statistic-form
+        [menuState]="menuState"
+        [outlets]="stores"
+        (onFilterStore)="filterStore($event)"
+        (onFilterDate)="filterDate($event)"
+        (onAllTimeFilter)="allTimeFilter($event)"
+      ></app-statistic-form>
+    </div>
+    <div class="statistic-view">
+      <app-statistics-summary-view
+        [item]="i"
+        *ngFor="let i of cleanedStatistics"
+      ></app-statistics-summary-view>
+    </div>
+  </div>
+</div>

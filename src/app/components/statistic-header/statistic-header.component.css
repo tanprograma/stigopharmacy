@@ -1,0 +1,49 @@
+.statistics-header {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.toggle-menu {
+  flex: 0 0 10%;
+}
+.toggle-menu button {
+  display: block;
+  height: 100%;
+  border: 0;
+  background-color: white;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.toggle-menu button:hover {
+  color: aqua;
+}
+.arrow {
+  display: none;
+}
+.burger:hover .arrow {
+  display: inline;
+}
+.title {
+  flex: 1 1 60%;
+  text-align: center;
+}
+
+.download {
+  display: flex;
+  flex: 0 0 30%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.download button {
+  display: block;
+  flex: 1 1 auto;
+  height: 98%;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+@media print {
+  .toggle-menu,
+  .download {
+    display: none;
+  }
+}

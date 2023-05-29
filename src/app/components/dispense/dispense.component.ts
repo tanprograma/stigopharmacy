@@ -1,100 +1,155 @@
-import { Component, OnInit } from '@angular/core';
-import { ClientService } from 'src/app/services/client.service';
-import { Client } from 'src/app/client';
-import { Input } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
-import { Prescription } from 'src/app/prescription';
-import { PrescriptionService } from 'src/app/services/prescription.service';
-import { CommodityService } from 'src/app/services/commodity.service';
-import { UnitService } from 'src/app/services/unit.service';
-import { OutletService } from 'src/app/services/outlet.service';
-
-import { MedicinesService } from 'src/app/services/medicines.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Medicine } from 'src/app/medicine';
-import { Commodity } from 'src/app/commodity';
+import { MedicineService } from 'src/app/services/medicine.service';
+import { of } from 'rxjs';
+import { Client } from 'src/app/client';
+import { Store } from 'src/app/store';
+import { ClientsService } from 'src/app/services/clients.service';
+import { StoreService } from 'src/app/services/store.service';
+import { InventoryService } from 'src/app/services/inventory.service';
+import { Inventory } from 'src/app/inventory';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dispense',
   templateUrl: './dispense.component.html',
   styleUrls: ['./dispense.component.css'],
 })
 export class DispenseComponent implements OnInit {
-  @Input() outlet!: string;
-  created: Prescription[] = [];
+  @Output() isLoading = new EventEmitter<boolean>();
+  interval!: any;
+  available: number = 0;
+  clients: Client[] = [];
+  stores: Store[] = [];
+  medicines: Medicine[] = [];
+  dispensed: any = [];
+  inventory: Inventory[] = [];
   loading: boolean = false;
-  prescription: Prescription = {
-    host: '',
-    date: '',
-    client: '',
-    items: [],
-  };
-
+  constructor(
+    private medicineService: MedicineService,
+    private storeService: StoreService,
+    private clientService: ClientsService,
+    private inventoryService: InventoryService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
-    this.prescription.host = this.outlet;
-    console.log({ outlet: this.outlet });
+    this.getResources();
+    this.iniatialize();
+  }
+  redirect() {
+    setTimeout(() => {
+      if (this.loading) {
+        this.router.navigate(['/timeout']);
+      }
+    }, 5000);
+  }
+  getAvailable() {
+    console.log('running available');
+    const item = this.inventory.find((i) => {
+      return i.commodity == this.medicine;
+    });
+    console.log({ item });
+    if (!item) return;
+    this.available = this.inventoryService.getAvailable(item);
+    console.log(this.available);
+  }
+  iniatialize() {
+    this.loading = true;
+    this.redirect();
+    this.interval = setInterval(() => {
+      const isLoading = !(
+        this.clients.length &&
+        this.medicines.length &&
+        this.stores.length
+      );
+      if (isLoading) {
+        return;
+      }
+      this.stopLoading();
+    }, 5);
+  }
+  stopLoading() {
+    this.loading = false;
+    clearInterval(this.interval);
+  }
+
+  getResources() {
+    this.getClients();
+    this.getMedicines();
+    this.getStores();
+  }
+
+  getInventoryByStore() {
+    this.inventoryService
+      .getInventoryByStore(this.prescription.outlet)
+      .subscribe((i) => {
+        this.inventory = i;
+        console.log({ inventory: this.inventory });
+      });
+  }
+  getClients() {
+    if (this.clientService.clients.length) {
+      this.clients = this.clientService.clients;
+      return;
+    }
     this.clientService.getClients().subscribe((i) => {
+      this.clients = i;
       this.clientService.clients = i;
     });
-    this.storeService.getOutlets().subscribe((i) => {
+  }
+  getStores() {
+    if (this.storeService.stores.length) {
+      this.stores = this.storeService.stores;
+      return;
+    }
+    this.storeService.getStores().subscribe((i) => {
+      this.stores = i;
       this.storeService.stores = i;
     });
   }
-  constructor(
-    private clientService: ClientService,
-    private commodityService: CommodityService,
-    private unitService: UnitService,
-    private storeService: OutletService,
-    private medicineService: MedicinesService,
-    private prescriptionService: PrescriptionService
-  ) {}
-
-  createDispensed() {
-    const payload = this.mutatePrescription();
-    console.log(payload);
-    this.loading = !this.loading;
-    this.prescriptionService.postPrescription(payload).subscribe((i) => {
-      console.log(i);
-      this.created.splice(0, 0, i);
-      this.loading = !this.loading;
-      console.log({ loading: this.loading });
-      this.prescription = {
-        host: this.outlet,
-        client: '',
-        date: '',
-        items: [],
-      };
+  getMedicines() {
+    if (this.medicineService.medicines.length) {
+      this.medicines = this.medicineService.medicines;
+      return;
+    }
+    this.medicineService.getMedicines().subscribe((i) => {
+      this.medicines = i;
+      this.medicineService.medicines = i;
     });
-    // this.prescription = {
-    //   host: '',
-    //   client: '',
-    //   commodities: [],
-    // };
   }
-  mutatePrescription(): Prescription {
-    const date = new Date(this.prescription.date).valueOf();
-    const now = Date.now();
-    return {
-      host: this.storeService.getStoreID(this.prescription.host),
-      date: date ? date : now,
-      client: this.clientService.getClientID(this.prescription.client),
-      items: this.prescription.items.map((i) => {
-        let { commodity, unit, issued, requested } = i;
-        commodity = this.medicineService.getMedicineID(commodity);
-        unit = this.unitService.getUnitID(unit);
-        return { commodity, unit, issued, requested };
-      }),
-    };
+  prescription: {
+    client: string;
+    outlet: string;
+    items: { quantity: number; commodity: string }[];
+  } = {
+    client: '',
+    outlet: '',
+    items: [],
+  };
+
+  medicine: string = '';
+  requested = 0;
+  add() {
+    if (!this.requested && !this.medicine.length) return;
+    this.prescription.items.splice(0, 0, {
+      quantity: this.requested,
+      commodity: this.medicine,
+    });
+    this.clearForm();
   }
-  getClientName(client?: string) {
-    return this.clientService.getClientName(client);
+  clearForm() {
+    this.requested = 0;
+    this.medicine = '';
   }
-  getStoreName(store?: string) {
-    return this.storeService.getStoreName(store);
+  clearPrescription() {
+    this.prescription.items = [];
   }
-  getDate(datestring: any) {
-    const date = new Date(datestring);
-    const day = date.getUTCDate();
-    const month = date.getUTCMonth() + 1;
-    const year = date.getUTCFullYear();
-    return `${day}-${month}-${year}`;
+  dispense() {
+    this.loading = true;
+    this.inventoryService.dispense(this.prescription).subscribe((i) => {
+      console.log({ dispensed: i });
+      this.dispensed.splice(0, 0, i);
+      this.loading = false;
+    });
   }
 }

@@ -1,16 +1,14 @@
-import { OutletContext } from '@angular/router';
-
 export interface Inventory {
-  _id?: any;
-  commodity: any;
-  outlet?: any;
+  sn?: number;
+  commodity?: string;
+  outlet?: string;
   beginning: number;
-  dispensed: {
-    date: any;
-    unit: string;
-    quantity: number;
-    transaction: any;
-  }[];
-  received: { date: any; unit: string; quantity: number; transaction: any }[];
-  issued: { date: any; unit: string; quantity: number; transaction: any }[];
+  unit?: string;
+  unit_value?: number;
+  active?: boolean;
+  inventory_level?: number;
+  isWarehouse?: boolean;
+  dispensed: { date?: number; quantity?: number; client?: string }[];
+  issued: { date?: number; quantity?: number; client?: string }[];
+  received: { date?: number; quantity?: number; client?: string }[];
 }

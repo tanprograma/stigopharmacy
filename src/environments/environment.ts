@@ -1,16 +1,7 @@
 export const environment = {
-  commodities_url: 'https://stigopharmacyapi.onrender.com/api/commodities',
   medicines_url: 'https://stigopharmacyapi.onrender.com/api/medicines',
-  stores_url: 'https://stigopharmacyapi.onrender.com/api/stores',
   clients_url: 'https://stigopharmacyapi.onrender.com/api/clients',
-  units_url: 'https://stigopharmacyapi.onrender.com/api/units',
-  strengths_url: 'https://stigopharmacyapi.onrender.com/api/strengths',
   inventories_url: 'https://stigopharmacyapi.onrender.com/api/inventories',
-  dispensed_url: 'https://stigopharmacyapi.onrender.com/api/dispensed',
-  requests_url: 'https://stigopharmacyapi.onrender.com/api/requests',
-  medicines: 'medicines',
-  strengths: 'strengths',
-  stores: 'stores',
-  units: 'units',
-  commodities: 'commodities',
+  stores_url: 'https://stigopharmacyapi.onrender.com/api/stores',
+  suppliers_url: 'https://stigopharmacyapi.onrender.com/api/suppliers',
 };

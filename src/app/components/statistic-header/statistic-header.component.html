@@ -1,0 +1,19 @@
+<div class="statistics-header">
+  <div class="toggle-menu">
+    <button class="burger" (click)="toggleMenu()">
+      <span><fa-icon [icon]="faBurger"></fa-icon></span>FILTER<span
+        class="arrow"
+        ><fa-icon [icon]="menuState ? faAngleUp : faAngleDown"></fa-icon
+      ></span>
+    </button>
+  </div>
+  <div class="title">{{ title }}</div>
+  <div class="download">
+    <button>
+      <span><fa-icon [icon]="faArrowDown"></fa-icon></span>DOWNLOAD CSV
+    </button>
+    <button (click)="downloadPDF()">
+      <span><fa-icon [icon]="faArrowDown"></fa-icon></span>DOWNLOAD PDF
+    </button>
+  </div>
+</div>

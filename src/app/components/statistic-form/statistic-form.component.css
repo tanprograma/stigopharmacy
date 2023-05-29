@@ -1,0 +1,16 @@
+.inner-form {
+  height: auto;
+  border-left: 3px solid gray;
+  border-top: 3px solid gray;
+}
+@media print {
+  .inner-form {
+    display: none;
+  }
+}
+.form {
+  display: none;
+}
+.displayed {
+  display: block;
+}

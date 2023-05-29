@@ -1,17 +1,20 @@
-.loader__item {
+.loader-container {
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(14, 14, 14, 0.1);
+  background-color: rgba(58, 59, 53, 0.5);
 }
-.loader__item__content {
+.message {
+  flex: 0 0 30%;
+  height: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 0 0 50%;
+
   color: white;
-  height: 80%;
-  background-color: rgba(14, 14, 14, 0.5);
+}
+p {
+  flex: 0 0 100%;
 }

@@ -1,0 +1,44 @@
+<div class="x-container">
+  <div class="x-loader" *ngIf="loading">
+    <app-loader [message]="message"></app-loader>
+  </div>
+  <div class="x-item">
+    <div class="dispense">
+      <div class="form form-color">
+        <div class="formheader"><h2>IMPORT MEDICINES</h2></div>
+        <div class="formitems">
+          <div class="formgroup">
+            <label for="client">client</label>
+            <input id="clients" #file type="file" accept=".csv" />
+          </div>
+          <div class="formgroup">
+            <button class="submit" (click)="add(file)">SUBMIT</button>
+          </div>
+        </div>
+      </div>
+      <div class="items__container preview-color">
+        <div class="head">
+          <h2 class="head__content">
+            <span>AVAILABLE MEDICINES: ({{ medicines.length }})</span> CREATED
+            MEDICINES: ({{ items.length }})
+          </h2>
+        </div>
+        <div class="items">
+          <div class="item" *ngFor="let i of items">
+            <ul>
+              <li>
+                <h3>store</h3>
+                <p>{{ i.name }}</p>
+              </li>
+
+              <li>
+                <h3>status</h3>
+                <p>added</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

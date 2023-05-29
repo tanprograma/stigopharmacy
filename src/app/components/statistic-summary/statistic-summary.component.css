@@ -1,0 +1,7 @@
+.dispense {
+  height: 100%;
+  overflow-y: scroll;
+}
+.dispense::-webkit-scrollbar {
+  display: none;
+}

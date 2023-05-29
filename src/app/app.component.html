@@ -1,18 +1,49 @@
 <div class="app">
-  <div class="banner">
-    <app-logo [logo]="'stigopharmacy'"></app-logo>
-  </div>
-  <div class="outlet">
+  <header>
+    <div class="title">
+      <h1>
+        <span><fa-icon [icon]="faHouse"></fa-icon></span> stigoapp
+      </h1>
+    </div>
+    <nav>
+      <ul>
+        <li>
+          <a
+            routerLink="/admin/medicine/create"
+            #admin
+            (click)="select(admin)"
+            [class.selected]="admin == selected"
+            >admin</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/outlet/dispense"
+            #outlets
+            (click)="select(outlets)"
+            [class.selected]="outlets == selected"
+            >outlets</a
+          >
+        </li>
+        <li [class.selected]="statistics == selected">
+          <a
+            routerLink="/statistics/summary"
+            #statistics
+            (click)="select(statistics)"
+            >statistics</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <div class="avatar"><h2>avatar</h2></div>
+  </header>
+  <main>
     <router-outlet></router-outlet>
-  </div>
-
-  <div class="bottom">
-    <app-footer [footer]="'tanprograma LLC'"></app-footer>
-  </div>
+  </main>
+  <footer>
+    <h6>powered by tanprograma&copy; {{ year }}</h6>
+  </footer>
 </div>
-
-<!-- <app-dropdown
-  [dropdown_title]="dropdown_title"
-  [dropdown_list]="dropdown_list"
-></app-dropdown> -->
-<!-- <app-add-commodity></app-add-commodity> -->
+<!-- <div class="outlet">
+    <router-outlet></router-outlet>
+  </div> -->

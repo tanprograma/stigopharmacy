@@ -1,0 +1,43 @@
+<div class="item-view">
+  <ul class="medicine-item">
+    <li>
+      <div>
+        <h4 class="medicine-item-heading">sn</h4>
+
+        <p>{{ item.sn }}</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4 class="medicine-item-heading">medicine</h4>
+        <p>{{ item.commodity }}</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4 class="medicine-item-heading">unit</h4>
+        <p>{{ item.unit }}</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4 class="medicine-item-heading">received</h4>
+        <p>{{ reduceSum(item.received) }}</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4 class="medicine-item-heading">dispensed</h4>
+        <p>{{ reduceSum(item.dispensed) }}</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4 class="medicine-item-heading">available</h4>
+        <p>
+          {{ getAvailable() }}
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>

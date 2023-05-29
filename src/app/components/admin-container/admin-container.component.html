@@ -1,0 +1,34 @@
+<div class="router__container">
+  <nav class="secondary__navigation">
+    <h3>create data</h3>
+    <ul class="navigation__list">
+      <li class="navigation__list__item">
+        <a routerLink="/admin/store/create">stores</a>
+      </li>
+      <li class="navigation__list__item">
+        <a routerLink="/admin/client/create">clients</a>
+      </li>
+      <li class="navigation__list__item">
+        <a routerLink="/admin/medicine/create">medicines</a>
+      </li>
+    </ul>
+    <h3>import data</h3>
+    <ul class="navigation__list">
+      <li class="navigation__list__item">
+        <a routerLink="/admin/stores/import">stores</a>
+      </li>
+      <li class="navigation__list__item">
+        <a routerLink="/admin/clients/import">clients</a>
+      </li>
+      <li class="navigation__list__item">
+        <a routerLink="/admin/medicines/import">medicines</a>
+      </li>
+      <li class="navigation__list__item">
+        <a routerLink="/admin/dispensed/import">dispensed</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="router__outlet">
+    <router-outlet></router-outlet>
+  </div>
+</div>

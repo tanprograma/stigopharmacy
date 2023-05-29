@@ -1,96 +1,169 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { Inventory } from '../inventory';
+import { Observable, catchError, of, tap } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { HttpHeaders } from '@angular/common/http';
-import { DispensedSummary } from '../dispensedsummary';
+import { Medicine } from '../medicine';
 @Injectable({
   providedIn: 'root',
 })
 export class InventoryService {
   inventories: Inventory[] = [];
   url = environment.inventories_url;
-
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
   };
-  constructor(private http: HttpClient) {}
+  getSummary(keys: Medicine[], inventory: Inventory[]) {
+    const modInventory: any = [];
+    keys.forEach((key) => {
+      const filtered = inventory.filter((i) => {
+        return key.name == i.commodity;
+      });
+      if (!filtered.length) return;
+      const inventoryItem: Inventory = {
+        sn: 0,
+        commodity: key.name,
+        beginning: 0,
+        unit: key.unit,
+        unit_value: key.unit_value,
+        inventory_level: 0,
+        issued: [],
+        dispensed: [],
+        received: [],
+      };
+
+      filtered.forEach((filt) => {
+        inventoryItem.inventory_level = !inventoryItem.inventory_level
+          ? filt.inventory_level
+          : inventoryItem.inventory_level;
+        inventoryItem.beginning += filt.beginning;
+        inventoryItem.dispensed.splice(0, 0, ...filt.dispensed);
+
+        if (filt.isWarehouse) {
+          inventoryItem.received.splice(0, 0, ...filt.received);
+        }
+      });
+      modInventory.push(inventoryItem);
+    });
+    return modInventory
+      .sort((a: any, b: any) => {
+        if (a.commodity > b.commodity) return 1;
+        if (a.commodity < b.commodity) return -1;
+        return 0;
+      })
+      .map((i: Inventory, index: number) => {
+        i.sn = index + 1;
+        return i;
+      });
+  }
+  getAvailable(inventory: Inventory) {
+    const dispensed =
+      inventory.dispensed
+        .map((i) => {
+          return i.quantity;
+        })
+        .reduce((a: any, b: any) => {
+          return a + b;
+        }, 0) || 0;
+    const received =
+      inventory.received
+        .map((i) => {
+          return i.quantity;
+        })
+        .reduce((a: any, b: any) => {
+          return a + b;
+        }, 0) || 0;
+    const issued =
+      inventory.issued
+        .map((i) => {
+          return i.quantity;
+        })
+        .reduce((a: any, b: any) => {
+          return a + b;
+        }, 0) || 0;
+    console.log({
+      beginning: inventory.beginning,
+      dispensed,
+      issued,
+      received,
+    });
+    return inventory.beginning + received - issued - dispensed;
+  }
   getInventories(): Observable<Inventory[]> {
+    // console.log({ url: this.url });
+    return this.http.get<Inventory[]>(this.url).pipe(
+      tap((_) => {
+        console.log('fetched data');
+      }),
+      catchError(this.errorHandler('something is wrong', []))
+    );
+  }
+  dispense(i: any): Observable<Inventory[]> {
+    // console.log({ url: this.url });
     return this.http
-      .get<Inventory[]>(this.url)
+      .post<Inventory[]>(`${this.url}/dispense`, i, this.httpOptions)
       .pipe(
-        catchError(
-          this.handleError<Inventory[]>('couldnt fetch inventories', [])
-        )
+        tap((_) => {
+          console.log('dispensed successful');
+        }),
+        catchError(this.errorHandler<Inventory[]>('something is wrong', []))
       );
   }
-  getDispensed(item: {
-    store: string;
-    date: any;
-  }): Observable<DispensedSummary[]> {
+  uploadDispensed(i: any): Observable<Inventory[]> {
+    const url = `${this.url}/upload/dispensed/${i.store}`;
+    console.log({ url });
+    return this.http.post<Inventory[]>(url, i.items, this.httpOptions).pipe(
+      tap((_) => {
+        console.log('upload successful');
+      }),
+      catchError(this.errorHandler<Inventory[]>('something is wrong', []))
+    );
+  }
+  issue(i: { client: string; outlet: string; items: any }) {
     return this.http
-      .get<DispensedSummary[]>(
-        `${this.url}/dispensed/${item.store}/${item.date}`
-      )
+      .post<Inventory[]>(`${this.url}/issue`, i, this.httpOptions)
       .pipe(
-        catchError(
-          this.handleError<DispensedSummary[]>('couldnt dispensed', [])
-        )
+        tap((_) => {
+          console.log('issue successful');
+        }),
+        catchError(this.errorHandler<Inventory[]>('something is wrong', []))
       );
   }
-  getInventoryByStore(store: any): Observable<Inventory[]> {
-    return this.http
-      .get<Inventory[]>(`${this.url}/stores/${store}`)
-      .pipe(
-        catchError(
-          this.handleError<Inventory[]>('couldnt fetch inventories', [])
-        )
-      );
+  getInventoryByStore(store: string): Observable<Inventory[]> {
+    if (!store.length) return of([]);
+
+    return this.http.get<Inventory[]>(`${this.url}/${store}`).pipe(
+      tap((_) => {
+        console.log(`fetched inventory for ${store} }`);
+      }),
+      catchError(this.errorHandler('something is wrong', []))
+    );
   }
-  addBeginningStock(item: any): Observable<Inventory[]> {
-    return this.http
-      .post<Inventory[]>(
-        `${this.url}/begginingstock/update/${item.store}`,
-        { payload: item.payload },
-        this.httpOptions
-      )
-      .pipe(
-        catchError(
-          this.handleError<Inventory[]>('couldnt add to beggining', [])
-        )
-      );
+  importDispensedBy(store: string): Observable<Inventory[]> {
+    if (!store.length) return of([]);
+
+    return this.http.get<Inventory[]>(`${this.url}/store`).pipe(
+      tap((_) => {
+        console.log(`fetched inventory for ${store} }`);
+      }),
+      catchError(this.errorHandler('something is wrong', []))
+    );
   }
-  addBeginningStocks(item: any): Observable<Inventory[]> {
-    return this.http
-      .post<Inventory[]>(
-        `${this.url}/begginingstocks/update`,
-        { items: item },
-        this.httpOptions
-      )
-      .pipe(
-        catchError(
-          this.handleError<Inventory[]>('couldnt add to beggining', [])
-        )
-      );
-  }
-  handleError<T>(operation = 'operation', result: T) {
-    return (error: any) => {
-      console.log(operation);
+  // setInventorys(x: Inventory[]) {
+  //   if (this.Inventorys.length) return;
+  //   this.getInventorys().subscribe((i) => {
+  //     this.Inventorys = i;
+  //     x = i;
+  //     console.log(i);
+  //   });
+  // }
+  errorHandler<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.log(error.message);
       return of(result as T);
     };
   }
-  loadInventories(item: Inventory[]) {
-    if (!this.inventories.length) {
-      this.getInventories().subscribe((i) => {
-        item = i;
-        console.log({ inventories: i });
-      });
-      return;
-    }
-    item = this.inventories;
-  }
+  constructor(private http: HttpClient) {}
 }
