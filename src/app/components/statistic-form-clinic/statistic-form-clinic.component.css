@@ -14,3 +14,9 @@
 .displayed {
   display: block;
 }
+.left {
+  display: none;
+}
+button:hover .left {
+  display: inline-block;
+}

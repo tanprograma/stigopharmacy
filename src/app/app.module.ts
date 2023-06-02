@@ -31,6 +31,15 @@ import { StatisticHeaderComponent } from './components/statistic-header/statisti
 import { StatisticsSummaryViewComponent } from './components/statistics-summary-view/statistics-summary-view.component';
 import { StatisticsScompositionComponent } from './components/statistics-scomposition/statistics-scomposition.component';
 import { TimeoutComponent } from './components/timeout/timeout.component';
+import { StatisticClinicSummaryComponent } from './components/statistic-clinic-summary/statistic-clinic-summary.component';
+import { StatisticsClinicCompositionComponent } from './components/statistics-clinic-composition/statistics-clinic-composition.component';
+import { StatisticsClinicViewComponent } from './components/statistics-clinic-view/statistics-clinic-view.component';
+import { StatisticFormClinicComponent } from './components/statistic-form-clinic/statistic-form-clinic.component';
+import { OrdersContainerComponent } from './components/orders-container/orders-container.component';
+import { OrdersCreateComponent } from './components/orders-create/orders-create.component';
+import { OrdersViewComponent } from './components/orders-view/orders-view.component';
+import { OrdersEditComponent } from './components/orders-edit/orders-edit.component';
+import { AdvertComponent } from './components/advert/advert.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +66,15 @@ import { TimeoutComponent } from './components/timeout/timeout.component';
     StatisticsSummaryViewComponent,
     StatisticsScompositionComponent,
     TimeoutComponent,
+    StatisticClinicSummaryComponent,
+    StatisticsClinicCompositionComponent,
+    StatisticsClinicViewComponent,
+    StatisticFormClinicComponent,
+    OrdersContainerComponent,
+    OrdersCreateComponent,
+    OrdersViewComponent,
+    OrdersEditComponent,
+    AdvertComponent,
   ],
   imports: [
     BrowserModule,

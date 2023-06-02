@@ -19,6 +19,7 @@ export class StatisticSummaryComponent implements OnInit {
   interval: any;
   rawStatistics: Inventory[] = [];
   cleanedStatistics: Inventory[] = [];
+  filterStats: any = [];
   inventories: Inventory[] = [];
   filteredInventories: Inventory[] = [];
   medicines: Medicine[] = [];
@@ -33,6 +34,108 @@ export class StatisticSummaryComponent implements OnInit {
     this.getResources();
     this.initialize();
   }
+  // start filter by product
+  filterProduct(item: any) {
+    this.cleanedStatistics = this.filterStats.filter((i: any) => {
+      return i.commodity == item;
+    });
+  }
+  clearProductFilter(item: any) {
+    this.cleanedStatistics = this.filterStats;
+  }
+  // filter by product
+  // filter by date
+  searchDates(date: { startDate: Date; endDate: Date }, item: any) {
+    return item.filter((i: any) => {
+      return (
+        i.date >= date.startDate.valueOf() && i.date <= date.endDate.valueOf()
+      );
+    });
+  }
+  setTime(dates: { startDate: Date; endDate: Date }) {
+    this.cleanedStatistics = this.filterDates(dates);
+    this.filterStats = this.filterDates(dates);
+    // console.log({ statLength: this.cleanedStatistics });
+  }
+  filterDates(date: { startDate: Date; endDate: Date }) {
+    const priori = [...this.rawStatistics];
+    const posteriori = priori.map((i) => {
+      let {
+        active,
+        commodity,
+        outlet,
+        unit,
+        unit_value,
+        dispensed,
+        issued,
+        isWarehouse,
+        received,
+        beginning,
+        inventory_level,
+        sn,
+      } = i;
+      dispensed = this.searchDates(date, i.dispensed);
+      received = this.searchDates(date, i.received);
+      issued = this.searchDates(date, i.issued);
+
+      return {
+        active,
+        commodity,
+        outlet,
+        unit,
+        unit_value,
+        dispensed,
+        issued,
+        isWarehouse,
+        received,
+        beginning,
+        inventory_level,
+        sn,
+      };
+    });
+    console.log({ raw: this.rawStatistics });
+    console.log({ priori, posteriori });
+    return posteriori;
+  }
+
+  // end of filter by date
+  // filtering quantitis
+  reduceSum(arr: any) {
+    return arr
+      .map((i: any) => {
+        return i.quantity;
+      })
+      .reduce((a: number, b: number) => {
+        return a + b;
+      }, 0);
+  }
+  getlt(run: boolean) {
+    if (!run) return;
+    this.cleanedStatistics = this.rawStatistics.filter((i) => {
+      const dispensed = this.reduceSum(i.dispensed);
+      const received = this.reduceSum(i.received);
+      const issued = this.reduceSum(i.issued);
+      const beginning = i.beginning;
+      const sum = beginning + received - dispensed - issued;
+      return sum <= 0;
+    });
+  }
+  getgt(run: boolean) {
+    if (!run) return;
+    this.cleanedStatistics = this.rawStatistics.filter((i) => {
+      const dispensed = this.reduceSum(i.dispensed);
+      const received = this.reduceSum(i.received);
+      const issued = this.reduceSum(i.issued);
+      const beginning = i.beginning;
+      const sum = beginning + received - dispensed - issued;
+      return sum > 0;
+    });
+  }
+  clearQuantityFilter(clear: boolean) {
+    if (!clear) return;
+    this.cleanedStatistics = this.rawStatistics;
+  }
+  //  end of quantities filters
   toggleMenu(state: boolean) {
     this.menuState = !this.menuState;
   }
@@ -75,8 +178,18 @@ export class StatisticSummaryComponent implements OnInit {
     clearInterval(this.interval);
   }
   setSummary() {
-    this.cleanedStatistics = this.rawStatistics =
-      this.inventoryService.getSummary(this.medicines, this.inventories);
+    this.rawStatistics = this.inventoryService.getSummary(
+      this.medicines,
+      this.inventories
+    );
+    this.cleanedStatistics = this.inventoryService.getSummary(
+      this.medicines,
+      this.inventories
+    );
+    this.filterStats = this.inventoryService.getSummary(
+      this.medicines,
+      this.inventories
+    );
     console.log({ summary: this.rawStatistics });
   }
   allTimeFilter(i: boolean) {
@@ -96,22 +209,5 @@ export class StatisticSummaryComponent implements OnInit {
         return i.outlet == store;
       }
     );
-  }
-
-  filterDate(date: { startDate: Date; endDate: Date }) {
-    console.log({ filterDate: true, date });
-    this.cleanedStatistics = [...this.rawStatistics].map((i) => {
-      i.dispensed = this.searchDates(date, i.dispensed);
-      i.received = this.searchDates(date, i.received);
-      i.issued = this.searchDates(date, i.issued);
-      return i;
-    });
-  }
-  searchDates(date: { startDate: Date; endDate: Date }, item: any) {
-    return item.filter((i: any) => {
-      return (
-        i.date >= date.startDate.valueOf() && i.date <= date.endDate.valueOf()
-      );
-    });
   }
 }

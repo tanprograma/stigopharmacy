@@ -7,24 +7,31 @@ import {
   faBars,
 } from '@fortawesome/free-solid-svg-icons';
 import { Medicine } from 'src/app/medicine';
+
 @Component({
-  selector: 'app-statistic-form',
-  templateUrl: './statistic-form.component.html',
-  styleUrls: ['./statistic-form.component.css'],
+  selector: 'app-statistic-form-clinic',
+  templateUrl: './statistic-form-clinic.component.html',
+  styleUrls: ['./statistic-form-clinic.component.css'],
 })
-export class StatisticFormComponent {
+export class StatisticFormClinicComponent {
   faFilter = faFilter;
   faBars = faBars;
   faAngleUp = faAngleUp;
   faAngleDown = faAngleDown;
   medicine: string = '';
   @Input() medicines!: Medicine[];
+  @Input() statistics!: string[];
   @Input() outlets!: Store[];
   @Input() menuState!: boolean;
   @Output() onFilterDate = new EventEmitter<{
     startDate: Date;
     endDate: Date;
   }>();
+  @Output() onGetAll = new EventEmitter<boolean>();
+  @Output() onGetDispensed = new EventEmitter<boolean>();
+  @Output() onGetIssued = new EventEmitter<boolean>();
+  @Output() onGetReceived = new EventEmitter<boolean>();
+  @Output() onSetStatistic = new EventEmitter<string>();
   @Output() onAllTimeFilter = new EventEmitter<boolean>();
   @Output() onFilterStore = new EventEmitter<string>();
   @Output() onGetLt = new EventEmitter<boolean>();
@@ -35,24 +42,44 @@ export class StatisticFormComponent {
   startDate: string = '';
   all: string = 'ALL';
   outlet: string = '';
-
   endDate: string = '';
-  // form filters and toggling
   searchbox: boolean = false;
-  quantitybox: boolean = false;
+  statisticsbox: boolean = false;
   filtersbox: boolean = false;
+  quantitybox: boolean = false;
   itembox: boolean = false;
+  toggleItem() {
+    this.itembox = !this.itembox;
+  }
+  toggleQuantity() {
+    this.quantitybox = !this.quantitybox;
+  }
+
   toggleSearch() {
     this.searchbox = !this.searchbox;
   }
-  toggleItem() {
-    this.itembox = !this.itembox;
+  toggleStatistics() {
+    this.statisticsbox = !this.statisticsbox;
   }
   toggleFilters() {
     this.filtersbox = !this.filtersbox;
   }
-  toggleQuantity() {
-    this.quantitybox = !this.quantitybox;
+  setStatistic(statistic: any) {
+    this.onSetStatistic.emit(statistic);
+  }
+
+  filterStore() {
+    const found = this.outlets.find((i) => {
+      return i.name == this.outlet;
+    });
+    if (!found) {
+      if (this.outlet == this.all) {
+        this.onFilterStore.emit(this.outlet);
+        return;
+      }
+      return;
+    }
+    this.onFilterStore.emit(this.outlet);
   }
   // code for product filter
   filterProduct() {
@@ -66,12 +93,6 @@ export class StatisticFormComponent {
     this.onClearMedicineFilter.emit(true);
   }
   // end of code for product filter
-  // code for clearing filters
-  clearQuantityFilter() {
-    this.onClearQuantityFilter.emit(true);
-  }
-  // code for clearing filters
-  // end form filters and toggling
   // start of date filtering
   todayFilter() {
     const now = new Date();
@@ -109,13 +130,28 @@ export class StatisticFormComponent {
   }
   // end of date filtering
 
-  // code for filtering quantity
-
+  // start of quantity filtering
+  clearQuantityFilter() {
+    this.onClearQuantityFilter.emit(true);
+  }
   getGt() {
     this.onGetGt.emit(true);
   }
   getLt() {
     this.onGetLt.emit(true);
   }
-  // end of code for quantity filters
+  getAll() {
+    this.onGetAll.emit(true);
+  }
+  // end of quantity filtering
+  // start fo statistic filtering
+  getDispensed() {
+    this.onGetDispensed.emit(true);
+  }
+  getReceived() {
+    this.onGetReceived.emit(true);
+  }
+  getIssued() {
+    this.onGetReceived.emit(true);
+  }
 }

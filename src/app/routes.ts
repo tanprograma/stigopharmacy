@@ -15,6 +15,11 @@ import { ImportClientsComponent } from './components/import-clients/import-clien
 
 import { StatisticSummaryComponent } from './components/statistic-summary/statistic-summary.component';
 import { TimeoutComponent } from './components/timeout/timeout.component';
+import { StatisticClinicSummaryComponent } from './components/statistic-clinic-summary/statistic-clinic-summary.component';
+import { OrdersCreateComponent } from './components/orders-create/orders-create.component';
+import { OrdersViewComponent } from './components/orders-view/orders-view.component';
+import { OrdersEditComponent } from './components/orders-edit/orders-edit.component';
+import { OrdersContainerComponent } from './components/orders-container/orders-container.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/outlet/dispense' },
@@ -49,6 +54,18 @@ export const routes: Routes = [
   {
     path: 'statistics',
     component: StatisticsContainerComponent,
-    children: [{ path: 'summary', component: StatisticSummaryComponent }],
+    children: [
+      { path: 'summary', component: StatisticSummaryComponent },
+      { path: 'outlet/:outlet', component: StatisticClinicSummaryComponent },
+    ],
+  },
+  {
+    path: 'orders',
+    component: OrdersContainerComponent,
+    children: [
+      { path: 'create', component: OrdersCreateComponent },
+      { path: 'view', component: OrdersViewComponent },
+      { path: 'edit/:id', component: OrdersEditComponent },
+    ],
   },
 ];

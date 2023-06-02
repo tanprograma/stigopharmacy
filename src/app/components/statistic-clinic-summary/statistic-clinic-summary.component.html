@@ -1,16 +1,22 @@
 <div class="statistic">
-  <app-statistics-scomposition
+  <app-statistics-clinic-composition
+    [title]="clinic"
     [medicines]="medicines"
+    [display]="display"
     [cleanedStatistics]="cleanedStatistics"
     [stores]="stores"
     [loading]="loading"
-    (onAllTimeFilter)="allTimeFilter($event)"
     (onFilterDate)="setTime($event)"
-    (onFilterStore)="filterStore($event)"
+    (onGetAll)="getAll($event)"
+    (onGetDispensed)="getDispensed($event)"
+    (onGetReceived)="getReceived($event)"
+    (onGetIssued)="getIssued($event)"
+    [statistics]="statistics"
+    (onSetStatistic)="setStatistic($event)"
     (onGetGt)="getgt($event)"
     (onGetLt)="getlt($event)"
     (onClearQuantityFilter)="clearQuantityFilter($event)"
     (onProductFilter)="filterProduct($event)"
     (onClearMedicineFilter)="clearProductFilter($event)"
-  ></app-statistics-scomposition>
+  ></app-statistics-clinic-composition>
 </div>

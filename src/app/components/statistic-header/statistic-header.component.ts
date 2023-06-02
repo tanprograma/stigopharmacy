@@ -14,14 +14,15 @@ import {
 export class StatisticHeaderComponent {
   @Input() title!: string;
   @Input() menuState!: boolean;
-  @Output() toggleState = new EventEmitter<boolean>();
+  @Output() menuStateChange = new EventEmitter<boolean>();
   @Output() onPrintPDF = new EventEmitter<boolean>();
   faBurger = faBurger;
   faAngleUp = faAngleUp;
   faAngleDown = faAngleDown;
   faArrowDown = faArrowDown;
   toggleMenu() {
-    this.toggleState.emit(this.menuState);
+    this.menuState = !this.menuState;
+    this.menuStateChange.emit(this.menuState);
   }
   downloadPDF() {
     this.onPrintPDF.emit(true);

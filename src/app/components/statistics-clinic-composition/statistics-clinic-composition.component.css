@@ -6,9 +6,6 @@
   flex: 0 0 25%;
   height: 92%;
 }
-.statistic-form {
-  transition: all 2s ease-in;
-}
 .not-statistic-form {
   display: none;
 }

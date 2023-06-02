@@ -33,9 +33,16 @@
             >statistics</a
           >
         </li>
+        <li [class.selected]="orders == selected">
+          <a routerLink="/orders/view" #orders (click)="select(orders)"
+            >orders</a
+          >
+        </li>
       </ul>
     </nav>
-    <div class="avatar"><h2>avatar</h2></div>
+    <div class="avatar">
+      <p><fa-icon [icon]="faPerson"></fa-icon> kija mnada</p>
+    </div>
   </header>
   <main>
     <router-outlet></router-outlet>

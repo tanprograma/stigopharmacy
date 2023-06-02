@@ -1,18 +1,22 @@
-<div class="form" [class.displayed]="menuState">
-  <!-- <div class="formgroup">
-    <label for="outlet">filter by store</label>
-    <input
-      id="outlet"
-      list="stores"
-      placeholder="e.g store"
-      [(ngModel)]="outlet"
-      (input)="filterStore()"
-    />
-    <datalist id="stores">
-      <option [value]="all">{{ all }}</option>
-      <option *ngFor="let i of outlets" [value]="i.name">{{ i.name }}</option>
-    </datalist>
-  </div> -->
+<div [class.form]="menuState">
+  <div class="formgroup">
+    <button (click)="toggleStatistics()">
+      <fa-icon [icon]="faBars"></fa-icon> OUTLET STATISTICS
+      <span class="left">
+        <fa-icon [icon]="statisticsbox ? faAngleUp : faAngleDown"></fa-icon>
+      </span>
+    </button>
+  </div>
+
+  <div class="formgroup">
+    <div class="form inner-form" *ngIf="statisticsbox">
+      <div class="formgroup" *ngFor="let stat of statistics">
+        <button (click)="setStatistic(stat)">
+          {{ stat | uppercase }}
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="formgroup">
     <button (click)="toggleFilters()">
       <fa-icon [icon]="faFilter"></fa-icon>FILTER DATA
@@ -77,6 +81,7 @@
               placeholder="e.g amoxiclav"
               [(ngModel)]="medicine"
               (input)="filterProduct()"
+              autocomplete="off"
             />
             <datalist id="medicines">
               <option *ngFor="let i of medicines" [value]="i.name">

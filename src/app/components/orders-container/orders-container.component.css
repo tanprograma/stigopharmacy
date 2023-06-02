@@ -1,0 +1,23 @@
+.router__container {
+  background-color: blue;
+}
+h3 {
+  text-align: center;
+}
+.navigation__list__item a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: aqua;
+  border: none;
+  color: black;
+}
+.navigation__list__item a:hover {
+  background-color: rgba(238, 235, 235, 0.5);
+  border-radius: 5px;
+}
+.router__outlet {
+  flex: 0 0 75%;
+}

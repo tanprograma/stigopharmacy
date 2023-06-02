@@ -1,0 +1,11 @@
+.advert-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(213, 219, 179);
+  /* color: white; */
+}
+.message {
+  font-size: 5rem;
+}

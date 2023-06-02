@@ -5,7 +5,7 @@
   <div class="x-item x-item-flex">
     <div class="x-header">
       <app-statistic-header
-        [title]="'INVENTORY SUMMARY'"
+        [title]="getHeading(title) | uppercase"
         (onPrintPDF)="printPDF($event)"
         [(menuState)]="menuState"
       ></app-statistic-header>
@@ -14,25 +14,31 @@
       [class.statistic-form]="menuState"
       [class.not-statistic-form]="!menuState"
     >
-      <app-statistic-form
+      <app-statistic-form-clinic
         [medicines]="medicines"
         [menuState]="menuState"
         [outlets]="stores"
         (onFilterStore)="filterStore($event)"
         (onFilterDate)="filterDate($event)"
-        (onAllTimeFilter)="allTimeFilter($event)"
+        [statistics]="statistics"
+        (onSetStatistic)="setStatistic($event)"
+        (onGetAll)="getAll($event)"
         (onGetGt)="getGt($event)"
         (onGetLt)="getLt($event)"
         (onClearQuantityFilter)="clearQuantityFilter($event)"
+        (onGetDispensed)="getDispensed($event)"
+        (onGetReceived)="getReceived($event)"
+        (onGetIssued)="getIssued($event)"
         (onFilterProduct)="filterProduct($event)"
         (onClearMedicineFilter)="clearProductFilter($event)"
-      ></app-statistic-form>
+      ></app-statistic-form-clinic>
     </div>
     <div class="statistic-view">
-      <app-statistics-summary-view
+      <app-statistics-clinic-view
+        [display]="display"
         [item]="i"
         *ngFor="let i of cleanedStatistics"
-      ></app-statistics-summary-view>
+      ></app-statistics-clinic-view>
     </div>
   </div>
 </div>

@@ -86,6 +86,7 @@ a {
 .form input,
 .form select,
 .form button,
+.form section-head,
 .form label {
   display: block;
   width: 100%;
@@ -131,4 +132,8 @@ input::placeholder {
   background-color: black;
   color: white;
   cursor: pointer;
+}
+/* code for advert */
+.advert {
+  height: 100%;
 }

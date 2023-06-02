@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Display } from 'src/app/display';
 import { Inventory } from 'src/app/inventory';
 import { Medicine } from 'src/app/medicine';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { StoreService } from 'src/app/services/store.service';
 import { Store } from 'src/app/store';
-
 @Component({
-  selector: 'app-statistics-scomposition',
-  templateUrl: './statistics-scomposition.component.html',
-  styleUrls: ['./statistics-scomposition.component.css'],
+  selector: 'app-statistics-clinic-composition',
+  templateUrl: './statistics-clinic-composition.component.html',
+  styleUrls: ['./statistics-clinic-composition.component.css'],
 })
-export class StatisticsScompositionComponent implements OnInit {
+export class StatisticsClinicCompositionComponent {
   menuState: boolean = false;
   printPDF(e: boolean) {
     if (!e) return;
@@ -19,9 +19,17 @@ export class StatisticsScompositionComponent implements OnInit {
   }
   @Input() medicines!: Medicine[];
   @Input() cleanedStatistics!: Inventory[];
-  @Input() statistics!: string[];
+  @Output() cleanedStatisticsChange = new EventEmitter<Inventory[]>();
+  @Input() display!: Display;
+  @Input() title!: string;
   @Input() stores: Store[] = [];
   @Input() loading: boolean = false;
+  @Input() statistics!: string[];
+  @Output() onSetStatistic = new EventEmitter<string>();
+  @Output() onGetAll = new EventEmitter<boolean>();
+  @Output() onGetDispensed = new EventEmitter<boolean>();
+  @Output() onGetIssued = new EventEmitter<boolean>();
+  @Output() onGetReceived = new EventEmitter<boolean>();
   @Output() onAllTimeFilter = new EventEmitter<boolean>();
   @Output() onFilterStore = new EventEmitter<string>();
   @Output() onFilterDate = new EventEmitter<{
@@ -35,13 +43,17 @@ export class StatisticsScompositionComponent implements OnInit {
   @Output() onClearMedicineFilter = new EventEmitter<boolean>();
   constructor() {}
   ngOnInit(): void {}
+  getHeading(heading: string) {
+    return `${heading} statistics`;
+  }
   toggleMenu(state: boolean) {
     this.menuState = !this.menuState;
   }
 
-  allTimeFilter(i: boolean) {
-    this.onAllTimeFilter.emit(i);
+  setStatistic(statistic: any) {
+    this.onSetStatistic.emit(statistic);
   }
+
   filterStore(store: any) {
     this.onFilterStore.emit(store);
   }
@@ -71,4 +83,25 @@ export class StatisticsScompositionComponent implements OnInit {
     this.onGetLt.emit(true);
   }
   // end of quantity filters
+  // getting statistics and views statistic
+  getAll(i: boolean) {
+    if (i) {
+      this.onGetAll.emit(i);
+    }
+  }
+  getDispensed(i: boolean) {
+    if (i) {
+      this.onGetDispensed.emit(true);
+    }
+  }
+  getReceived(i: boolean) {
+    if (i) {
+      this.onGetReceived.emit(true);
+    }
+  }
+  getIssued(i: boolean) {
+    if (i) {
+      this.onGetReceived.emit(true);
+    }
+  }
 }
