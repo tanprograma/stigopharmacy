@@ -5,11 +5,11 @@ import { Medicine } from 'src/app/medicine';
 import { Store } from 'src/app/store';
 import { Inventory } from 'src/app/inventory';
 @Component({
-  selector: 'app-import-dispensed',
-  templateUrl: './import-dispensed.component.html',
-  styleUrls: ['./import-dispensed.component.css'],
+  selector: 'app-import-inventory',
+  templateUrl: './import-inventory.component.html',
+  styleUrls: ['./import-inventory.component.css'],
 })
-export class ImportDispensedComponent {
+export class ImportInventoryComponent {
   interval!: any;
 
   constructor(
@@ -19,7 +19,7 @@ export class ImportDispensedComponent {
   ngOnInit(): void {
     this.getStores();
   }
-  date: string = '';
+
   store: string = '';
   inventory: Inventory[] = [];
   medicines: Medicine[] = [];
@@ -45,16 +45,11 @@ export class ImportDispensedComponent {
       x.value = '';
     }
   }
-  getDate(index: number) {
-    const date = new Date(this.date);
-    return date.setDate(date.getDate() + index).valueOf();
-  }
+
   parseDispensed = (e: any) => {
     const data: string = e.target.result;
     const headers = data.split('\r\n')[0].split(',');
-    const dates = headers.slice(1).map((date, index) => {
-      return this.getDate(index);
-    });
+
     const body = data
       .split('\r\n')
       .slice(1)
@@ -62,35 +57,20 @@ export class ImportDispensedComponent {
         const l = i.split(',');
         return {
           commodity: l[0].toUpperCase(),
-          quantities: l
-            .slice(1)
-            .map((quantity, index) => {
-              return {
-                quantity: Number(quantity) ? Number(quantity) : 0,
-                date: dates[index],
-              };
-            })
-            .filter((z) => {
-              return z.quantity > 0;
-            }),
+          beginning: Number(l[1]),
         };
       })
       .filter((i) => {
-        return i.commodity.length != 0;
-      })
-      .filter((z) => {
-        return z.quantities.length > 0;
+        return i.commodity.length > 0;
       });
-
-    // const x = { store: this.store, items: body };
-
-    this.uploadDispensed(body);
+    // console.log(body);
+    this.uploadInventory(body);
   };
-  uploadDispensed(x: any) {
+  uploadInventory(x: any) {
     const filtered: any = [];
     x.forEach((i: any) => {
       const found = this.inventory.find((v) => {
-        return v.commodity == i.name?.toUpperCase();
+        return v.commodity == i.commodity?.toUpperCase();
       });
       if (!found) {
         return;
@@ -103,9 +83,9 @@ export class ImportDispensedComponent {
 
     this.loading = true;
     this.inventoryService
-      .uploadDispensed({ store: this.store, items: filtered })
+      .uploadBeginning({ store: this.store, items: filtered })
       .subscribe((i) => {
-        console.log(i);
+        // console.log(i);
         this.uploaded = i;
         this.submitted = filtered;
         this.loading = false;

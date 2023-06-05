@@ -59,6 +59,10 @@ a {
   flex: 0 0 25%;
   background-color: aqua;
   height: 100%;
+  overflow-y: scroll;
+}
+.secondary__navigation::-webkit-scrollbar {
+  display: none;
 }
 .navigation__list {
   width: 70%;
@@ -136,4 +140,22 @@ input::placeholder {
 /* code for advert */
 .advert {
   height: 100%;
+}
+/* code for box shadow */
+.shadow {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+input,
+select,
+button {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+input:hover,
+select:hover {
+  border: 2px solid dodgerblue;
+}
+button:hover {
+  background-color: black;
+  color: white;
 }

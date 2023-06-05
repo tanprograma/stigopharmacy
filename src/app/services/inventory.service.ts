@@ -100,20 +100,34 @@ export class InventoryService {
       catchError(this.errorHandler('something is wrong', []))
     );
   }
-  dispense(i: any): Observable<Inventory[]> {
+  dispense(i: any): Observable<Inventory> {
     // console.log({ url: this.url });
     return this.http
-      .post<Inventory[]>(`${this.url}/dispense`, i, this.httpOptions)
+      .post<Inventory>(
+        `${this.url}/dispense/${i.store}`,
+        i.payload,
+        this.httpOptions
+      )
       .pipe(
         tap((_) => {
           console.log('dispensed successful');
         }),
-        catchError(this.errorHandler<Inventory[]>('something is wrong', []))
+        catchError(this.errorHandler<Inventory>('something is wrong'))
       );
   }
   uploadDispensed(i: any): Observable<Inventory[]> {
     const url = `${this.url}/upload/dispensed/${i.store}`;
-    console.log({ url });
+
+    return this.http.post<Inventory[]>(url, i.items, this.httpOptions).pipe(
+      tap((_) => {
+        console.log('upload successful');
+      }),
+      catchError(this.errorHandler<Inventory[]>('something is wrong', []))
+    );
+  }
+  uploadBeginning(i: any): Observable<Inventory[]> {
+    const url = `${this.url}/beginnings/update/${i.store}`;
+
     return this.http.post<Inventory[]>(url, i.items, this.httpOptions).pipe(
       tap((_) => {
         console.log('upload successful');

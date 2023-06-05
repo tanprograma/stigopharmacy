@@ -39,6 +39,9 @@ nav a:hover {
 main {
   height: calc(100% * (90 / 100));
 }
+/* main::-webkit-scrollbar {
+  display: hidden;
+} */
 footer {
   height: calc(100% * (3 / 100));
   background-color: aquamarine;

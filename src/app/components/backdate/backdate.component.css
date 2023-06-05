@@ -9,9 +9,7 @@
   height: 8%;
   text-align: center;
 }
-span {
-  font-weight: normal;
-}
+
 .form {
   display: block;
 
@@ -34,7 +32,7 @@ span {
 }
 .formitems .submitted {
   position: relative;
-  top: 5rem;
+  top: 3rem;
 }
 .submitted button {
   background-color: grey;
@@ -44,14 +42,15 @@ label,
 input,
 .available,
 select,
-.inline,
 .submit {
   display: block;
+
   width: 90%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0.2rem;
 }
+
 .available {
   background-color: white;
   text-align: center;
@@ -65,7 +64,7 @@ label {
 }
 .submit {
   height: 2rem;
-  margin-top: 0.2rem;
+  /* margin-top: 0.2rem; */
   background-color: black;
   color: white;
   border-radius: 5px;
@@ -74,7 +73,6 @@ input[type="number"] {
   text-align: center;
 }
 input,
-.inline,
 .available,
 select {
   height: 2rem;
@@ -90,12 +88,7 @@ select {
   flex: 0 0 calc(100% * (2 / 3));
   height: 92%;
 }
-.items__container .dispense {
-  height: 7%;
-}
-/* .items__container .submit {
-  width: 80%;
-} */
+
 .head {
   height: 7%;
   background-color: rgb(238, 229, 217);
@@ -107,13 +100,16 @@ select {
   height: 86%;
   overflow-y: scroll;
 }
+.items__container .dispense {
+  height: 7%;
+}
 .item {
   color: rgb(108, 104, 104);
-  width: 80%;
+  width: 98%;
   margin: 0.2rem auto;
   border: 1px solid lightgray;
   border-radius: 5px;
-  height: 8%;
+  min-height: 8%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -134,25 +130,17 @@ li {
 }
 
 li:nth-child(1) {
-  flex: 0 0 20%;
+  flex: 0 0 15%;
 }
 li:nth-child(2) {
-  flex: 0 0 50%;
+  flex: 0 0 40%;
 }
-input {
-  text-transform: uppercase;
-}
-.inline {
-  display: flex;
-}
-.inline input {
-  flex: 0 0 10%;
-}
-.inline label {
-  flex: 1 1 auto;
+li button {
+  margin-top: 2rem;
+  display: block;
+  background-color: red;
   color: white;
-  margin-left: 0.5rem;
-  font-size: 1rem;
+  width: 98%;
 }
 h2 {
   font-weight: normal;

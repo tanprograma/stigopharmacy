@@ -20,6 +20,9 @@ import { OrdersCreateComponent } from './components/orders-create/orders-create.
 import { OrdersViewComponent } from './components/orders-view/orders-view.component';
 import { OrdersEditComponent } from './components/orders-edit/orders-edit.component';
 import { OrdersContainerComponent } from './components/orders-container/orders-container.component';
+import { ImportUnitsComponent } from './components/import-units/import-units.component';
+import { BackdateComponent } from './components/backdate/backdate.component';
+import { ImportInventoryComponent } from './components/import-inventory/import-inventory.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/outlet/dispense' },
@@ -46,9 +49,11 @@ export const routes: Routes = [
       { path: 'medicine/create', component: CreateMedicineComponent },
       { path: 'store/create', component: CreateStoreComponent },
       { path: 'stores/import', component: ImportStoresComponent },
+      { path: 'units/import', component: ImportUnitsComponent },
       { path: 'medicines/import', component: ImportMedicinesComponent },
       { path: 'clients/import', component: ImportClientsComponent },
       { path: 'dispensed/import', component: ImportDispensedComponent },
+      { path: 'inventory/import', component: ImportInventoryComponent },
     ],
   },
   {
@@ -67,5 +72,14 @@ export const routes: Routes = [
       { path: 'view', component: OrdersViewComponent },
       { path: 'edit/:id', component: OrdersEditComponent },
     ],
+  },
+  {
+    path: 'backdate',
+    component: BackdateComponent,
+    // children: [
+    //   { path: 'create', component: OrdersCreateComponent },
+    //   { path: 'view', component: OrdersViewComponent },
+    //   { path: 'edit/:id', component: OrdersEditComponent },
+    // ],
   },
 ];

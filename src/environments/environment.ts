@@ -3,5 +3,6 @@ export const environment = {
   clients_url: 'https://stigopharmacyapi.onrender.com/api/clients',
   inventories_url: 'https://stigopharmacyapi.onrender.com/api/inventories',
   stores_url: 'https://stigopharmacyapi.onrender.com/api/stores',
+  units_url: 'https://stigopharmacyapi.onrender.com/api/units',
   suppliers_url: 'https://stigopharmacyapi.onrender.com/api/suppliers',
 };

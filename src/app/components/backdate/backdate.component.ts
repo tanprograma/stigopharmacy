@@ -11,11 +11,11 @@ import { InventoryService } from 'src/app/services/inventory.service';
 import { Inventory } from 'src/app/inventory';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-dispense',
-  templateUrl: './dispense.component.html',
-  styleUrls: ['./dispense.component.css'],
+  selector: 'app-backdate',
+  templateUrl: './backdate.component.html',
+  styleUrls: ['./backdate.component.css'],
 })
-export class DispenseComponent implements OnInit {
+export class BackdateComponent implements OnInit {
   @Output() isLoading = new EventEmitter<boolean>();
   interval!: any;
   available: number = 0;
@@ -26,6 +26,7 @@ export class DispenseComponent implements OnInit {
   inventory: Inventory[] = [];
   client: string = '';
   outlet: string = '';
+  date: number = 0;
   payloads: {
     commodity: string;
     payload: { date?: number; client: string; quantity: number };
@@ -50,7 +51,9 @@ export class DispenseComponent implements OnInit {
       }
     }, 5000);
   }
-
+  setDate(d: any) {
+    this.date = new Date(d).valueOf();
+  }
   getAvailable() {
     console.log('running available');
     const item = this.inventory.find((i) => {
@@ -153,8 +156,13 @@ export class DispenseComponent implements OnInit {
       return i.commodity == this.medicine;
     });
     if (!found) {
+      if (this.date == 0) return;
       this.payloads.splice(0, 0, {
-        payload: { quantity: this.requested, client: this.client },
+        payload: {
+          quantity: this.requested,
+          client: this.client,
+          date: this.date,
+        },
         commodity: this.medicine,
       });
       this.clearForm();
@@ -172,6 +180,9 @@ export class DispenseComponent implements OnInit {
   }
   dispense() {
     if (!this.payloads.length) return;
+    this.payloads.forEach((i) => {
+      i.payload.date = this.date;
+    });
     this.loading = true;
 
     this.inventoryService
@@ -180,6 +191,7 @@ export class DispenseComponent implements OnInit {
         console.log({ dispensed: i });
         this.dispensed.splice(0, 0, i);
         this.loading = false;
+        this.clearPrescription();
       });
   }
 }

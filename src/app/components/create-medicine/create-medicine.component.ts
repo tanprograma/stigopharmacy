@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
 import { Medicine } from 'src/app/medicine';
 import { MedicineService } from 'src/app/services/medicine.service';
+import { UnitService } from 'src/app/services/unit.service';
+import { Unit } from 'src/app/unit';
 @Component({
   selector: 'app-create-medicine',
   templateUrl: './create-medicine.component.html',
@@ -11,16 +13,23 @@ import { MedicineService } from 'src/app/services/medicine.service';
 export class CreateMedicineComponent implements OnInit {
   interval!: any;
 
-  constructor(private medicineService: MedicineService) {}
+  constructor(
+    private medicineService: MedicineService,
+    private unitService: UnitService
+  ) {}
   ngOnInit(): void {
+    this.getResources();
     this.iniatialize();
   }
   message: string = 'loading...';
   medicines: Medicine[] = [];
+  units: Unit[] = [];
   medicine: string = '';
   loading: boolean = false;
   prescription: Medicine = {
     name: '',
+    unit: '',
+    unit_value: 0,
   };
   items: Medicine[] = [];
   load(isLoading: boolean) {
@@ -32,12 +41,17 @@ export class CreateMedicineComponent implements OnInit {
       return i.name == this.prescription.name?.toUpperCase();
     });
     if (!found) {
-      console.log('created it: product was unavailable');
-      console.log({ found, name: this.prescription.name });
-      this.items.splice(0, 0, { name: this.prescription.name.toUpperCase() });
-      this.medicines.splice(0, 0, {
-        name: this.prescription.name.toUpperCase(),
+      // console.log('created it: product was unavailable');
+      // console.log({ found, name: this.prescription.name });
+      this.medicineService.createMedicine(this.prescription).subscribe((i) => {
+        this.items.splice(0, 0, i);
+        this.medicines.splice(0, 0, i);
       });
+      this.prescription = {
+        name: '',
+        unit: '',
+        unit_value: 0,
+      };
       return;
     }
 
@@ -47,7 +61,7 @@ export class CreateMedicineComponent implements OnInit {
   getmedicines() {
     if (this.medicineService.medicines.length) {
       this.medicines = this.medicineService.medicines;
-      console.log({ medicines: this.medicines });
+      // console.log({ medicines: this.medicines });
       return;
     }
     this.loading = true;
@@ -55,26 +69,37 @@ export class CreateMedicineComponent implements OnInit {
       this.medicines = i;
       this.medicineService.medicines = i;
       this.loading = false;
-      console.log({ medicines: this.medicines });
+      // console.log({ medicines: this.medicines });
     });
   }
-  iniatialize() {
-    this.getmedicines();
-
-    // this.interval = setInterval(() => {
-    //   const loading = !this.medicines.length;
-    //   if (loading) {
-    //     this.loadStatus();
-    //     return;
-    //   }
-    //   this.stopLoading();
-    // }, 5);
+  getUnits() {
+    if (this.unitService.units.length) {
+      this.units = this.unitService.units;
+      // console.log({ medicines: this.medicines });
+      return;
+    }
+    this.loading = true;
+    this.unitService.getUnits().subscribe((i) => {
+      this.units = i;
+      this.unitService.units = i;
+      this.loading = false;
+      // console.log({ medicines: this.medicines });
+    });
   }
-  stopLoading() {
+  getResources() {
+    this.getmedicines();
+    this.getUnits();
+  }
+  iniatialize() {
+    const loading = true;
+    this.interval = setInterval(() => {
+      this.checkStatus();
+    }, 1);
+  }
+  checkStatus() {
+    const loading: boolean = !(this.units.length && this.medicines.length);
+    if (loading) return;
     this.loading = false;
     clearInterval(this.interval);
-  }
-  loadStatus() {
-    this.loading = true;
   }
 }

@@ -67,11 +67,6 @@
           <div class="formgroup">
             <button class="submit" (click)="add()">ADD TO PRESCRIPTION</button>
           </div>
-          <div class="formgroup submitted">
-            <button class="submit" (click)="issue()">
-              SUBMIT PRESCRIPTION
-            </button>
-          </div>
         </div>
       </div>
 
@@ -104,6 +99,13 @@
                 <p>{{ i.quantity }}</p>
               </li>
             </ul>
+          </div>
+        </div>
+        <div class="dispense">
+          <div class="formgroup submitted">
+            <button class="submit" (click)="issue()">
+              SUBMIT PRESCRIPTION
+            </button>
           </div>
         </div>
       </div>

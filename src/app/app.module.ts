@@ -40,6 +40,9 @@ import { OrdersCreateComponent } from './components/orders-create/orders-create.
 import { OrdersViewComponent } from './components/orders-view/orders-view.component';
 import { OrdersEditComponent } from './components/orders-edit/orders-edit.component';
 import { AdvertComponent } from './components/advert/advert.component';
+import { ImportUnitsComponent } from './components/import-units/import-units.component';
+import { BackdateComponent } from './components/backdate/backdate.component';
+import { ImportInventoryComponent } from './components/import-inventory/import-inventory.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +78,9 @@ import { AdvertComponent } from './components/advert/advert.component';
     OrdersViewComponent,
     OrdersEditComponent,
     AdvertComponent,
+    ImportUnitsComponent,
+    BackdateComponent,
+    ImportInventoryComponent,
   ],
   imports: [
     BrowserModule,
