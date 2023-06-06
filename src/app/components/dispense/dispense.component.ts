@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 export class DispenseComponent implements OnInit {
   @Output() isLoading = new EventEmitter<boolean>();
   interval!: any;
+  message!: string;
   available: number = 0;
   clients: Client[] = [];
   stores: Store[] = [];
@@ -30,6 +31,8 @@ export class DispenseComponent implements OnInit {
     commodity: string;
     payload: { date?: number; client: string; quantity: number };
   }[] = [];
+  medicine: string = '';
+  requested = 0;
   loading: boolean = false;
 
   constructor(
@@ -63,6 +66,7 @@ export class DispenseComponent implements OnInit {
   }
   iniatialize() {
     this.loading = true;
+    this.message = 'loading resources';
     this.redirect();
     this.interval = setInterval(() => {
       const isLoading = !(
@@ -78,6 +82,7 @@ export class DispenseComponent implements OnInit {
   }
   stopLoading() {
     this.loading = false;
+    this.message = 'uploading......resource not added';
     clearInterval(this.interval);
   }
 
@@ -138,8 +143,6 @@ export class DispenseComponent implements OnInit {
     items: [],
   };
 
-  medicine: string = '';
-  requested = 0;
   delete(i: any) {
     this.payloads = this.payloads.filter((x) => {
       return x != i;
@@ -180,6 +183,7 @@ export class DispenseComponent implements OnInit {
         console.log({ dispensed: i });
         this.dispensed.splice(0, 0, i);
         this.loading = false;
+        this.clearPrescription();
       });
   }
 }

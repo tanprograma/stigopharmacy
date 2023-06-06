@@ -31,6 +31,8 @@ export class BackdateComponent implements OnInit {
     commodity: string;
     payload: { date?: number; client: string; quantity: number };
   }[] = [];
+  medicine: string = '';
+  requested = 0;
   loading: boolean = false;
 
   constructor(
@@ -141,8 +143,6 @@ export class BackdateComponent implements OnInit {
     items: [],
   };
 
-  medicine: string = '';
-  requested = 0;
   delete(i: any) {
     this.payloads = this.payloads.filter((x) => {
       return x != i;
