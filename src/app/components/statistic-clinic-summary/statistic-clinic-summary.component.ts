@@ -14,16 +14,7 @@ import { Display } from 'src/app/display';
 })
 export class StatisticClinicSummaryComponent implements OnInit {
   clinic: string = '';
-  // constructor(private route: ActivatedRoute) {}
-  // ngOnInit(): void {
-  //   this.getClinic();
-  // }
-  // getClinic() {
-  //   this.route.params.subscribe((p) => {
-  //     this.clinic = p['outlet'];
-  //     console.log(this.clinic);
-  //   });
-  // }
+
   menuState: boolean = false;
   statistic: string = '';
   statistics: string[] = ['all', 'dispensed', 'received', 'issued'];
@@ -193,7 +184,7 @@ export class StatisticClinicSummaryComponent implements OnInit {
       this.filterIssued();
       return;
     }
-    this.filterAll();
+    this.displayAll();
   }
   // end of filter by statistic
   // filter by date
@@ -203,8 +194,7 @@ export class StatisticClinicSummaryComponent implements OnInit {
     // console.log({ statLength: this.cleanedStatistics });
   }
   filterDates(date: { startDate: Date; endDate: Date }) {
-    const priori = [...this.rawStatistics];
-    const posteriori = priori.map((i) => {
+    const posteriori = this.rawStatistics.map((i) => {
       let {
         active,
         commodity,
@@ -238,28 +228,11 @@ export class StatisticClinicSummaryComponent implements OnInit {
         sn,
       };
     });
-    console.log({ raw: this.rawStatistics });
-    console.log({ priori, posteriori });
+
     return posteriori;
   }
-  // end of filter by date
-  // setQantity(statistic: any) {
-  //   if (statistic == this.statistics[1]) {
-  //     this.filterDispensed();
-  //     return;
-  //   }
-  //   if (statistic == this.statistics[2]) {
-  //     this.filterReceived();
-  //     return;
-  //   }
-  //   if (statistic == this.statistics[3]) {
-  //     this.filterIssued();
-  //     return;
-  //   }
-  //   this.filterAll();
-  // }
 
-  filterAll() {
+  displayAll() {
     this.display = {
       dispensed: true,
       issued: true,

@@ -1,6 +1,7 @@
 import { Component, Input, Output } from '@angular/core';
 import { Display } from 'src/app/display';
 import { Inventory } from 'src/app/inventory';
+import { Statistic } from 'src/app/classes/statistic';
 @Component({
   selector: 'app-statistics-clinic-view',
   templateUrl: './statistics-clinic-view.component.html',
