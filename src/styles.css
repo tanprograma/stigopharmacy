@@ -82,6 +82,10 @@ a {
 .form {
   height: 100%;
   width: 100%;
+  overflow-y: scroll;
+}
+.form::-webkit-scrollbar {
+  display: none;
 }
 .formgroup {
   width: 95%;
