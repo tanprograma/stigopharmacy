@@ -1,7 +1,7 @@
 <div [class.form]="menuState">
   <div class="formgroup">
     <button (click)="toggleStatistics()">
-      <fa-icon [icon]="faBars"></fa-icon> OUTLET STATISTICS
+      <fa-icon [icon]="faBars"></fa-icon> SELECT STATISTIC
       <span class="left">
         <fa-icon [icon]="statisticsbox ? faAngleUp : faAngleDown"></fa-icon>
       </span>
@@ -28,14 +28,29 @@
   <div class="formgroup">
     <div class="form inner-form" *ngIf="filtersbox">
       <div class="formgroup">
-        <button (click)="todayFilter()">TODAY</button>
+        <button
+          [class.timefilter]="durationFilter == todayTime"
+          (click)="todayFilter()"
+        >
+          TODAY
+        </button>
       </div>
       <div class="formgroup">
-        <button (click)="allTimeFilter()">ALL TIME</button>
+        <button
+          [class.timefilter]="durationFilter == allTime"
+          (click)="allTimeFilter()"
+        >
+          ALL TIME
+        </button>
       </div>
 
       <div class="formgroup">
-        <button (click)="toggleSearch()">FILTER BY DATE</button>
+        <button
+          [class.timefilter]="durationFilter == anyTime"
+          (click)="toggleSearch()"
+        >
+          FILTER BY DATE
+        </button>
       </div>
       <div class="formgroup">
         <div class="form inner-form" *ngIf="searchbox">

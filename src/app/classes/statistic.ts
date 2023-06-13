@@ -1,18 +1,27 @@
 import { Inventory } from '../inventory';
 function genSN(inventory: Inventory[]) {
-  return inventory.map((i, index) => {
-    const y: Inventory = destructureInventory(i);
-    y.sn = index + 1;
-    return y;
-  });
+  return inventory
+    .map((i, index) => {
+      const y: Inventory = destructureInventory(i);
+      y.sn = index + 1;
+      return y;
+    })
+    .sort((a: any, b: any) => {
+      if (a.commodity > b.commodity) {
+        return 1;
+      }
+      if (a.commodity < b.commodity) {
+        return -1;
+      }
+      return 0;
+    });
 }
 export class Statistic {
   // the current statistic
-  statistics!: Inventory[];
+
   currentStatistics!: Inventory[];
-  constructor(private inventory: Inventory[]) {
-    this.statistics = inventory;
-    this.currentStatistics = genSN(inventory);
+  constructor(private statistics: Inventory[]) {
+    this.currentStatistics = genSN(statistics);
   }
   clearFilter(statistics: Inventory[]) {
     statistics = this.currentStatistics;
@@ -34,7 +43,7 @@ export class Statistic {
   // }
   // filters the inventory by date
   filterInventoryByDate(start: Date, end: Date) {
-    const stats: Inventory[] = this.inventory.map((i) => {
+    const stats: Inventory[] = this.statistics.map((i) => {
       let inventory = this.destructureInventory(i);
       inventory.dispensed = this.filterTransactionsByDate(
         { start, end },
@@ -51,12 +60,23 @@ export class Statistic {
       return inventory;
     });
     this.currentStatistics = genSN(stats);
+    return this.currentStatistics;
   }
   // filters the transactions by date
   filterTransactionsByDate(date: { start: Date; end: Date }, item: any) {
     return item.filter((i: any) => {
-      return i.date >= date.start.valueOf() && i.date <= date.end.valueOf();
+      return (
+        i.date >= this.startDate(date.start).valueOf() &&
+        i.date < this.endDate(date.end).valueOf()
+      );
     });
+  }
+  startDate(date: Date) {
+    return new Date(date.toLocaleDateString());
+  }
+  endDate(date: Date) {
+    const end = new Date(date.setDate(date.getDate() + 1));
+    return new Date(end.toLocaleDateString());
   }
   // produces something that dont affect statistics
   destructureInventory(i: Inventory) {

@@ -7,6 +7,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { Inventory } from 'src/app/inventory';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { Display } from 'src/app/display';
+import { Statistic } from 'src/app/classes/statistic';
 @Component({
   selector: 'app-statistic-clinic-summary',
   templateUrl: './statistic-clinic-summary.component.html',
@@ -29,11 +30,11 @@ export class StatisticClinicSummaryComponent implements OnInit {
     window.print();
   }
   interval: any;
-  rawStatistics: Inventory[] = [];
-  cleanedStatistics: any = [];
-  filterStats: Inventory[] = [];
-  inventories: Inventory[] = [];
-  filteredInventories: Inventory[] = [];
+
+  cleanedStatistics!: Inventory[];
+
+  kijaInventories!: Statistic;
+
   medicines: Medicine[] = [];
   stores: Store[] = [];
   loading: boolean = false;
@@ -49,122 +50,106 @@ export class StatisticClinicSummaryComponent implements OnInit {
   }
   // start filter by product
   filterProduct(item: any) {
-    this.cleanedStatistics = this.filterStats.filter((i: any) => {
-      return i.commodity == item;
-    });
+    this.cleanedStatistics = this.kijaInventories.currentStatistics.filter(
+      (i: any) => {
+        return i.commodity == item;
+      }
+    );
   }
   clearProductFilter(item: any) {
-    this.cleanedStatistics = this.filterStats;
+    this.cleanedStatistics = this.kijaInventories.currentStatistics;
   }
   // filter by product
   // filter by quantity
   clearQuantityFilter(run: boolean) {
     if (!run) return;
-    this.cleanedStatistics = this.rawStatistics;
+    this.cleanedStatistics = this.kijaInventories.currentStatistics;
   }
   getlt(run: boolean) {
     if (!run) return;
     if (this.statistic == this.statistics[1]) {
-      this.cleanedStatistics = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.dispensed);
-        return sum <= 0;
-      });
-      this.filterStats = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.dispensed);
-        return sum <= 0;
-      });
+      this.cleanedStatistics = this.kijaInventories.currentStatistics.filter(
+        (i) => {
+          const sum = this.reduceSum(i.dispensed);
+          return sum <= 0;
+        }
+      );
+
       return;
     }
     if (this.statistic == this.statistics[2]) {
-      this.cleanedStatistics = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.received);
-        return sum <= 0;
-      });
-      this.filterStats = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.received);
-        return sum <= 0;
-      });
+      this.cleanedStatistics = this.kijaInventories.currentStatistics.filter(
+        (i) => {
+          const sum = this.reduceSum(i.received);
+          return sum <= 0;
+        }
+      );
+
       return;
     }
     if (this.statistic == this.statistics[3]) {
-      this.cleanedStatistics = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.issued);
-        return sum <= 0;
-      });
-      this.filterStats = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.issued);
-        return sum <= 0;
-      });
+      this.cleanedStatistics = this.kijaInventories.currentStatistics.filter(
+        (i) => {
+          const sum = this.reduceSum(i.issued);
+          return sum <= 0;
+        }
+      );
+
       return;
     }
-    this.cleanedStatistics = this.rawStatistics.filter((i) => {
-      const dispensed = this.reduceSum(i.dispensed);
-      const received = this.reduceSum(i.received);
-      const issued = this.reduceSum(i.issued);
-      const beginning = i.beginning;
-      const sum = beginning + received - dispensed - issued;
-      return sum <= 0;
-    });
-    this.filterStats = this.rawStatistics.filter((i) => {
-      const dispensed = this.reduceSum(i.dispensed);
-      const received = this.reduceSum(i.received);
-      const issued = this.reduceSum(i.issued);
-      const beginning = i.beginning;
-      const sum = beginning + received - dispensed - issued;
-      return sum <= 0;
-    });
+    this.cleanedStatistics = this.kijaInventories.currentStatistics.filter(
+      (i) => {
+        const dispensed = this.reduceSum(i.dispensed);
+        const received = this.reduceSum(i.received);
+        const issued = this.reduceSum(i.issued);
+        const beginning = i.beginning;
+        const sum = beginning + received - dispensed - issued;
+        return sum <= 0;
+      }
+    );
   }
   getgt(run: boolean) {
     if (!run) return;
     if (this.statistic == this.statistics[1]) {
-      this.cleanedStatistics = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.dispensed);
-        return sum > 0;
-      });
-      this.filterStats = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.dispensed);
-        return sum > 0;
-      });
+      this.cleanedStatistics = this.kijaInventories.currentStatistics.filter(
+        (i) => {
+          const sum = this.reduceSum(i.dispensed);
+          return sum > 0;
+        }
+      );
+
       return;
     }
     if (this.statistic == this.statistics[2]) {
-      this.cleanedStatistics = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.received);
-        return sum > 0;
-      });
-      this.filterStats = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.received);
-        return sum > 0;
-      });
+      this.cleanedStatistics = this.kijaInventories.currentStatistics.filter(
+        (i) => {
+          const sum = this.reduceSum(i.received);
+          return sum > 0;
+        }
+      );
+
       return;
     }
     if (this.statistic == this.statistics[3]) {
-      this.cleanedStatistics = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.issued);
-        return sum > 0;
-      });
-      this.filterStats = this.rawStatistics.filter((i) => {
-        const sum = this.reduceSum(i.issued);
-        return sum > 0;
-      });
+      this.cleanedStatistics = this.kijaInventories.currentStatistics.filter(
+        (i) => {
+          const sum = this.reduceSum(i.issued);
+          return sum > 0;
+        }
+      );
+
       return;
     }
-    this.cleanedStatistics = this.rawStatistics.filter((i) => {
-      const dispensed = this.reduceSum(i.dispensed);
-      const received = this.reduceSum(i.received);
-      const issued = this.reduceSum(i.issued);
-      const beginning = i.beginning;
-      const sum = beginning + received - dispensed - issued;
-      return sum > 0;
-    });
-    this.filterStats = this.rawStatistics.filter((i) => {
-      const dispensed = this.reduceSum(i.dispensed);
-      const received = this.reduceSum(i.received);
-      const issued = this.reduceSum(i.issued);
-      const beginning = i.beginning;
-      const sum = beginning + received - dispensed - issued;
-      return sum > 0;
-    });
+    this.cleanedStatistics = this.kijaInventories.currentStatistics.filter(
+      (i) => {
+        const dispensed = this.reduceSum(i.dispensed);
+        const received = this.reduceSum(i.received);
+        const issued = this.reduceSum(i.issued);
+        const beginning = i.beginning;
+        const sum = beginning + received - dispensed - issued;
+        return sum > 0;
+      }
+    );
   }
   // end of filter by date
   // filter by statistic
@@ -189,47 +174,8 @@ export class StatisticClinicSummaryComponent implements OnInit {
   // end of filter by statistic
   // filter by date
   setTime(dates: { startDate: Date; endDate: Date }) {
-    this.cleanedStatistics = this.filterDates(dates);
-    this.filterStats = this.filterDates(dates);
-    // console.log({ statLength: this.cleanedStatistics });
-  }
-  filterDates(date: { startDate: Date; endDate: Date }) {
-    const posteriori = this.rawStatistics.map((i) => {
-      let {
-        active,
-        commodity,
-        outlet,
-        unit,
-        unit_value,
-        dispensed,
-        issued,
-        isWarehouse,
-        received,
-        beginning,
-        inventory_level,
-        sn,
-      } = i;
-      dispensed = this.searchDates(date, i.dispensed);
-      received = this.searchDates(date, i.received);
-      issued = this.searchDates(date, i.issued);
-
-      return {
-        active,
-        commodity,
-        outlet,
-        unit,
-        unit_value,
-        dispensed,
-        issued,
-        isWarehouse,
-        received,
-        beginning,
-        inventory_level,
-        sn,
-      };
-    });
-
-    return posteriori;
+    this.kijaInventories.filterInventoryByDate(dates.startDate, dates.endDate);
+    this.cleanedStatistics = this.kijaInventories.currentStatistics;
   }
 
   displayAll() {
@@ -268,22 +214,44 @@ export class StatisticClinicSummaryComponent implements OnInit {
     this.menuState = !this.menuState;
   }
   getStores() {
+    if (this.storeService.stores.length) {
+      this.stores = this.storeService.stores;
+      return;
+    }
     this.storeService.getStores().subscribe((i) => {
       this.stores = i;
+      this.storeService.stores = i;
     });
   }
   getMedicines() {
+    if (this.medicineService.medicines.length) {
+      this.medicines = this.medicineService.medicines;
+      return;
+    }
     this.medicineService.getMedicines().subscribe((i) => {
       this.medicines = i;
+      this.medicineService.medicines = i;
     });
   }
   getInventory(store: any) {
+    if (this.inventoryService.inventories.length) {
+      const i = this.inventoryService.filterInventoriesByStore(store) || [];
+
+      this.kijaInventories = new Statistic(i);
+      this.cleanedStatistics = this.kijaInventories.currentStatistics;
+      return;
+    }
     this.inventoryService.getInventoryByStore(store).subscribe((i) => {
-      this.inventories = i;
-      // console.log({ store: store, inventories: this.inventories });
-      this.setSummary();
+      this.kijaInventories = new Statistic(i);
+      this.cleanedStatistics = this.kijaInventories.currentStatistics;
     });
+
+    // console.log({ kijastats: this.inventoryService.inventories.length });
+    // console.log({ store: store, inventories: this.inventories });
+
+    // this.setSummary();
   }
+
   watchRoute() {
     this.route.params.subscribe((p) => {
       const store = p['outlet'];
@@ -306,31 +274,27 @@ export class StatisticClinicSummaryComponent implements OnInit {
     }, 2);
   }
   checkStatus() {
-    const isLoading: boolean = !(
-      this.medicines.length > 0 &&
-      this.inventories.length > 0 &&
-      this.stores.length > 0
-    );
+    const isLoading: boolean = !this.cleanedStatistics.length;
     if (isLoading) return;
-    this.setSummary();
+    // this.setSummary();
     this.loading = false;
     clearInterval(this.interval);
   }
-  setSummary() {
-    this.cleanedStatistics = this.inventoryService.getSummary(
-      this.medicines,
-      this.inventories
-    );
-    this.filterStats = this.inventoryService.getSummary(
-      this.medicines,
-      this.inventories
-    );
+  // setSummary() {
+  //   this.cleanedStatistics = this.inventoryService.getSummary(
+  //     this.medicines,
+  //     this.inventories
+  //   );
+  //   this.filterStats = this.inventoryService.getSummary(
+  //     this.medicines,
+  //     this.inventories
+  //   );
 
-    this.rawStatistics = this.inventoryService.getSummary(
-      this.medicines,
-      this.inventories
-    );
-  }
+  //   this.rawStatistics = this.inventoryService.getSummary(
+  //     this.medicines,
+  //     this.inventories
+  //   );
+  // }
 
   searchDates(date: { startDate: Date; endDate: Date }, item: any) {
     return item.filter((i: any) => {

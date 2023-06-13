@@ -39,6 +39,10 @@ export class StatisticFormClinicComponent {
   @Output() onClearQuantityFilter = new EventEmitter<boolean>();
   @Output() onClearMedicineFilter = new EventEmitter<boolean>();
   @Output() onFilterProduct = new EventEmitter<string>();
+  allTime: string = 'ALL TIME';
+  todayTime: string = 'TODAY';
+  anyTime: string = 'FILTER BY DATE';
+  durationFilter: string = this.allTime;
   startDate: string = '';
   all: string = 'ALL';
   outlet: string = '';
@@ -56,6 +60,7 @@ export class StatisticFormClinicComponent {
   }
 
   toggleSearch() {
+    this.durationFilter = this.anyTime;
     this.searchbox = !this.searchbox;
   }
   toggleStatistics() {
@@ -102,7 +107,7 @@ export class StatisticFormClinicComponent {
     const date = new Date(`${month}/${day}/${year}`);
     const endDate = new Date(`${month}/${day + 1}/${year}`);
     this.onFilterDate.emit({ startDate: date, endDate: endDate });
-    console.log({ day, month, year });
+    this.durationFilter = this.todayTime;
   }
   allTimeFilter() {
     const now = new Date();
@@ -112,8 +117,9 @@ export class StatisticFormClinicComponent {
     const date = new Date(`${1}/${1}/${1970}`);
     const endDate = new Date(`${month}/${day + 1}/${year}`);
     this.onFilterDate.emit({ startDate: date, endDate: endDate });
-    console.log({ day, month, year });
+    this.durationFilter = this.allTime;
   }
+
   filterDate() {
     const startDate = new Date(this.startDate);
     const endDate = new Date(this.endDate);

@@ -20,3 +20,7 @@
 button:hover .left {
   display: inline-block;
 }
+.timefilter {
+  background-color: black;
+  color: white;
+}

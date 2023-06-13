@@ -21,6 +21,7 @@ export class StatisticSummaryComponent implements OnInit {
   cleanedStatistics: Inventory[] = [];
   filterStats: any = [];
   inventories: Inventory[] = [];
+
   filteredInventories: Inventory[] = [];
   medicines: Medicine[] = [];
   stores: Store[] = [];
@@ -142,16 +143,19 @@ export class StatisticSummaryComponent implements OnInit {
   getStores() {
     this.storeService.getStores().subscribe((i) => {
       this.stores = i;
+      this.storeService.stores = i;
     });
   }
   getMedicines() {
     this.medicineService.getMedicines().subscribe((i) => {
       this.medicines = i;
+      this.medicineService.medicines = i;
     });
   }
   getInventory() {
     this.inventoryService.getInventories().subscribe((i) => {
       this.inventories = i;
+      this.inventoryService.inventories = i;
     });
   }
   getResources() {

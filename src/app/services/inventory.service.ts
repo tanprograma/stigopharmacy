@@ -9,12 +9,18 @@ import { Medicine } from '../medicine';
 })
 export class InventoryService {
   inventories: Inventory[] = [];
+
   url = environment.inventories_url;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
   };
+  filterInventoriesByStore(store: any) {
+    return this.inventories.filter((i) => {
+      return i.outlet == store;
+    });
+  }
   getSummary(keys: Medicine[], inventory: Inventory[]) {
     const modInventory: any = [];
     keys.forEach((key) => {

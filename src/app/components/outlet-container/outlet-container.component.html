@@ -1,5 +1,6 @@
 <div class="router__container">
   <nav class="secondary__navigation">
+    <h3>actions</h3>
     <ul class="navigation__list">
       <li class="navigation__list__item">
         <a routerLink="/outlet/dispense">dispense</a>
@@ -7,14 +8,15 @@
       <li class="navigation__list__item">
         <a routerLink="/outlet/issue">issue</a>
       </li>
-      <!-- <li class="navigation__list__item">
-        <a>lorem</a>
-      </li>
+    </ul>
+    <h3>statistics</h3>
+    <ul class="navigation__list">
       <li class="navigation__list__item">
-        <a>lorem</a>
-      </li> -->
+        <a routerLink="/statistics/summary">summary</a>
+      </li>
     </ul>
   </nav>
+
   <div class="router__outlet">
     <router-outlet></router-outlet>
   </div>

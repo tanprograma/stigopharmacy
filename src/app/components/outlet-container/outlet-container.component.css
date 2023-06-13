@@ -1,6 +1,9 @@
 .router__container {
   background-color: blue;
 }
+h3 {
+  text-align: center;
+}
 .navigation__list__item a {
   display: flex;
   justify-content: center;
