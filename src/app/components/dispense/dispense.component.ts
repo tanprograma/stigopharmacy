@@ -23,7 +23,8 @@ export class DispenseComponent implements OnInit {
   clients: Client[] = [];
   stores: Store[] = [];
   medicines: Medicine[] = [];
-  dispensed: any = [];
+  dispensed: number = 0;
+  uploaded: any = [];
   inventory: Inventory[] = [];
   client: string = '';
   outlet: string = '';
@@ -170,8 +171,17 @@ export class DispenseComponent implements OnInit {
     this.requested = 0;
     this.medicine = '';
   }
-  clearPrescription() {
-    this.payloads = [];
+  clearPrescription(item: any) {
+    if (!item) return;
+    this.payloads = this.payloads.filter((i: any) => {
+      return i.commodity != item.commodity;
+    });
+    this.loading = false;
+    if (!this.payloads.length) {
+      this.dispensed += 1;
+
+      this.uploaded = [];
+    }
   }
   dispense() {
     if (!this.payloads.length) return;
@@ -180,10 +190,14 @@ export class DispenseComponent implements OnInit {
     this.inventoryService
       .dispense({ store: this.outlet, payload: this.payloads })
       .subscribe((i) => {
-        console.log({ dispensed: i });
-        this.dispensed.splice(0, 0, i);
-        this.loading = false;
-        this.clearPrescription();
+        if (!i.length) {
+          this.loading = false;
+          return;
+        }
+        this.uploaded.splice(0, 0, ...i);
+        i.forEach((item: any) => {
+          this.clearPrescription(item);
+        });
       });
   }
 }

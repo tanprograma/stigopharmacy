@@ -6,8 +6,9 @@
   <div class="items__container">
     <div class="head">
       <h2 class="head__content">
-        ITEMS IN PRESCIPTION ({{ payloads.length }})
-        <span>DISPENSED: ({{ dispensed.length }})</span>
+        PRESCRIPTION ({{ payloads.length }})
+        <span *ngIf="uploaded.length">UPLOADED ({{ uploaded.length }})</span>
+        <span>DISPENSED: ({{ dispensed }})</span>
       </h2>
     </div>
     <div class="items">
