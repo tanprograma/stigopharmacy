@@ -26,8 +26,13 @@
             <label for="client">file to import</label>
             <input id="client" #file type="file" accept=".csv" />
           </div>
-          <div class="formgroup">
+          <div class="formgroup" *ngIf="!resubmit">
             <button class="submit" (click)="add(file)">SUBMIT</button>
+          </div>
+          <div class="formgroup" *ngIf="resubmit">
+            <button class="submit" (click)="resubmitAgain()">
+              RESUBMIT AGAIN
+            </button>
           </div>
         </div>
       </div>

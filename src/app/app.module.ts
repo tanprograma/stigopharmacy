@@ -43,6 +43,7 @@ import { AdvertComponent } from './components/advert/advert.component';
 import { ImportUnitsComponent } from './components/import-units/import-units.component';
 import { BackdateComponent } from './components/backdate/backdate.component';
 import { ImportInventoryComponent } from './components/import-inventory/import-inventory.component';
+import { BackdateIssueComponent } from './components/backdate-issue/backdate-issue.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { ImportInventoryComponent } from './components/import-inventory/import-i
     ImportUnitsComponent,
     BackdateComponent,
     ImportInventoryComponent,
+    BackdateIssueComponent,
   ],
   imports: [
     BrowserModule,

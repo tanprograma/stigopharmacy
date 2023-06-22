@@ -11,14 +11,13 @@ import { InventoryService } from 'src/app/services/inventory.service';
 import { Inventory } from 'src/app/inventory';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-issue',
-  templateUrl: './issue.component.html',
-  styleUrls: ['./issue.component.css'],
+  selector: 'app-backdate-issue',
+  templateUrl: './backdate-issue.component.html',
+  styleUrls: ['./backdate-issue.component.css'],
 })
-export class IssueComponent implements OnInit {
+export class BackdateIssueComponent {
   @Output() isLoading = new EventEmitter<boolean>();
   interval!: any;
-  message!: string;
   available: number = 0;
   clients: Client[] = [];
   stores: Store[] = [];
@@ -28,6 +27,7 @@ export class IssueComponent implements OnInit {
   inventory: Inventory[] = [];
   client: string = '';
   outlet: string = '';
+  date: number = 0;
   payloads: {
     commodity: string;
     payload: { date?: number; client: string; quantity: number };
@@ -54,7 +54,9 @@ export class IssueComponent implements OnInit {
       }
     }, 5000);
   }
-
+  setDate(d: any) {
+    this.date = new Date(d).valueOf();
+  }
   getAvailable() {
     console.log('running available');
     const item = this.inventory.find((i) => {
@@ -67,7 +69,6 @@ export class IssueComponent implements OnInit {
   }
   iniatialize() {
     this.loading = true;
-    this.message = 'loading resources';
     this.redirect();
     this.interval = setInterval(() => {
       const isLoading = !(this.medicines.length && this.stores.length);
@@ -79,7 +80,6 @@ export class IssueComponent implements OnInit {
   }
   stopLoading() {
     this.loading = false;
-    this.message = 'uploading......resource not added';
     clearInterval(this.interval);
   }
 
@@ -143,8 +143,13 @@ export class IssueComponent implements OnInit {
       return i.commodity == this.medicine;
     });
     if (!found) {
+      if (this.date == 0) return;
       this.payloads.splice(0, 0, {
-        payload: { quantity: this.requested, client: this.client },
+        payload: {
+          quantity: this.requested,
+          client: this.client,
+          date: this.date,
+        },
         commodity: this.medicine,
       });
       this.clearForm();

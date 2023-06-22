@@ -32,7 +32,7 @@
 }
 .formitems .submitted {
   position: relative;
-  top: 5rem;
+  top: 3rem;
 }
 .submitted button {
   background-color: grey;
@@ -44,11 +44,13 @@ input,
 select,
 .submit {
   display: block;
+
   width: 90%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0.2rem;
 }
+
 .available {
   background-color: white;
   text-align: center;
@@ -62,7 +64,7 @@ label {
 }
 .submit {
   height: 2rem;
-  margin-top: 0.2rem;
+  /* margin-top: 0.2rem; */
   background-color: black;
   color: white;
   border-radius: 5px;
@@ -86,12 +88,7 @@ select {
   flex: 0 0 calc(100% * (2 / 3));
   height: 92%;
 }
-.items__container .dispense {
-  height: 7%;
-}
-/* .items__container .submit {
-  width: 80%;
-} */
+
 .head {
   height: 7%;
   background-color: rgb(238, 229, 217);
@@ -102,6 +99,9 @@ select {
 .items {
   height: 86%;
   overflow-y: scroll;
+}
+.items__container .dispense {
+  height: 7%;
 }
 .item {
   color: rgb(108, 104, 104);

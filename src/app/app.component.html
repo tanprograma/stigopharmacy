@@ -43,7 +43,15 @@
         </li>
         <li [class.selected]="backdate == selected">
           <a routerLink="/backdate" #backdate (click)="select(backdate)"
-            >BACKDATE</a
+            >BACK-DISPENSE</a
+          >
+        </li>
+        <li [class.selected]="backdateIssue == selected">
+          <a
+            routerLink="/backdate/issue"
+            #backdateIssue
+            (click)="select(backdateIssue)"
+            >BACK-ISSUE</a
           >
         </li>
       </ul>

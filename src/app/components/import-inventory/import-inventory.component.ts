@@ -24,6 +24,8 @@ export class ImportInventoryComponent {
   inventory: Inventory[] = [];
   medicines: Medicine[] = [];
   stores: Store[] = [];
+  imported: any = [];
+  resubmit: boolean = false;
   message: string = 'loading...';
   uploaded: any = [];
   submitted: Inventory[] = [];
@@ -66,8 +68,17 @@ export class ImportInventoryComponent {
     // console.log(body);
     this.uploadInventory(body);
   };
+  resubmitAgain() {
+    this.loading = true;
+    this.inventoryService
+      .uploadBeginning({ store: this.store, items: this.imported })
+      .subscribe((i) => {
+        if (!i.length) return;
+        this.filterExported(i);
+        this.loading = false;
+      });
+  }
   uploadInventory(x: any) {
-    const filtered: any = [];
     x.forEach((i: any) => {
       const found = this.inventory.find((v) => {
         return v.commodity == i.commodity?.toUpperCase();
@@ -75,21 +86,41 @@ export class ImportInventoryComponent {
       if (!found) {
         return;
       }
-      filtered.push(i);
+      this.imported.push(i);
     });
 
-    if (!filtered.length) return;
+    if (!this.imported.length) return;
     // console.log(filtered);
 
     this.loading = true;
     this.inventoryService
-      .uploadBeginning({ store: this.store, items: filtered })
+      .uploadBeginning({ store: this.store, items: this.imported })
       .subscribe((i) => {
-        // console.log(i);
-        this.uploaded = i;
-        this.submitted = filtered;
+        if (!i.length) return;
+        this.filterExported(i);
         this.loading = false;
       });
+  }
+  filterExported(i: any) {
+    this.uploaded.splice(0, 0, ...i);
+    this.submitted.splice(
+      0,
+      0,
+      this.imported.map((i: any) => {
+        return i;
+      })
+    );
+    this.imported = this.imported.filter((x: any) => {
+      const found = i.find((z: any) => {
+        return z.commodity == x.commodity;
+      });
+      return x.commodity != found.commodity;
+    });
+    if (!this.imported.length) {
+      this.resubmit = false;
+      return;
+    }
+    this.resubmit = true;
   }
   getDispensed() {
     this.loading = true;

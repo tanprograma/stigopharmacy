@@ -2,13 +2,13 @@
   <div class="x-loader" *ngIf="loading">
     <app-loader [message]="'loading resources'"></app-loader>
   </div>
-  <div class="header">BACK-DISPENSE FORM</div>
+  <div class="header">BACK-ISSUE FORM</div>
   <div class="items__container">
     <div class="head">
       <h2 class="head__content">
-        PRESCRIPTION ({{ payloads.length }})
+        REQUEST ({{ payloads.length }})
         <span *ngIf="uploaded.length">UPLOADED ({{ uploaded.length }})</span>
-        <span>DISPENSED: ({{ dispensed }})</span>
+        <span>ISSUED: ({{ dispensed }})</span>
       </h2>
     </div>
     <div class="items">
@@ -50,12 +50,12 @@
       </div>
     </div>
     <div class="dispense">
-      <button class="submit" (click)="dispense()">SUBMIT PRESCRIPTION</button>
+      <button class="submit" (click)="dispense()">SUBMIT REQUEST</button>
     </div>
   </div>
   <div class="form">
     <div class="formheader">
-      <h2>PRESCRIPTION FORM</h2>
+      <h2>ISSUE FORM</h2>
     </div>
     <div class="formitems">
       <div class="formgroup">
@@ -71,7 +71,7 @@
       <div class="formgroup">
         <label for="client">client</label>
         <select name="client" id="client" [(ngModel)]="client">
-          <option *ngFor="let _client of clients" [value]="_client.name">
+          <option *ngFor="let _client of stores" [value]="_client.name">
             {{ _client.name }}
           </option>
         </select>
@@ -123,7 +123,7 @@
       </div>
 
       <div class="formgroup">
-        <button class="submit" (click)="add()">ADD TO PRESCRIPTION</button>
+        <button class="submit" (click)="add()">ADD TO REQUEST</button>
       </div>
     </div>
   </div>

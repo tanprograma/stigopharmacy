@@ -23,6 +23,7 @@ import { OrdersContainerComponent } from './components/orders-container/orders-c
 import { ImportUnitsComponent } from './components/import-units/import-units.component';
 import { BackdateComponent } from './components/backdate/backdate.component';
 import { ImportInventoryComponent } from './components/import-inventory/import-inventory.component';
+import { BackdateIssueComponent } from './components/backdate-issue/backdate-issue.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/outlet/dispense' },
@@ -76,6 +77,15 @@ export const routes: Routes = [
   {
     path: 'backdate',
     component: BackdateComponent,
+    // children: [
+    //   { path: 'create', component: OrdersCreateComponent },
+    //   { path: 'view', component: OrdersViewComponent },
+    //   { path: 'edit/:id', component: OrdersEditComponent },
+    // ],
+  },
+  {
+    path: 'backdate/issue',
+    component: BackdateIssueComponent,
     // children: [
     //   { path: 'create', component: OrdersCreateComponent },
     //   { path: 'view', component: OrdersViewComponent },

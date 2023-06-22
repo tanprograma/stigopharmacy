@@ -1,113 +1,118 @@
-<div class="x-container">
+<div class="dispense x-container">
   <div class="x-loader" *ngIf="loading">
     <app-loader [message]="message"></app-loader>
   </div>
-  <div class="x-item">
-    <div class="dispense">
-      <div class="header">ISSUE FORM</div>
-      <div class="form" *ngIf="!loading">
-        <div class="formheader"><h2>PRESCRIPTION FORM</h2></div>
-        <div class="formitems">
-          <!-- <div class="formgroup">
-        <label for="date">date</label>
-        <input type="date" id="date" name="date" [(ngModel)]="date" />
-      </div> -->
-          <div class="formgroup">
-            <label for="client">client</label>
-            <select name="client" id="client" [(ngModel)]="prescription.client">
-              <option *ngFor="let _client of stores" [value]="_client.name">
-                {{ _client.name }}
-              </option>
-            </select>
-          </div>
-          <div class="formgroup">
-            <label for="outlet">outlet</label>
-            <input
-              list="stores"
-              name="outlet"
-              id="outlet"
-              [(ngModel)]="prescription.outlet"
-              (input)="getInventoryByStore()"
-            />
-            <datalist id="stores">
-              <option *ngFor="let _outlet of stores" [value]="_outlet.name">
-                {{ _outlet.name }}
-              </option>
-            </datalist>
-          </div>
-          <div class="formgroup">
-            <label for="medicine">medicine</label>
-            <input
-              list="medicines"
-              [(ngModel)]="medicine"
-              (input)="getAvailable()"
-            />
-            <datalist id="medicines">
-              <option
-                *ngFor="let _medicine of medicines"
-                [value]="_medicine.name"
-              >
-                {{ _medicine.name }}
-              </option>
-            </datalist>
-          </div>
-          <div class="formgroup">
-            <label for="unit">unit</label>
-            <input #unit type="text" [value]="'each'" />
-          </div>
-          <div class="formgroup">
-            <label for="quantity">quantity</label>
-            <input type="number" [(ngModel)]="requested" />
-          </div>
-          <div class="formgroup" *ngIf="available">
-            <div class="available">
-              <p>available {{ available }}</p>
-            </div>
-          </div>
-          <div class="formgroup">
-            <button class="submit" (click)="add()">ADD TO PRESCRIPTION</button>
-          </div>
+  <div class="header">ISSUE FORM</div>
+  <div class="form">
+    <div class="formheader">
+      <h2>ISSUE FORM</h2>
+    </div>
+    <div class="formitems">
+      <div class="formgroup">
+        <label for="client">client</label>
+        <select name="client" id="client" [(ngModel)]="client">
+          <option *ngFor="let _client of stores" [value]="_client.name">
+            {{ _client.name }}
+          </option>
+        </select>
+      </div>
+      <div class="formgroup">
+        <label for="outlet">outlet</label>
+        <input
+          list="stores"
+          name="outlet"
+          id="outlet"
+          [(ngModel)]="outlet"
+          (input)="getInventoryByStore()"
+        />
+        <datalist id="stores">
+          <option *ngFor="let _outlet of stores" [value]="_outlet.name">
+            {{ _outlet.name }}
+          </option>
+        </datalist>
+      </div>
+      <div class="formgroup">
+        <label for="medicine">medicine</label>
+        <input
+          list="medicines"
+          #y
+          [(ngModel)]="medicine"
+          (input)="getAvailable()"
+        />
+        <datalist id="medicines">
+          <option *ngFor="let _medicine of medicines" [value]="_medicine.name">
+            {{ _medicine.name }}
+          </option>
+        </datalist>
+      </div>
+      <div class="formgroup">
+        <label for="unit">unit</label>
+        <input #unit type="text" [value]="'each'" />
+      </div>
+      <div class="formgroup">
+        <label for="quantity">quantity</label>
+        <input type="number" [(ngModel)]="requested" />
+      </div>
+      <div class="formgroup" *ngIf="y.value.length">
+        <div class="available">
+          <p>available {{ available ? available : 0 }}</p>
         </div>
       </div>
+      <div class="formgroup">
+        <button class="submit" (click)="add()">ADD TO REQUEST</button>
+      </div>
+    </div>
+  </div>
 
-      <div class="items__container">
-        <div class="head">
-          <h2 class="head__content">
-            ITEMS IN REQUEST (
-            {{ prescription.items.length }})
-            <span>ISSUED: ({{ issued.length }})</span>
-          </h2>
-        </div>
-        <div class="items">
-          <div class="item" *ngFor="let i of prescription.items">
-            <ul>
-              <li>
-                <h3>client</h3>
-                <p>{{ prescription.client }}</p>
-              </li>
+  <div class="items__container">
+    <div class="head">
+      <h2 class="head__content">
+        REQUESTS ({{ payloads.length }})
+        <span *ngIf="uploaded.length">UPLOADED ({{ uploaded.length }})</span>
+        <span>ISSUED: ({{ dispensed }})</span>
+      </h2>
+    </div>
+    <div class="items">
+      <div class="item" *ngFor="let i of payloads">
+        <ul>
+          <li>
+            <h3>client</h3>
+            <p>{{ client }}</p>
+          </li>
 
-              <li>
-                <h3>medicine</h3>
-                <p>{{ i.commodity }}</p>
-              </li>
-              <li>
-                <h3>unit</h3>
-                <p>each</p>
-              </li>
-              <li>
-                <h3>quantity</h3>
-                <p>{{ i.quantity }}</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="dispense">
-          <div class="formgroup submitted">
-            <button class="submit" (click)="issue()">
-              SUBMIT PRESCRIPTION
-            </button>
-          </div>
-        </div>
+          <li>
+            <h3>medicine</h3>
+            <p>{{ i.commodity }}</p>
+          </li>
+          <li>
+            <h3>unit</h3>
+            <p>each</p>
+          </li>
+          <li>
+            <h3>quantity</h3>
+
+            <p>
+              <input
+                type="number"
+                name=""
+                id=""
+                [(ngModel)]="i.payload.quantity"
+              />
+            </p>
+          </li>
+          <li>
+            <!-- <h3>quantity</h3> -->
+
+            <p>
+              <button (click)="delete(i)">DELETE</button>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="dispense">
+      <div class="formgroup submitted">
+        <button class="submit" (click)="dispense()">SUBMIT REQUEST</button>
       </div>
     </div>
   </div>
