@@ -168,6 +168,16 @@ export class InventoryService {
       catchError(this.errorHandler('something is wrong', []))
     );
   }
+  getInventoryByURL(store: string, url: string): Observable<Inventory[]> {
+    if (!store.length) return of([]);
+
+    return this.http.get<Inventory[]>(`${url}/api/inventories/${store}`).pipe(
+      tap((_) => {
+        console.log(`fetched inventory for ${store} }`);
+      }),
+      catchError(this.errorHandler('something is wrong', []))
+    );
+  }
   importDispensedBy(store: string): Observable<Inventory[]> {
     if (!store.length) return of([]);
 

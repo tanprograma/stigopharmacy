@@ -5,12 +5,8 @@
   <div class="x-item">
     <div class="dispense">
       <div class="form form-color">
-        <div class="formheader"><h2>IMPORT DISPENSED</h2></div>
+        <div class="formheader"><h2>DISPENSED FROM SERVER</h2></div>
         <div class="formitems">
-          <div class="formgroup">
-            <label for="client">start date</label>
-            <input type="date" id="date" name="date" [(ngModel)]="date" />
-          </div>
           <div class="formgroup">
             <label for="outlet">select outlet</label>
             <input
@@ -27,32 +23,43 @@
             </datalist>
           </div>
           <div class="formgroup">
-            <label for="client">file to import</label>
-            <input id="clients" #file type="file" accept=".csv" />
+            <label for="client">database url</label>
+            <input
+              id="clients"
+              type="text"
+              [(ngModel)]="url"
+              autocomplete="on"
+            />
           </div>
           <div class="formgroup">
-            <button class="submit" (click)="add(file)">SUBMIT</button>
+            <button class="submit" (click)="fetchDispensedFromServer()">
+              FETCH DISPENSED
+            </button>
+          </div>
+          <div class="formgroup down">
+            <button class="submit" (click)="add()">IMPORT DISPENSED</button>
           </div>
         </div>
       </div>
       <div class="items__container preview-color">
         <div class="head">
           <h2 class="head__content">
+            <span>FETCHED ({{ fetched.length }})</span>
             <span>SUBMITTED DOCS ({{ submitted.length }})</span> UPLOADED DOCS:
             ({{ uploaded.length }})
           </h2>
         </div>
         <div class="items">
-          <div class="item" *ngFor="let i of uploaded">
+          <div class="item" *ngFor="let i of fetched">
             <ul>
               <li>
-                <h3>store</h3>
+                <h3>item</h3>
                 <p>{{ i.commodity }}</p>
               </li>
 
               <li>
-                <h3>status</h3>
-                <p>added</p>
+                <h3>dispensed rec</h3>
+                <p>{{ i.quantities.length }}</p>
               </li>
             </ul>
           </div>
