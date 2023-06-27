@@ -26,7 +26,7 @@ export class ImportDispensedComponent {
   stores: Store[] = [];
   message: string = 'loading...';
   uploaded: any = [];
-  submitted: Inventory[] = [];
+  submitted: number = 0;
   client: string = '';
   loading: boolean = false;
   success: boolean = true;
@@ -108,7 +108,7 @@ export class ImportDispensedComponent {
     this.inventoryService
       .uploadDispensed({ store: this.store, items: this.toSubmit })
       .subscribe((i) => {
-        this.submitted = this.submitted.splice(0, 0, ...this.toSubmit);
+        this.submitted += this.toSubmit.length;
         if (!i.length) {
           this.loading = false;
           return;
@@ -118,7 +118,7 @@ export class ImportDispensedComponent {
       });
   }
   display(i: any) {
-    this.uploaded = this.uploaded.splice(0, 0, ...i);
+    this.uploaded = [...this.uploaded, ...i];
     this.toSubmit = this.toSubmit.filter((x: any) => {
       const found = i.find((z: any) => {
         return x.commodity == z.commodity;
@@ -126,6 +126,11 @@ export class ImportDispensedComponent {
       return !found == true;
     });
     this.loading = false;
+    console.log({
+      i,
+      submitted: this.submitted,
+      uploaded: this.uploaded.length,
+    });
     if (!this.toSubmit.length) {
       this.success = true;
       return;

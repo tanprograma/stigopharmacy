@@ -171,7 +171,7 @@ export class InventoryService {
   getInventoryByURL(store: string, url: string): Observable<Inventory[]> {
     if (!store.length) return of([]);
 
-    return this.http.get<Inventory[]>(`${url}/api/inventories/${store}`).pipe(
+    return this.http.get<Inventory[]>(`${url}`).pipe(
       tap((_) => {
         console.log(`fetched inventory for ${store} }`);
       }),
