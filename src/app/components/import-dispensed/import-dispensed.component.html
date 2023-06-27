@@ -30,16 +30,20 @@
             <label for="client">file to import</label>
             <input id="clients" #file type="file" accept=".csv" />
           </div>
-          <div class="formgroup">
+          <div class="formgroup" *ngIf="success">
             <button class="submit" (click)="add(file)">SUBMIT</button>
+          </div>
+          <div class="formgroup" *ngIf="!success">
+            <button class="submit" (click)="uploadAgain()">UPLOAD AGAIN</button>
           </div>
         </div>
       </div>
       <div class="items__container preview-color">
         <div class="head">
           <h2 class="head__content">
-            <span>SUBMITTED DOCS ({{ submitted.length }})</span> UPLOADED DOCS:
-            ({{ uploaded.length }})
+            <span>SUBMITTED DOCS ({{ submitted.length }})</span>
+
+            UPLOADED DOCS: ({{ uploaded.length }})
           </h2>
         </div>
         <div class="items">

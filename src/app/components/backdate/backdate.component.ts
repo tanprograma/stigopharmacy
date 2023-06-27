@@ -35,6 +35,7 @@ export class BackdateComponent implements OnInit {
   medicine: string = '';
   requested = 0;
   loading: boolean = false;
+  success: boolean = true;
 
   constructor(
     private medicineService: MedicineService,

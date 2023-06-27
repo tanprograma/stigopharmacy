@@ -29,6 +29,8 @@ export class ImportDispensedComponent {
   submitted: Inventory[] = [];
   client: string = '';
   loading: boolean = false;
+  success: boolean = true;
+  toSubmit: any = [];
   prescription: Medicine = {
     name: '',
   };
@@ -38,6 +40,7 @@ export class ImportDispensedComponent {
   }
   add(x: HTMLInputElement) {
     if (!x.files) return;
+    // console.log(x.files[0]);
     const reader = new FileReader();
     if (x.files.length) {
       reader.readAsText(x.files[0]);
@@ -51,6 +54,7 @@ export class ImportDispensedComponent {
   }
   parseDispensed = (e: any) => {
     const data: string = e.target.result;
+
     const headers = data.split('\r\n')[0].split(',');
     const dates = headers.slice(1).map((date, index) => {
       return this.getDate(index);
@@ -87,28 +91,57 @@ export class ImportDispensedComponent {
     this.uploadDispensed(body);
   };
   uploadDispensed(x: any) {
-    const filtered: any = [];
     x.forEach((i: any) => {
       const found = this.inventory.find((v) => {
-        return v.commodity == i.name?.toUpperCase();
+        return v.commodity == i.commodity?.toUpperCase();
       });
       if (!found) {
         return;
       }
-      filtered.push(i);
+      this.toSubmit.push(i);
     });
-
-    if (!filtered.length) return;
-    // console.log(filtered);
+    // console.log({ this.toSubmit });
+    if (!this.toSubmit.length) return;
+    // console.log(this.toSubmit);
 
     this.loading = true;
     this.inventoryService
-      .uploadDispensed({ store: this.store, items: filtered })
+      .uploadDispensed({ store: this.store, items: this.toSubmit })
       .subscribe((i) => {
-        console.log(i);
-        this.uploaded = i;
-        this.submitted = filtered;
-        this.loading = false;
+        this.submitted = this.submitted.splice(0, 0, ...this.toSubmit);
+        if (!i.length) {
+          this.loading = false;
+          return;
+        }
+
+        this.display(i);
+      });
+  }
+  display(i: any) {
+    this.uploaded = this.uploaded.splice(0, 0, ...i);
+    this.toSubmit = this.toSubmit.filter((x: any) => {
+      const found = i.find((z: any) => {
+        return x.commodity == z.commodity;
+      });
+      return !found == true;
+    });
+    this.loading = false;
+    if (!this.toSubmit.length) {
+      this.success = true;
+      return;
+    }
+    this.success = false;
+  }
+  uploadAgain() {
+    this.inventoryService
+      .uploadDispensed({ store: this.store, items: this.toSubmit })
+      .subscribe((i) => {
+        if (!i.length) {
+          this.loading = false;
+          return;
+        }
+
+        this.display(i);
       });
   }
   getDispensed() {
