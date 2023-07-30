@@ -148,6 +148,17 @@ export class InventoryService {
         catchError(this.errorHandler<Inventory[]>('something is wrong', []))
       );
   }
+  receive(i: any) {
+    // console.log({ url: this.url });
+    return this.http
+      .post<any>(`${this.url}/receive/${i.store}`, i.payload, this.httpOptions)
+      .pipe(
+        tap((_) => {
+          console.log('received successfully');
+        }),
+        catchError(this.errorHandler<Inventory[]>('something is wrong', []))
+      );
+  }
   // issue(i: { client: string; outlet: string; items: any }) {
   //   return this.http
   //     .post<Inventory[]>(`${this.url}/issue`, i, this.httpOptions)

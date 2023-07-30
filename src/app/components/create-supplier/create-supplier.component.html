@@ -1,0 +1,53 @@
+<div class="x-container">
+  <div class="x-loader" *ngIf="loading">
+    <app-loader [message]="message"></app-loader>
+  </div>
+  <div class="x-item">
+    <div class="dispense">
+      <div class="form form-color">
+        <div class="formheader"><h2>ADD SUPPLIER</h2></div>
+        <div class="formitems">
+          <div class="formgroup">
+            <label for="supplier">supplier</label>
+            <input list="suppliers" [(ngModel)]="prescription.name" uppercase />
+            <datalist id="suppliers">
+              <option
+                *ngFor="let _supplier of suppliers"
+                [value]="_supplier.name"
+              >
+                {{ _supplier.name }}
+              </option>
+            </datalist>
+          </div>
+          <div class="formgroup">
+            <button class="submit" (click)="add()">CREATE SUPPLIER</button>
+          </div>
+        </div>
+      </div>
+      <div class="items__container preview-color">
+        <div class="head">
+          <h2 class="head__content">
+            <span>AVAILABLE SUPPLIERS: ({{ suppliers.length }})</span> CREATED
+            SUPPLIERS: ({{ items.length }})
+          </h2>
+        </div>
+        <div class="items">
+          <div class="item" *ngFor="let i of items">
+            <ul>
+              <li>
+                <h3>supplier</h3>
+                <p>{{ i.name }}</p>
+              </li>
+
+              <li>
+                <h3>status</h3>
+                <p>added</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- items -->

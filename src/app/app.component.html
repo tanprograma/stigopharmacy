@@ -2,7 +2,7 @@
   <header>
     <div class="title">
       <h1>
-        <span><fa-icon [icon]="faHouse"></fa-icon></span> stigoRX
+        <span><fa-icon [icon]="faHouse"></fa-icon></span> {{ title }}
         <a href="https://stigorx.onrender.com"
           ><span><fa-icon [icon]="faRefresh"></fa-icon></span
         ></a>
@@ -36,11 +36,16 @@
             >statistics</a
           >
         </li>
-        <li [class.selected]="orders == selected">
+        <li [class.selected]="receive == selected">
+          <a routerLink="/receive" #receive (click)="select(receive)"
+            >receive</a
+          >
+        </li>
+        <!-- <li [class.selected]="orders == selected">
           <a routerLink="/orders/view" #orders (click)="select(orders)"
             >orders</a
           >
-        </li>
+        </li> -->
         <li [class.selected]="backdate == selected">
           <a routerLink="/backdate" #backdate (click)="select(backdate)"
             >BACK-DISPENSE</a

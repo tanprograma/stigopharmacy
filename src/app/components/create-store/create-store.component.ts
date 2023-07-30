@@ -36,8 +36,9 @@ export class CreateStoreComponent {
       return i.name == this.prescription.name?.toUpperCase();
     });
     if (!found) {
-      console.log('created it: product was unavailable');
-      console.log({ found, name: this.prescription.name });
+      // console.log('created it: product was unavailable');
+      // console.log({ found, name: this.prescription.name });
+      // this.storeService.cre
       this.items.splice(0, 0, { name: this.prescription.name.toUpperCase() });
       this.stores.splice(0, 0, { name: this.prescription.name.toUpperCase() });
       return;

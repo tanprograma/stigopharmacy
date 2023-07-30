@@ -45,6 +45,8 @@ import { BackdateComponent } from './components/backdate/backdate.component';
 import { ImportInventoryComponent } from './components/import-inventory/import-inventory.component';
 import { BackdateIssueComponent } from './components/backdate-issue/backdate-issue.component';
 import { ImportDispensedServerComponent } from './components/import-dispensed-server/import-dispensed-server.component';
+import { ReceiveComponent } from './components/receive/receive.component';
+import { CreateSupplierComponent } from './components/create-supplier/create-supplier.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,8 @@ import { ImportDispensedServerComponent } from './components/import-dispensed-se
     ImportInventoryComponent,
     BackdateIssueComponent,
     ImportDispensedServerComponent,
+    ReceiveComponent,
+    CreateSupplierComponent,
   ],
   imports: [
     BrowserModule,
