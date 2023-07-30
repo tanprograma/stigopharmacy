@@ -37,6 +37,7 @@ export const routes: Routes = [
     children: [
       { path: 'dispense', component: DispenseContainerComponent },
       { path: 'issue', component: IssueComponent },
+      { path: 'receive', component: ReceiveComponent },
     ],
   },
   {
@@ -82,10 +83,7 @@ export const routes: Routes = [
       { path: 'edit/:id', component: OrdersEditComponent },
     ],
   },
-  {
-    path: 'receive',
-    component: ReceiveComponent,
-  },
+
   {
     path: 'backdate',
     component: BackdateComponent,
