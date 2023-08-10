@@ -91,7 +91,7 @@ export class ReportsComponent implements OnInit {
       const end = new Date(this.end);
 
       this.displayable = this.displayable.filter((i) => {
-        return i.date.getTime() >= end.getTime();
+        return i.date.getTime() <= end.getTime();
       });
     }
   }
