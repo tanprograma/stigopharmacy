@@ -106,6 +106,15 @@ export class ReportsComponent implements OnInit {
   resetStatistics() {
     this.displayable = this.statistics;
   }
+  getSum() {
+    return this.displayable
+      .map((i) => {
+        return i.quantity;
+      })
+      .reduce((a: any, b: any) => {
+        return a + b;
+      }, 0);
+  }
   setOutlets() {
     this.statistics.forEach((stat) => {
       const found = this.outlets?.find((outlet) => {

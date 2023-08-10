@@ -3,6 +3,7 @@
     <h2>
       RECORDS : {{ displayable.length }}
       <span *ngIf="!displayable.length && fetching">fetching records...</span>
+      <span *ngIf="commodity">TOTAL :{{ getSum() }}</span>
     </h2>
   </div>
   <div class="report-form">
