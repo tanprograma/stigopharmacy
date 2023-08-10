@@ -27,6 +27,7 @@ import { BackdateIssueComponent } from './components/backdate-issue/backdate-iss
 import { ImportDispensedServerComponent } from './components/import-dispensed-server/import-dispensed-server.component';
 import { ReceiveComponent } from './components/receive/receive.component';
 import { CreateSupplierComponent } from './components/create-supplier/create-supplier.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/outlet/dispense' },
@@ -71,6 +72,7 @@ export const routes: Routes = [
     component: StatisticsContainerComponent,
     children: [
       { path: 'summary', component: StatisticSummaryComponent },
+      { path: 'reports', component: ReportsComponent },
       { path: 'outlet/:outlet', component: StatisticClinicSummaryComponent },
     ],
   },

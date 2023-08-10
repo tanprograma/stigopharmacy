@@ -1,0 +1,119 @@
+<div class="reports-container">
+  <div class="heading">
+    <h2>
+      RECORDS : {{ displayable.length }}
+      <span *ngIf="!displayable.length && fetching">fetching records...</span>
+    </h2>
+  </div>
+  <div class="report-form">
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>voucher</th>
+            <th>outlet</th>
+            <th>commodity</th>
+            <th>begin</th>
+            <th>end</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input
+                list="vouchers"
+                name="voucher"
+                id="voucher"
+                [(ngModel)]="voucher"
+                autocomplete="off"
+              />
+              <datalist id="vouchers">
+                <option value="dispensed">dispensed</option>
+                <option value="issued">issued</option>
+                <option value="received">received</option>
+              </datalist>
+            </td>
+            <td>
+              <input
+                list="outlets"
+                name="outlet"
+                id="outlet"
+                [(ngModel)]="outlet"
+                autocomplete="off"
+              />
+              <datalist id="outlets">
+                <option [value]="outlet" *ngFor="let outlet of outlets">
+                  {{ outlet }}
+                </option>
+              </datalist>
+            </td>
+            <td>
+              <input
+                list="commodities"
+                name="commodity"
+                id="commodity"
+                [(ngModel)]="commodity"
+                autocomplete="off"
+              />
+              <datalist id="commodities">
+                <option
+                  [value]="commodity"
+                  *ngFor="let commodity of commodities"
+                >
+                  {{ commodity }}
+                </option>
+              </datalist>
+            </td>
+            <td>
+              <input type="date" name="" id="" [(ngModel)]="begin" />
+            </td>
+            <td>
+              <input type="date" name="" id="" [(ngModel)]="end" />
+            </td>
+            <td>
+              <button (click)="filter()">
+                <fa-icon [icon]="filterIcon"></fa-icon> filter
+              </button>
+            </td>
+            <td>
+              <button (click)="clear()">
+                <fa-icon [icon]="clearIcon"></fa-icon> clear
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="report-table scrollable">
+    <table>
+      <thead class="no-display">
+        <tr>
+          <th>date</th>
+          <th>voucher</th>
+          <th>commodity</th>
+          <th>outlet</th>
+          <th>client</th>
+          <th>quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let statistic of displayable">
+          <td>
+            {{ statistic.date.getDate() }}/{{
+              statistic.date.getMonth() + 1
+            }}/{{ statistic.date.getFullYear() }}
+            {{ statistic.date.toLocaleTimeString() }}
+          </td>
+          <td>{{ statistic.voucher }}</td>
+          <td>{{ statistic.commodity }}</td>
+          <td>{{ statistic.outlet }}</td>
+          <td>{{ statistic.client }}</td>
+          <td>{{ statistic.quantity }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

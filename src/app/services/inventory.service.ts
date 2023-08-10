@@ -64,6 +64,49 @@ export class InventoryService {
         return i;
       });
   }
+  getSummaryForAll(keys: Medicine[], inventory: Inventory[]) {
+    const modInventory: any = [];
+    keys.forEach((key) => {
+      const filtered = inventory.filter((i) => {
+        return key.name == i.commodity;
+      });
+      if (!filtered.length) return;
+      const inventoryItem: Inventory = {
+        sn: 0,
+        commodity: key.name,
+        beginning: 0,
+        unit: key.unit,
+        unit_value: key.unit_value,
+        inventory_level: 0,
+        issued: [],
+        dispensed: [],
+        received: [],
+      };
+
+      filtered.forEach((filt) => {
+        inventoryItem.inventory_level = !inventoryItem.inventory_level
+          ? filt.inventory_level
+          : inventoryItem.inventory_level;
+        inventoryItem.beginning += filt.beginning;
+        inventoryItem.dispensed.splice(0, 0, ...filt.dispensed);
+
+        if (filt.isWarehouse) {
+          inventoryItem.received.splice(0, 0, ...filt.received);
+        }
+      });
+      modInventory.push(inventoryItem);
+    });
+    return modInventory
+      .sort((a: any, b: any) => {
+        if (a.commodity > b.commodity) return 1;
+        if (a.commodity < b.commodity) return -1;
+        return 0;
+      })
+      .map((i: Inventory, index: number) => {
+        i.sn = index + 1;
+        return i;
+      });
+  }
   getAvailable(inventory: Inventory) {
     const dispensed =
       inventory.dispensed

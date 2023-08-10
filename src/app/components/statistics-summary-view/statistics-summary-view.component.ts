@@ -23,6 +23,7 @@ export class StatisticsSummaryViewComponent {
     // }
     return Math.floor(reduced);
   }
+  
   getAvailable() {
     // console.log(this.item);
     const beginning = this.item.beginning / (this.item.unit_value || 1);

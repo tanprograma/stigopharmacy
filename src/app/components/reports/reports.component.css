@@ -1,0 +1,96 @@
+.reports-container {
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  padding-left: 10px;
+}
+.options-table {
+  display: flex;
+}
+table button {
+  display: inline-block;
+  height: 100%;
+  width: 100px;
+  border: 2px;
+}
+.report-form {
+  height: 10%;
+  display: grid;
+  grid-template-columns: 8% 15% 8% 15% 15%;
+  /* grid-template-areas: a a b b c d e f; */
+  gap: 3px;
+}
+/*  */
+/* .outlet {
+  grid-area: a;
+}
+.item {
+  grid-area: b;
+}
+.dispensed {
+  grid-area: c;
+}
+.issued {
+  grid-area: d;
+}
+.received {
+  grid-area: e;
+}
+.clear {
+  grid-area: f;
+} */
+.heading {
+  height: 5%;
+  text-align: center;
+}
+.report-table {
+  height: 85%;
+}
+.scrollable {
+  overflow-y: scroll;
+}
+.scrollable::-webkit-scrollbar {
+  display: none;
+}
+.options-table table {
+  width: 90%;
+  margin: 0 auto;
+}
+th {
+  text-align: left;
+}
+tbody tr:nth-of-type(odd) {
+  background-color: aliceblue;
+}
+tbody tr:nth-of-type(even) {
+  background-color: rgb(238, 236, 236);
+}
+tbody tr td:nth-child(15) {
+  width: 20%;
+}
+tbody tr td:nth-child(2) {
+  width: 10%;
+}
+tbody tr td:nth-child(3) {
+  width: 30%;
+}
+tbody tr td:nth-child(4) {
+  width: 15%;
+}
+tbody tr td:nth-child(5) {
+  width: 15%;
+}
+tbody tr td:nth-child(6) {
+  width: 10%;
+  text-align: center;
+}
+tr th,
+tr td {
+  height: 2rem;
+}
+input {
+  display: inline-block;
+  height: 100%;
+  border-radius: 2px;
+  /* width: 100%; */
+}
