@@ -12,6 +12,7 @@
           <tr>
             <th>voucher</th>
             <th>outlet</th>
+            <th>client</th>
             <th>commodity</th>
             <th>begin</th>
             <th>end</th>
@@ -46,6 +47,20 @@
               <datalist id="outlets">
                 <option [value]="outlet" *ngFor="let outlet of outlets">
                   {{ outlet }}
+                </option>
+              </datalist>
+            </td>
+            <td>
+              <input
+                list="clients"
+                name="client"
+                id="client"
+                [(ngModel)]="client"
+                autocomplete="off"
+              />
+              <datalist id="clients">
+                <option [value]="client" *ngFor="let client of outlets">
+                  {{ client }}
                 </option>
               </datalist>
             </td>

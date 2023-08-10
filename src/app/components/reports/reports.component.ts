@@ -15,6 +15,7 @@ export class ReportsComponent implements OnInit {
   end: string = '';
   commodity: string = '';
   outlet: string = '';
+  client: string = '';
   outlets: (string | undefined)[] = [];
   commodities: (string | undefined)[] = [];
   voucher: string = '';
@@ -63,6 +64,17 @@ export class ReportsComponent implements OnInit {
       if (found) {
         this.displayable = this.displayable.filter((i) => {
           return i.outlet == this.outlet;
+        });
+      }
+    }
+    // check client
+    if (this.client) {
+      const found = this.outlets.find((client) => {
+        return client == this.client;
+      });
+      if (found) {
+        this.displayable = this.displayable.filter((i) => {
+          return i.client == this.client;
         });
       }
     }
